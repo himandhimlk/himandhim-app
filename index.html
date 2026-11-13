@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Him & Him — VIP 3D BL Cinema</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="dramas.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,700;1,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --logo-pink: #ee5db7;
+      --logo-pink-glow: rgba(238, 93, 183, 0.5);
+      --logo-orange: #ff6d00;
+      --logo-orange-glow: rgba(255, 109, 0, 0.48);
+      --logo-cyan: #2ee6d6;
+      --logo-cyan-glow: rgba(46, 230, 214, 0.4);
+
+      --bg: #050309;
+      --surface: rgba(20, 14, 32, 0.84);
+      --surface-solid: #120c1f;
+      --text: #ffffff;
+      --muted: #b4acc4;
+
+      /* Custom BL Aesthetic SVG Cursors */
+      --cursor-default: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ee5db7'/%3E%3Cstop offset='100%25' stop-color='%23ff6d00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 3 L19 13 L12 15 L15 22 L12 23 L9 16 L4 20 Z' fill='url(%23g1)' stroke='%232ee6d6' stroke-width='1.3'/%3E%3Cpath d='M21 5 C20 3.5 18 4 18 5.8 C18 7.5 21 9.5 21 9.5 C21 9.5 24 7.5 24 5.8 C24 4 22 3.5 21 5 Z' fill='%23ee5db7'/%3E%3C/svg%3E") 4 3, auto;
+      --cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232ee6d6'/%3E%3Cstop offset='50%25' stop-color='%23ee5db7'/%3E%3Cstop offset='100%25' stop-color='%23ff6d00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M15 26 C15 26 4 18.5 4 10.5 C4 6.8 7 4 10.5 4 C12.6 4 14.3 5 15 6.5 C15.7 5 17.4 4 19.5 4 C23 4 26 6.8 26 10.5 C26 18.5 15 26 15 26 Z' fill='url(%23g2)' stroke='%23ffffff' stroke-width='1.4'/%3E%3Ccircle cx='11' cy='10' r='1.5' fill='%23ffffff'/%3E%3C/svg%3E") 15 14, pointer;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Noto Sans Sinhala", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      cursor: var(--cursor-default);
+    }
+
+    a, button, select, input,
+    .brand-logo-custom, .poster-card, .vip-showcase,
+    .ep-row, .hero-dot, .back-circle, .search-box {
+      cursor: var(--cursor-pointer) !important;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.modal-locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ================= 18+ AGE GATE & CONTENT CONSENT MODAL ================= */
+    .age-gate-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(3, 2, 7, 0.94);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .age-gate-backdrop.hidden {
+      display: none;
+    }
+    .age-gate-border {
+      width: 100%;
+      max-width: 440px;
+      border-radius: 22px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange), var(--logo-cyan));
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.95),
+        0 0 36px rgba(238, 93, 183, 0.35);
+      animation: modalPopIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPopIn {
+      from { opacity: 0; transform: scale(0.9) translateY(18px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .age-gate-card {
+      background: linear-gradient(160deg, #150d24 0%, #090611 100%);
+      border-radius: 20px;
+      padding: 20px 18px;
+      text-align: center;
+      position: relative;
+    }
+    .gate-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .badge-18 {
+      background: linear-gradient(135deg, #ff1e56, var(--logo-orange));
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 11px;
+      border-radius: 20px;
+      letter-spacing: 0.8px;
+      box-shadow: 0 4px 14px rgba(255, 30, 86, 0.45);
+    }
+    .gate-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #ffffff, #ffd1ec);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gate-warning-box {
+      background: rgba(238, 93, 183, 0.08);
+      border: 1px solid rgba(238, 93, 183, 0.28);
+      border-radius: 14px;
+      padding: 12px 13px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #e6dff2;
+      margin-bottom: 10px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .gate-warning-box p {
+      margin-bottom: 8px;
+    }
+    .gate-warning-box p:last-child {
+      margin-bottom: 0;
+    }
+    .gate-warning-box strong {
+      color: #ffb4e2;
+    }
+    .gate-privacy-box {
+      background: rgba(46, 230, 214, 0.07);
+      border: 1px solid rgba(46, 230, 214, 0.25);
+      border-radius: 12px;
+      padding: 9px 12px;
+      text-align: left;
+      font-size: 11px;
+      line-height: 1.45;
+      color: #ccf6f2;
+      margin-bottom: 14px;
+    }
+    .gate-privacy-box strong {
+      color: var(--logo-cyan);
+    }
+    .gate-accept-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--logo-pink) 0%, var(--logo-orange) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 13px;
+      padding: 13px 14px;
+      font-size: 13.5px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px var(--logo-pink-glow), inset 0 1px 1px rgba(255,255,255,0.45);
+      margin-bottom: 9px;
+      transition: transform 0.15s ease;
+    }
+    .gate-accept-btn:active {
+      transform: scale(0.97);
+    }
+    .gate-exit-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 11px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ================= 3D AMBIENT CINEMA STAGE ================= */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(238, 93, 183, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 28%, rgba(255, 109, 0, 0.20) 0%, transparent 48%),
+        radial-gradient(circle at 50% 92%, rgba(46, 230, 214, 0.12) 0%, transparent 50%);
+    }
+    .cinema-floor-grid {
+      position: absolute;
+      bottom: -80px;
+      left: -20%;
+      right: -20%;
+      height: 260px;
+      background-image:
+        linear-gradient(to right, rgba(238, 93, 183, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(46, 230, 214, 0.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+      transform: perspective(380px) rotateX(68deg);
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+
+    /* Sticky 3D Frosted Glass Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: rgba(5, 3, 9, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(238, 93, 183, 0.18);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    }
+
+    .brand-logo-custom {
+      display: flex;
+      flex-direction: column;
+      line-height: 0.85;
+      user-select: none;
+      padding: 2px 0;
+    }
+    .logo-top {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: transparent;
+      -webkit-text-stroke: 1.3px var(--logo-pink);
+      text-shadow: 0 0 12px var(--logo-pink-glow);
+    }
+    .logo-bottom {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--logo-orange);
+      margin-left: 14px;
+      margin-top: -3px;
+      text-shadow: 0 0 2px var(--logo-cyan), 0 3px 14px var(--logo-orange-glow);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-switch {
+      display: flex;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(238, 93, 183, 0.3);
+      border-radius: 20px;
+      padding: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 16px;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange));
+      color: #ffffff;
+      box-shadow: 0 2px 10px var(--logo-pink-glow);
+    }
+
+    .vip-pill {
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange));
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 7px 12px;
+      border-radius: 20px;
+      border: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px var(--logo-orange-glow), inset 0 1px 1px rgba(255,255,255,0.4);
+    }
+
+    #home-view, #detail-view {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    /* Telegram Required Notice */
+    .tg-notice {
+      margin: 10px 16px 14px 16px;
+      background: linear-gradient(135deg, rgba(46, 230, 214, 0.1), rgba(18, 12, 31, 0.9));
+      border: 1px solid rgba(46, 230, 214, 0.32);
+      border-radius: 12px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+    .tg-notice-text {
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #dffaf7;
+    }
+    .tg-notice-text strong { color: var(--logo-cyan); }
+    .tg-dl-btn {
+      background: rgba(46, 230, 214, 0.18);
+      border: 1px solid var(--logo-cyan);
+      color: var(--logo-cyan);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ================= INNOVATIVE 3D PRISM HERO SLIDESHOW ================= */
+    .hero-wrapper {
+      padding: 0 16px 18px 16px;
+      perspective: 1200px;
+    }
+    .hero-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(238, 93, 183, 0.42);
+      min-height: 325px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px 16px 16px 16px;
+      transform-style: preserve-3d;
+      transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+      box-shadow:
+        0 22px 42px rgba(0, 0, 0, 0.85),
+        0 0 28px rgba(238, 93, 183, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Dual Cross-Fade 3D Backdrop Layers */
+    .hero-bg-layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      z-index: 0;
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.75s ease;
+    }
+    .hero-bg-layer.zoom-enter {
+      opacity: 0;
+      transform: scale(1.14) rotate(-1.5deg);
+      filter: blur(8px) brightness(1.3);
+    }
+    .hero-bg-layer.zoom-active {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px) brightness(1);
+    }
+
+    /* Sweeping BL Prism Light Beam on Slide Change */
+    .hero-prism-sweep {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 65%;
+      left: -80%;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(
+        105deg,
+        transparent 10%,
+        rgba(238, 93, 183, 0.32) 40%,
+        rgba(46, 230, 214, 0.32) 55%,
+        rgba(255, 109, 0, 0.28) 70%,
+        transparent 90%
+      );
+      transform: skewX(-18deg);
+    }
+    .hero-prism-sweep.sweeping {
+      animation: prismSweep 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes prismSweep {
+      0% { left: -80%; opacity: 0.9; }
+      100% { left: 140%; opacity: 0; }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        #050309 8%,
+        rgba(5, 3, 9, 0.62) 52%,
+        rgba(5, 3, 9, 0.15) 100%
+      );
+      z-index: 1;
+    }
+    .hero-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.14), transparent 65%);
+    }
+    .hero-top-badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateZ(20px);
+    }
+    .exclusive-chip {
+      background: rgba(5, 3, 9, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 109, 0, 0.55);
+      color: #ffb985;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .hero-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transition: all 0.3s ease;
+    }
+    .hero-dot.active {
+      width: 20px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--logo-pink), var(--logo-orange));
+      box-shadow: 0 0 10px var(--logo-pink-glow);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      transform: translateZ(26px);
+      transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-content.text-switching {
+      opacity: 0;
+      transform: translateZ(10px) translateY(12px);
+    }
+    .series-tag {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--logo-pink);
+      margin-bottom: 5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.95);
+    }
+    .hero-desc-preview {
+      font-size: 12px;
+      color: #dcd4ea;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.5;
+    }
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 10px;
+    }
+    .btn-gradient-play {
+      background: linear-gradient(135deg, var(--logo-pink) 0%, var(--logo-orange) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 10px;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 8px 22px var(--logo-pink-glow), inset 0 1px 1px rgba(255,255,255,0.45);
+    }
+    .btn-gradient-play:active { transform: scale(0.96); }
+    .btn-glass-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 12px;
+      padding: 11px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ================= 3D VIP SHOWCASE CARD ================= */
+    .vip-showcase {
+      margin: 0 16px 20px 16px;
+      border-radius: 18px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange), var(--logo-cyan));
+      box-shadow: 0 12px 30px rgba(238, 93, 183, 0.22);
+      transition: transform 0.2s ease;
+    }
+    .vip-showcase:active { transform: scale(0.98); }
+    .vip-showcase-inner {
+      background: linear-gradient(145deg, #170e26 0%, #0c0815 100%);
+      border-radius: 16.5px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+    .vip-left { flex: 1; }
+    .vip-eyebrow {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      background: linear-gradient(90deg, var(--logo-pink), var(--logo-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 3px;
+    }
+    .vip-headline {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .vip-perks {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .vip-cta-box {
+      background: linear-gradient(135deg, var(--logo-orange), #ff9500);
+      color: #000000;
+      font-weight: 800;
+      font-size: 12.5px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      text-align: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px var(--logo-orange-glow), inset 0 1px 1px rgba(255,255,255,0.6);
+    }
+    .vip-cta-box span {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    /* ================= 3D GLASS SEARCH BAR ================= */
+    .search-wrapper {
+      padding: 0 16px 18px 16px;
+    }
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(20, 14, 32, 0.88);
+      border: 1px solid rgba(238, 93, 183, 0.32);
+      border-radius: 14px;
+      padding: 0 12px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .search-box:focus-within {
+      border-color: var(--logo-cyan);
+      box-shadow: 0 8px 24px rgba(46, 230, 214, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    }
+    .search-icon {
+      font-size: 15px;
+      margin-right: 9px;
+      opacity: 0.85;
+    }
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 13.5px;
+      padding: 12px 0;
+    }
+    .search-input::placeholder { color: #8f86a3; }
+    .search-clear {
+      display: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 11px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ================= 3D DRAMA POSTER GRID ================= */
+    .section { padding: 0 16px; }
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .section-heading {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .heading-bar {
+      width: 4px;
+      height: 18px;
+      border-radius: 4px;
+      background: linear-gradient(to bottom, var(--logo-pink), var(--logo-orange));
+      box-shadow: 0 0 10px var(--logo-pink-glow);
+    }
+    .series-count-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .drama-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      perspective: 1000px;
+    }
+    .poster-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 2 / 3;
+      background-color: var(--surface-solid);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease-out, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.22);
+    }
+    .poster-card:hover {
+      border-color: var(--logo-pink);
+      box-shadow:
+        0 18px 34px rgba(0, 0, 0, 0.8),
+        0 0 18px rgba(238, 93, 183, 0.28);
+    }
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25), transparent 65%);
+    }
+    .poster-top {
+      padding: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 3;
+      transform: translateZ(16px);
+    }
+    .vip-tag {
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange));
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+    .season-pill {
+      background: rgba(5, 3, 9, 0.8);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .poster-bottom {
+      position: relative;
+      z-index: 3;
+      padding: 38px 11px 11px 11px;
+      background: linear-gradient(to top, rgba(5, 3, 9, 0.98) 30%, rgba(5, 3, 9, 0) 100%);
+      transform: translateZ(18px);
+    }
+    .poster-title-si {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    }
+    .poster-title-en {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .empty-search {
+      display: none;
+      text-align: center;
+      padding: 32px 16px;
+      background: var(--surface);
+      border: 1px solid rgba(238, 93, 183, 0.22);
+      border-radius: 16px;
+    }
+    .empty-search p {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .reset-search-btn {
+      background: linear-gradient(135deg, var(--logo-pink), var(--logo-orange));
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* ================= DRAMA DETAIL & SEASON VIEW ================= */
+    #detail-view { display: none; }
+    .detail-hero {
+      position: relative;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+    .detail-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #050309 6%, rgba(5, 3, 9, 0.35) 60%, rgba(5, 3, 9, 0.75) 100%);
+    }
+    .back-circle {
+      position: relative;
+      z-index: 2;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(5, 3, 9, 0.78);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      border: 1px solid rgba(238, 93, 183, 0.45);
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    }
+    .detail-body {
+      padding: 0 16px;
+      margin-top: -28px;
+      position: relative;
+      z-index: 3;
+    }
+    .detail-title {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .detail-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .match-text { color: var(--logo-cyan); font-weight: 800; }
+    .hd-badge {
+      border: 1px solid rgba(238, 93, 183, 0.45);
+      background: rgba(238, 93, 183, 0.12);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffc2e7;
+    }
+    .full-play-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--logo-pink) 0%, var(--logo-orange) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 24px var(--logo-pink-glow), inset 0 1px 1px rgba(255,255,255,0.4);
+    }
+    .full-vip-btn {
+      width: 100%;
+      background: var(--surface);
+      color: #ffffff;
+      border: 1px solid rgba(255, 109, 0, 0.45);
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .detail-tg-note {
+      background: rgba(46, 230, 214, 0.08);
+      border: 1px solid rgba(46, 230, 214, 0.25);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 12px;
+      color: #dffaf7;
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+    .detail-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #d5cde2;
+      margin-bottom: 22px;
+    }
+    .episodes-bar {
+      border-top: 2px solid;
+      border-image: linear-gradient(90deg, var(--logo-pink), var(--logo-orange)) 1;
+      padding-top: 14px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .episodes-label {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .season-dropdown {
+      background-color: var(--surface-solid);
+      color: #ffffff;
+      border: 1px solid rgba(238, 93, 183, 0.45);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+    }
+    .ep-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ep-row {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    }
+    .ep-row:active {
+      transform: scale(0.98);
+      border-color: var(--logo-cyan);
+      box-shadow: 0 0 20px rgba(46, 230, 214, 0.35);
+    }
+    .ep-thumb {
+      width: 122px;
+      height: 69px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .play-circle-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(238, 93, 183, 0.92), rgba(255, 109, 0, 0.92));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      padding-left: 2px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+    }
+    .ep-info { flex: 1; }
+    .ep-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .ep-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    /* ================= DISTINCT BL CLICK / TAP FX LAYER ================= */
+    .fx-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10000;
+      overflow: hidden;
+    }
+    .fx-ring {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      margin-top: -8px;
+      border-radius: 50%;
+      animation: ringExpand 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .fx-ring.vip {
+      border: 2.5px solid #ffae00;
+      box-shadow: 0 0 16px #ff6d00, inset 0 0 10px #ffd700;
+    }
+    .fx-ring.drama {
+      border: 2.5px solid var(--logo-pink);
+      box-shadow: 0 0 18px var(--logo-pink), 0 0 28px var(--logo-cyan);
+    }
+    .fx-ring.episode {
+      border: 2.5px solid var(--logo-cyan);
+      box-shadow: 0 0 18px var(--logo-cyan), inset 0 0 10px var(--logo-pink);
+    }
+    .fx-ring.general {
+      border: 2px solid rgba(238, 93, 183, 0.8);
+      box-shadow: 0 0 12px rgba(238, 93, 183, 0.5);
+    }
+    @keyframes ringExpand {
+      0% { transform: scale(0.4); opacity: 1; }
+      100% { transform: scale(4.8); opacity: 0; }
+    }
+
+    .fx-particle {
+      position: absolute;
+      font-size: 15px;
+      user-select: none;
+      will-change: transform, opacity;
+      animation: particleFly 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes particleFly {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+
+    /* ================= AI CREATIVE DISCLAIMER & COPYRIGHT FOOTER ================= */
+    .app-footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 34px;
+      padding: 22px 18px 30px 18px;
+      background: linear-gradient(to top, rgba(12, 8, 22, 0.98), rgba(5, 3, 9, 0.65));
+      border-top: 1px solid rgba(238, 93, 183, 0.24);
+      text-align: center;
+    }
+    .footer-brand {
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      background: linear-gradient(90deg, var(--logo-pink), var(--logo-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .footer-copy {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #d9d0ea;
+      margin-bottom: 10px;
+    }
+    .footer-ai-box {
+      background: rgba(255, 109, 0, 0.08);
+      border: 1px solid rgba(255, 109, 0, 0.28);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #ffd9bd;
+      max-width: 440px;
+      margin: 0 auto 10px auto;
+    }
+    .footer-legal {
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: #8b829e;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .footer-terms-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--logo-cyan);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="modal-locked">
+
+  <!-- Click / Tap Particle Animation Layer -->
+  <div class="fx-container" id="fx-container"></div>
+
+  <!-- ================= 18+ ENTRY AGE GATE & CONSENT POP-UP ================= -->
+  <div class="age-gate-backdrop" id="age-gate-modal">
+    <div class="age-gate-border">
+      <div class="age-gate-card">
+        <div class="gate-top-row">
+          <span class="badge-18">🔞 18+ ADULTS ONLY</span>
+          <div class="lang-switch">
+            <button id="gate-lang-si" class="lang-btn active" onclick="setLanguage('si')">සිං</button>
+            <button id="gate-lang-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
+          </div>
+        </div>
+
+        <h2 class="gate-title" id="gate-title">වැඩිහිටියන්ට පමණයි (18+) • අවවාදයයි</h2>
+
+        <div class="gate-warning-box" id="gate-warning-box">
+          <p>⚠️ <strong>18+ BL අන්තර්ගතය:</strong> මෙම වෙබ් අඩවියේ / App එකෙහි අඩංගු සියලුම කතා මාලාවන් <strong>Boys' Love (BL)</strong> නිර්මාණ වන අතර ඒවා <strong>වයස අවුරුදු 18ට වැඩි වැඩිහිටියන්ට පමණක්</strong> සුදුසු වේ.</p>
+          <p>🎭 <strong>කලාත්මක දර්ශන පිළිබඳ නිවේදනය:</strong> නිර්මාණාත්මක ප්‍රකාශනයක් ලෙස ඇතැම් කතා මාලාවන්හි <strong>ලිංගික/ආදරණීය දර්ශන (Sexual Scenes), වැඩිහිටි දෙබස්</strong> සහ <strong>ප්‍රචණ්ඩකාරී දර්ශන (Violence Scenes)</strong> අඩංගු විය හැක.</p>
+          <p>🛡️ <strong>පූර්ණ වගකීම:</strong> අප කිසිදු නුසුදුසු දෙයක් ප්‍රවර්ධනය (Promote) නොකරන අතර, ඔබ මෙම අඩවියට පිවිසෙන්නේ ඉහත සියලු කරුණු පිළිබඳ <strong>සම්පූර්ණ පෞද්ගලික වගකීම</strong> ඔබ විසින්ම දරාගනිමිනි.</p>
+        </div>
+
+        <div class="gate-privacy-box" id="gate-privacy-box">
+          🔒 <strong>දත්ත සහ පෞද්ගලිකත්වය (Privacy Notice):</strong> ඔබගේ 18+ තහවුරු කිරීම සහ භාෂා තේරීම මතක තබා ගැනීම සඳහා මෙම Mini App එක ඔබගේ උපාංගයේ තාවකාලික Storage පමණක් භාවිතා කරයි. අපි ඔබගේ පෞද්ගලික දත්ත කිසිවෙකුටත් ලබා නොදෙමු.
+        </div>
+
+        <button class="gate-accept-btn" id="gate-accept-btn" onclick="acceptAgeGate()">
+          ✅ මම වයස 18+ බව තහවුරු කර ඉහත සියල්ලට එකඟ වෙමි
+        </button>
+        <button class="gate-exit-btn" id="gate-exit-btn" onclick="exitApp()">
+          ❌ පිටවන්න (Exit — වයස 18ට අඩුයි)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Ambient Lighting & Cinema Floor -->
+  <div class="ambient-bg">
+    <div class="cinema-floor-grid"></div>
+  </div>
+
+  <!-- TOP GLASS NAVBAR -->
+  <div class="navbar">
+    <div class="brand-logo-custom" onclick="showHome()">
+      <span class="logo-top">Him &amp;</span>
+      <span class="logo-bottom">Him</span>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <button id="lang-si" class="lang-btn active" onclick="setLanguage('si')">සිං</button>
+        <button id="lang-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
+      </div>
+      <button id="nav-vip-btn" class="vip-pill" onclick="openVipBot()">👑 VIP • රු. 250</button>
+    </div>
+  </div>
+
+  <!-- ================= HOME SCREEN ================= -->
+  <div id="home-view">
+    <div class="tg-notice">
+      <div class="tg-notice-text" id="home-tg-notice">
+        📲 <strong>සැ.යු:</strong> කතා නැරඹීමට ඔබගේ දුරකථනයේ <strong>Telegram App</strong> එක Install කර තිබිය යුතුය.
+      </div>
+      <a href="https://telegram.org/dl" target="_blank" class="tg-dl-btn" id="tg-dl-btn">Install කරන්න</a>
+    </div>
+
+    <!-- Innovative 3D Prism & Swipe Featured Slideshow -->
+    <div class="hero-wrapper">
+      <div class="hero-card" id="hero-card">
+        <div class="hero-bg-layer zoom-active" id="hero-bg-a"></div>
+        <div class="hero-bg-layer zoom-enter" id="hero-bg-b"></div>
+        <div class="hero-prism-sweep" id="hero-prism-sweep"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-glare" id="hero-glare"></div>
+
+        <div class="hero-top-badges">
+          <span class="exclusive-chip" id="hero-chip">✨ විශේෂ BL කතාව</span>
+          <div class="hero-dots" id="hero-dots"></div>
+        </div>
+
+        <div class="hero-content" id="hero-content">
+          <div class="series-tag" id="hero-series-tag">HIM &amp; HIM ORIGINAL</div>
+          <div class="hero-title" id="hero-title"></div>
+          <div class="hero-desc-preview" id="hero-desc-preview"></div>
+          <div class="hero-actions">
+            <button id="hero-watch-btn" class="btn-gradient-play" onclick="openDrama(heroIndex)">▶ කොටස් නරඹන්න</button>
+            <button id="hero-vip-btn" class="btn-glass-secondary" onclick="openVipBot()">👑 VIP ලබාගන්න</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D VIP Membership Card -->
+    <div class="vip-showcase" onclick="openVipBot()">
+      <div class="vip-showcase-inner">
+        <div class="vip-left">
+          <div class="vip-eyebrow" id="vip-card-eyebrow">👑 HIM &amp; HIM VIP CLUB</div>
+          <div class="vip-headline" id="vip-card-title">සියලුම කතා සහ Uncut දර්ශන නරඹන්න</div>
+          <div class="vip-perks" id="vip-card-perks">සෑම ඉරිදාම අලුත් කොටස් • සම්පූර්ණ කොටස් (HD)</div>
+        </div>
+        <div class="vip-cta-box" id="vip-card-cta">
+          රු. 250
+          <span>/ මාසිකව</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Search Bar -->
+    <div class="search-wrapper">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="drama-search-input"
+          class="search-input"
+          placeholder="කතාවේ නම සොයන්න (උදා: ගරළ, ටැටූ, Mayaviya)..."
+          oninput="handleSearch(this.value)"
+        />
+        <button id="search-clear-btn" class="search-clear" onclick="clearSearch()">✕</button>
+      </div>
+    </div>
+
+    <!-- 3D Drama Series Catalog -->
+    <div class="section">
+      <div class="section-header-row">
+        <div class="section-heading">
+          <span class="heading-bar"></span>
+          <span id="all-dramas-heading">සියලුම කතා මාලාවන්</span>
+        </div>
+        <span class="series-count-label" id="series-count-label"></span>
+      </div>
+      <div class="drama-grid" id="drama-grid"></div>
+      <div class="empty-search" id="empty-search">
+        <p id="empty-search-text">ඔබ සෙවූ නමින් කතා මාලාවක් හමු නොවීය.</p>
+        <button class="reset-search-btn" id="reset-search-btn" onclick="clearSearch()">සියලුම කතා පෙන්වන්න</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DRAMA DETAIL & SEASON VIEW ================= -->
+  <div id="detail-view">
+    <div class="detail-hero" id="detail-hero">
+      <button class="back-circle" onclick="showHome()">←</button>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-title" id="detail-title"></div>
+      <div class="detail-meta-row" id="detail-meta-row"></div>
+
+      <button class="full-play-btn" id="detail-main-play">▶ නරඹන්න S1:E1</button>
+      <button class="full-vip-btn" id="detail-vip-btn" onclick="openVipBot()">
+        👑 සියලු කොටස් නැරඹීමට • මාසික VIP Pass (රු. 250)
+      </button>
+
+      <div class="detail-tg-note" id="detail-tg-note">
+        📲 <strong>සැ.යු:</strong> සියලුම කොටස් විවෘත වන්නේ <strong>Telegram App</strong> එක හරහාය. නැරඹීමට පෙර Telegram Install කරගන්න.
+      </div>
+
+      <div class="detail-desc" id="detail-desc"></div>
+
+      <div class="episodes-bar">
+        <div class="episodes-label" id="episodes-label">කොටස් (Episodes)</div>
+        <select id="season-select" class="season-dropdown" onchange="renderEpisodesForSeason(this.value)"></select>
+      </div>
+
+      <div class="ep-list" id="ep-list"></div>
+    </div>
+  </div>
+
+  <!-- ================= AI CREATIVE DISCLAIMER & COPYRIGHT FOOTER ================= -->
+  <footer class="app-footer">
+    <div class="footer-brand">HIM &amp; HIM • PIXILON AI STUDIO</div>
+    <div class="footer-copy" id="footer-copy">
+      © 2026 Him &amp; Him (Pixilon). සියලුම හිමිකම් ඇවිරිණි.
+    </div>
+    <div class="footer-ai-box" id="footer-ai-box">
+      🤖 <strong>නිර්මාණාත්මක නිවේදනය (AI Disclaimer):</strong> මෙහි අඩංගු සියලුම කතා මාලාවන් කෘත්‍රිම බුද්ධිය (AI) භාවිතයෙන් නිර්මාණය කරන ලද ප්‍රබන්ධයන් වේ. මෙහි කිසිදු සැබෑ පුද්ගලයෙකු හෝ සැබෑ ස්ථානයක් නිරූපණය නොවන අතර, මෙය හුදෙක් කලාත්මක නිර්මාණයක් පමණි.
+    </div>
+    <div class="footer-legal" id="footer-legal">
+      🛡️ <strong>Copyright Protection:</strong> මෙහි අඩංගු කිසිදු වීඩියෝ දර්ශනයක් හෝ නිර්මාණයක් අනවසරයෙන් පටිගත කිරීම (Screen Record), බාගත කිරීම හෝ නැවත පළ කිරීම සපුරා තහනම් වේ.
+    </div>
+    <a class="footer-terms-link" id="footer-terms-link" onclick="reopenAgeGate()">🔞 18+ Content &amp; Privacy Notice</a>
+  </footer>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    if (tg.setHeaderColor) tg.setHeaderColor("#050309");
+    if (tg.setBackgroundColor) tg.setBackgroundColor("#050309");
+
+    let currentLang = "si";
+    let activeDramaIndex = null;
+    let activeSeasonIndex = 0;
+    let heroIndex = 0;
+    let heroTimer = null;
+    let activeBgLayer = "a";
+    let searchQuery = "";
+
+    const UI_TEXT = {
+      si: {
+        gateTitle: "වැඩිහිටියන්ට පමණයි (18+) • අවවාදයයි",
+        gateWarning: `
+          <p>⚠️ <strong>18+ BL අන්තර්ගතය:</strong> මෙම වෙබ් අඩවියේ / App එකෙහි අඩංගු සියලුම කතා මාලාවන් <strong>Boys' Love (BL)</strong> නිර්මාණ වන අතර ඒවා <strong>වයස අවුරුදු 18ට වැඩි වැඩිහිටියන්ට පමණක්</strong> සුදුසු වේ.</p>
+          <p>🎭 <strong>කලාත්මක දර්ශන පිළිබඳ නිවේදනය:</strong> නිර්මාණාත්මක ප්‍රකාශනයක් ලෙස ඇතැම් කතා මාලාවන්හි <strong>ලිංගික/ආදරණීය දර්ශන (Sexual Scenes), වැඩිහිටි දෙබස්</strong> සහ <strong>ප්‍රචණ්ඩකාරී දර්ශන (Violence Scenes)</strong> අඩංගු විය හැක.</p>
+          <p>🛡️ <strong>පූර්ණ වගකීම:</strong> අප කිසිදු නුසුදුසු දෙයක් ප්‍රවර්ධනය (Promote) නොකරන අතර, ඔබ මෙම අඩවියට පිවිසෙන්නේ ඉහත සියලු කරුණු පිළිබඳ <strong>සම්පූර්ණ පෞද්ගලික වගකීම</strong> ඔබ විසින්ම දරාගනිමිනි.</p>
+        `,
+        gatePrivacy: "🔒 <strong>දත්ත සහ පෞද්ගලිකත්වය (Privacy Notice):</strong> ඔබගේ 18+ තහවුරු කිරීම සහ භාෂා තේරීම මතක තබා ගැනීම සඳහා මෙම Mini App එක ඔබගේ උපාංගයේ තාවකාලික Storage පමණක් භාවිතා කරයි. අපි ඔබගේ පෞද්ගලික දත්ත කිසිවෙකුටත් ලබා නොදෙමු.",
+        gateAccept: "✅ මම වයස 18+ බව තහවුරු කර ඉහත සියල්ලට එකඟ වෙමි",
+        gateExit: "❌ පිටවන්න (Exit — වයස 18ට අඩුයි)",
+        navVip: "👑 VIP • රු. 250",
+        homeTgNotice: "📲 <strong>සැ.යු:</strong> කතා නැරඹීමට ඔබගේ දුරකථනයේ <strong>Telegram App</strong> එක Install කර තිබිය යුතුය.",
+        tgDlBtn: "Install කරන්න",
+        detailTgNote: "📲 <strong>සැ.යු:</strong> සියලුම කොටස් විවෘත වන්නේ <strong>Telegram App</strong> එක හරහාය. නැරඹීමට පෙර Telegram Install කරගන්න.",
+        heroChip: "✨ විශේෂ BL කතාව",
+        heroWatch: "▶ කොටස් නරඹන්න",
+        heroVip: "👑 VIP ලබාගන්න",
+        vipEyebrow: "👑 HIM & HIM VIP CLUB",
+        vipTitle: "සියලුම කතා සහ Uncut දර්ශන නරඹන්න",
+        vipPerks: "සෑම ඉරිදාම අලුත් කොටස් • සම්පූර්ණ කොටස් (HD)",
+        vipCta: "රු. 250<span>/ මාසිකව</span>",
+        searchPlaceholder: "කතාවේ නම සොයන්න (උදා: ගරළ, ටැටූ, Mayaviya)...",
+        emptySearchText: "ඔබ සෙවූ නමින් කතා මාලාවක් හමු නොවීය.",
+        resetSearchBtn: "සියලුම කතා පෙන්වන්න",
+        allDramas: "සියලුම කතා මාලාවන්",
+        seriesLabel: "කතා මාලා",
+        seasonsWord: "Seasons",
+        seasonWord: "Season",
+        epsWord: "කොටස්",
+        epWord: "කොටසක්",
+        match: "99% ගැලපේ",
+        playPrefix: "▶ නරඹන්න",
+        detailVip: "👑 සියලු කොටස් නැරඹීමට • මාසික VIP Pass (රු. 250)",
+        episodesHeading: "කොටස් (Episodes)",
+        footerCopy: "© 2026 Him & Him (Pixilon). සියලුම හිමිකම් ඇවිරිණි.",
+        footerAi: "🤖 <strong>නිර්මාණාත්මක නිවේදනය (AI Disclaimer):</strong> මෙහි අඩංගු සියලුම කතා මාලාවන් කෘත්‍රිම බුද්ධිය (AI) භාවිතයෙන් නිර්මාණය කරන ලද ප්‍රබන්ධයන් වේ. මෙහි කිසිදු සැබෑ පුද්ගලයෙකු හෝ සැබෑ ස්ථානයක් නිරූපණය නොවන අතර, මෙය හුදෙක් කලාත්මක නිර්මාණයක් පමණි.",
+        footerLegal: "🛡️ <strong>Copyright Protection:</strong> මෙහි අඩංගු කිසිදු වීඩියෝ දර්ශනයක් හෝ නිර්මාණයක් අනවසරයෙන් පටිගත කිරීම (Screen Record), බාගත කිරීම හෝ නැවත පළ කිරීම සපුරා තහනම් වේ.",
+        footerTerms: "🔞 18+ වගකීම් සහ පෞද්ගලිකත්ව නිවේදනය"
+      },
+      en: {
+        gateTitle: "18+ Adults Only • Content & Age Notice",
+        gateWarning: `
+          <p>⚠️ <strong>18+ BL Content:</strong> All drama series on this platform are <strong>Boys' Love (BL)</strong> stories strictly intended for adults aged <strong>18 and above (18+)</strong>.</p>
+          <p>🎭 <strong>Creative Expression Notice:</strong> As artistic storytelling, certain series may contain <strong>sexual/romantic scenes, mature dialogue/speech</strong>, and <strong>dramatic or violent scenes</strong>.</p>
+          <p>🛡️ <strong>Full Personal Responsibility:</strong> We do not promote any harmful or inappropriate acts. By entering this site, you confirm your age and accept <strong>full personal responsibility</strong> for viewing this content.</p>
+        `,
+        gatePrivacy: "🔒 <strong>Data & Privacy Notice:</strong> This Mini App uses essential local device storage solely to remember your 18+ confirmation and language preference. We never sell or share your personal data.",
+        gateAccept: "✅ I Confirm I am 18+ & Accept All Terms Above",
+        gateExit: "❌ Exit (Under 18)",
+        navVip: "👑 VIP • Rs. 250",
+        homeTgNotice: "📲 <strong>Telegram App Required:</strong> Install <strong>Telegram</strong> on your device to watch episodes.",
+        tgDlBtn: "Get App",
+        detailTgNote: "📲 <strong>Note:</strong> All episodes play directly inside the <strong>Telegram App</strong>. Please install Telegram before watching.",
+        heroChip: "✨ FEATURED BL",
+        heroWatch: "▶ Watch Episodes",
+        heroVip: "👑 Join VIP",
+        vipEyebrow: "👑 ALL-ACCESS VIP CLUB",
+        vipTitle: "Unlock All BL Series & Uncut Scenes",
+        vipPerks: "New episodes every Sunday • Full uncut HD",
+        vipCta: "Rs. 250<span>/ Month</span>",
+        searchPlaceholder: "Search drama title (e.g., Garala, ගරළ, Mayaviya)...",
+        emptySearchText: "No drama series matched your search.",
+        resetSearchBtn: "Show All Dramas",
+        allDramas: "All Drama Series",
+        seriesLabel: "Series",
+        seasonsWord: "Seasons",
+        seasonWord: "Season",
+        epsWord: "Eps",
+        epWord: "Ep",
+        match: "99% BL Match",
+        playPrefix: "▶ Play",
+        detailVip: "👑 Unlock Full Series • Monthly VIP Pass (LKR 250)",
+        episodesHeading: "Episodes",
+        footerCopy: "© 2026 Him & Him (Pixilon). All Rights Reserved.",
+        footerAi: "🤖 <strong>AI Creative Disclaimer:</strong> All drama series featured on this platform are fictional works generated using Artificial Intelligence (AI). No real persons or real locations are depicted; this is purely a creative work of fiction.",
+        footerLegal: "🛡️ <strong>Copyright Protection:</strong> Unauthorized screen recording, downloading, copying, or redistribution of any video content on Him & Him is strictly prohibited.",
+        footerTerms: "🔞 18+ Content & Privacy Notice"
+      }
+    };
+
+    /* ================= DISTINCT BL CLICK / TAP FX ENGINE ================= */
+    function spawnClickFX(x, y, category) {
+      const container = document.getElementById("fx-container");
+      if (!container) return;
+
+      // 1. Expanding Neon Ring tailored to element category
+      const ring = document.createElement("div");
+      ring.className = `fx-ring ${category}`;
+      ring.style.left = `${x}px`;
+      ring.style.top = `${y}px`;
+      container.appendChild(ring);
+      setTimeout(() => ring.remove(), 700);
+
+      // 2. Distinct BL Aesthetic Particles per category
+      const particleSets = {
+        vip: ["👑", "💎", "✨", "🧡"],
+        drama: ["💖", "🧡", "✨", "🎬"],
+        episode: ["▶", "💠", "✦", "💖"],
+        general: ["🌸", "✦", "💫", "💕"]
+      };
+      const symbols = particleSets[category] || particleSets.general;
+      const count = category === "general" ? 4 : 6;
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement("span");
+        p.className = "fx-particle";
+        p.innerText = symbols[i % symbols.length];
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+
+        const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.5 - 0.25);
+        const dist = 34 + Math.random() * 34;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist - 14;
+        const rot = (Math.random() * 60 - 30).toFixed(0) + "deg";
+
+        p.style.setProperty("--dx", `${dx.toFixed(1)}px`);
+        p.style.setProperty("--dy", `${dy.toFixed(1)}px`);
+        p.style.setProperty("--rot", rot);
+
+        container.appendChild(p);
+        setTimeout(() => p.remove(), 850);
+      }
+    }
+
+    document.addEventListener("pointerdown", (e) => {
+      const target = e.target;
+      let category = "general";
+
+      if (target.closest(".vip-pill, .vip-showcase, #hero-vip-btn, #detail-vip-btn")) {
+        category = "vip";
+      } else if (target.closest(".poster-card, .btn-gradient-play, .full-play-btn")) {
+        category = "drama";
+      } else if (target.closest(".ep-row")) {
+        category = "episode";
+      }
+
+      spawnClickFX(e.clientX, e.clientY, category);
+    });
+
+    /* ================= 18+ ENTRY AGE GATE LOGIC ================= */
+    function checkAgeGate() {
+      const accepted = sessionStorage.getItem("himandhim_18plus_ok");
+      if (accepted === "true") {
+        document.getElementById("age-gate-modal").classList.add("hidden");
+        document.body.classList.remove("modal-locked");
+      }
+    }
+
+    function acceptAgeGate() {
+      triggerHaptic("medium");
+      sessionStorage.setItem("himandhim_18plus_ok", "true");
+      document.getElementById("age-gate-modal").classList.add("hidden");
+      document.body.classList.remove("modal-locked");
+    }
+
+    function reopenAgeGate() {
+      triggerHaptic("light");
+      document.getElementById("age-gate-modal").classList.remove("hidden");
+      document.body.classList.add("modal-locked");
+    }
+
+    function exitApp() {
+      triggerHaptic("heavy");
+      if (tg && tg.close) {
+        tg.close();
+      } else {
+        window.location.href = "https://telegram.org";
+      }
+    }
+
+    function triggerHaptic(style = "light") {
+      try {
+        if (tg && tg.HapticFeedback) {
+          if (style === "selection") {
+            tg.HapticFeedback.selectionChanged();
+          } else {
+            tg.HapticFeedback.impactOccurred(style);
+          }
+        }
+      } catch (e) {}
+    }
+
+    function openVipBot() {
+      triggerHaptic("medium");
+      openTgLink(typeof VIP_BOT_URL !== "undefined" ? VIP_BOT_URL : "https://t.me/");
+    }
+
+    function openTgLink(url) {
+      triggerHaptic("light");
+      if (tg && tg.openTelegramLink && url.startsWith("https://t.me/")) {
+        tg.openTelegramLink(url);
+      } else {
+        window.open(url, "_blank");
+      }
+    }
+
+    function setLanguage(lang) {
+      triggerHaptic("selection");
+      currentLang = lang;
+
+      document.getElementById("lang-si").classList.toggle("active", lang === "si");
+      document.getElementById("lang-en").classList.toggle("active", lang === "en");
+      document.getElementById("gate-lang-si").classList.toggle("active", lang === "si");
+      document.getElementById("gate-lang-en").classList.toggle("active", lang === "en");
+
+      const t = UI_TEXT[currentLang];
+      document.getElementById("gate-title").innerText = t.gateTitle;
+      document.getElementById("gate-warning-box").innerHTML = t.gateWarning;
+      document.getElementById("gate-privacy-box").innerHTML = t.gatePrivacy;
+      document.getElementById("gate-accept-btn").innerText = t.gateAccept;
+      document.getElementById("gate-exit-btn").innerText = t.gateExit;
+
+      document.getElementById("nav-vip-btn").innerText = t.navVip;
+      document.getElementById("home-tg-notice").innerHTML = t.homeTgNotice;
+      document.getElementById("tg-dl-btn").innerText = t.tgDlBtn;
+      document.getElementById("detail-tg-note").innerHTML = t.detailTgNote;
+      document.getElementById("hero-chip").innerText = t.heroChip;
+      document.getElementById("hero-watch-btn").innerText = t.heroWatch;
+      document.getElementById("hero-vip-btn").innerText = t.heroVip;
+      document.getElementById("vip-card-eyebrow").innerText = t.vipEyebrow;
+      document.getElementById("vip-card-title").innerText = t.vipTitle;
+      document.getElementById("vip-card-perks").innerText = t.vipPerks;
+      document.getElementById("vip-card-cta").innerHTML = t.vipCta;
+      document.getElementById("drama-search-input").placeholder = t.searchPlaceholder;
+      document.getElementById("empty-search-text").innerText = t.emptySearchText;
+      document.getElementById("reset-search-btn").innerText = t.resetSearchBtn;
+      document.getElementById("all-dramas-heading").innerText = t.allDramas;
+      document.getElementById("detail-vip-btn").innerText = t.detailVip;
+      document.getElementById("episodes-label").innerText = t.episodesHeading;
+      document.getElementById("footer-copy").innerText = t.footerCopy;
+      document.getElementById("footer-ai-box").innerHTML = t.footerAi;
+      document.getElementById("footer-legal").innerHTML = t.footerLegal;
+      document.getElementById("footer-terms-link").innerText = t.footerTerms;
+
+      updateHero(heroIndex, false);
+      initGrid();
+      if (activeDramaIndex !== null && document.getElementById("detail-view").style.display === "block") {
+        openDrama(activeDramaIndex, activeSeasonIndex);
+      }
+    }
+
+    /* Interactive 3D Tilt & Glare Effect */
+    function attach3DTilt(element, glareEl, maxTilt = 9) {
+      function applyTilt(clientX, clientY) {
+        const rect = element.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -maxTilt;
+        const rotateY = ((x - centerX) / centerX) * maxTilt;
+        element.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+        if (glareEl) {
+          const pctX = (x / rect.width) * 100;
+          const pctY = (y / rect.height) * 100;
+          glareEl.style.opacity = "1";
+          glareEl.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255,255,255,0.28), transparent 65%)`;
+        }
+      }
+      function resetTilt() {
+        element.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        if (glareEl) glareEl.style.opacity = "0";
+      }
+
+      element.addEventListener("mousemove", (e) => applyTilt(e.clientX, e.clientY));
+      element.addEventListener("mouseleave", resetTilt);
+      element.addEventListener("touchmove", (e) => {
+        if (e.touches.length === 1) {
+          applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+      element.addEventListener("touchend", resetTilt);
+    }
+
+    function getBackgroundStyle(drama) {
+      return drama.posterUrl
+        ? `background-image: url('${drama.posterUrl}');`
+        : `background: ${drama.gradient};`;
+    }
+
+    function getEpisodeThumbStyle(ep, drama) {
+      return ep.thumbUrl ? `background-image: url('${ep.thumbUrl}');` : getBackgroundStyle(drama);
+    }
+
+    /* ================= 3D PRISM CROSS-ZOOM SLIDESHOW ================= */
+    function updateHero(idx, animate = true) {
+      if (typeof DRAMAS === "undefined" || DRAMAS.length === 0) return;
+      heroIndex = (idx + DRAMAS.length) % DRAMAS.length;
+      const featured = DRAMAS[heroIndex];
+
+      const layerA = document.getElementById("hero-bg-a");
+      const layerB = document.getElementById("hero-bg-b");
+      const sweep = document.getElementById("hero-prism-sweep");
+      const contentBox = document.getElementById("hero-content");
+
+      const incoming = activeBgLayer === "a" ? layerB : layerA;
+      const outgoing = activeBgLayer === "a" ? layerA : layerB;
+
+      incoming.setAttribute("style", getBackgroundStyle(featured));
+
+      if (animate) {
+        // Trigger sweeping BL prism light beam
+        sweep.classList.remove("sweeping");
+        void sweep.offsetWidth;
+        sweep.classList.add("sweeping");
+
+        // Smooth 3D zoom-dissolve between layers
+        incoming.classList.remove("zoom-enter");
+        incoming.classList.add("zoom-active");
+        outgoing.classList.remove("zoom-active");
+        outgoing.classList.add("zoom-enter");
+
+        contentBox.classList.add("text-switching");
+        setTimeout(() => {
+          document.getElementById("hero-title").innerText = `${featured.titleSi} (${featured.titleEn})`;
+          document.getElementById("hero-series-tag").innerText = currentLang === "si" ? featured.tagSi : featured.tagEn;
+          document.getElementById("hero-desc-preview").innerText = currentLang === "si" ? featured.descSi : featured.descEn;
+          contentBox.classList.remove("text-switching");
+        }, 200);
+      } else {
+        incoming.classList.remove("zoom-enter");
+        incoming.classList.add("zoom-active");
+        outgoing.classList.remove("zoom-active");
+        outgoing.classList.add("zoom-enter");
+        document.getElementById("hero-title").innerText = `${featured.titleSi} (${featured.titleEn})`;
+        document.getElementById("hero-series-tag").innerText = currentLang === "si" ? featured.tagSi : featured.tagEn;
+        document.getElementById("hero-desc-preview").innerText = currentLang === "si" ? featured.descSi : featured.descEn;
+      }
+
+      activeBgLayer = activeBgLayer === "a" ? "b" : "a";
+
+      const dotsWrap = document.getElementById("hero-dots");
+      dotsWrap.innerHTML = "";
+      DRAMAS.slice(0, 5).forEach((_, dIdx) => {
+        const dot = document.createElement("div");
+        dot.className = "hero-dot" + (dIdx === heroIndex ? " active" : "");
+        dot.onclick = (e) => {
+          e.stopPropagation();
+          triggerHaptic("selection");
+          updateHero(dIdx, true);
+          resetHeroTimer();
+        };
+        dotsWrap.appendChild(dot);
+      });
+    }
+
+    function resetHeroTimer() {
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(() => {
+        const gateHidden = document.getElementById("age-gate-modal").classList.contains("hidden");
+        if (gateHidden && document.getElementById("home-view").style.display !== "none" && typeof DRAMAS !== "undefined") {
+          updateHero(heroIndex + 1, true);
+        }
+      }, 4800);
+    }
+
+    /* Touch Swipe Support on Hero Slideshow */
+    (function enableHeroSwipe() {
+      const heroCard = document.getElementById("hero-card");
+      let startX = 0;
+      heroCard.addEventListener("touchstart", (e) => {
+        if (e.touches.length === 1) startX = e.touches[0].clientX;
+      }, { passive: true });
+      heroCard.addEventListener("touchend", (e) => {
+        if (e.changedTouches.length === 1) {
+          const diffX = e.changedTouches[0].clientX - startX;
+          if (Math.abs(diffX) > 45) {
+            triggerHaptic("selection");
+            updateHero(diffX < 0 ? heroIndex + 1 : heroIndex - 1, true);
+            resetHeroTimer();
+          }
+        }
+      });
+    })();
+
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      const clearBtn = document.getElementById("search-clear-btn");
+      clearBtn.style.display = searchQuery.length > 0 ? "flex" : "none";
+      initGrid();
+    }
+
+    function clearSearch() {
+      triggerHaptic("selection");
+      searchQuery = "";
+      const input = document.getElementById("drama-search-input");
+      input.value = "";
+      document.getElementById("search-clear-btn").style.display = "none";
+      initGrid();
+    }
+
+    function initGrid() {
+      if (typeof DRAMAS === "undefined" || DRAMAS.length === 0) return;
+      const t = UI_TEXT[currentLang];
+      const grid = document.getElementById("drama-grid");
+      const emptyBox = document.getElementById("empty-search");
+      grid.innerHTML = "";
+
+      const filtered = DRAMAS
+        .map((drama, originalIndex) => ({ drama, originalIndex }))
+        .filter(({ drama }) => {
+          if (!searchQuery) return true;
+          return (
+            drama.titleSi.toLowerCase().includes(searchQuery) ||
+            drama.titleEn.toLowerCase().includes(searchQuery) ||
+            (drama.tagSi && drama.tagSi.toLowerCase().includes(searchQuery)) ||
+            (drama.tagEn && drama.tagEn.toLowerCase().includes(searchQuery))
+          );
+        });
+
+      document.getElementById("series-count-label").innerText = `${filtered.length} ${t.seriesLabel}`;
+
+      if (filtered.length === 0) {
+        grid.style.display = "none";
+        emptyBox.style.display = "block";
+        return;
+      }
+
+      grid.style.display = "grid";
+      emptyBox.style.display = "none";
+
+      filtered.forEach(({ drama, originalIndex }) => {
+        const seasonsCount = drama.seasons.length;
+        const totalEps = drama.seasons.reduce((sum, s) => sum + s.episodes.length, 0);
+        const badgeText = seasonsCount > 1
+          ? `${seasonsCount} ${t.seasonsWord}`
+          : `${totalEps} ${totalEps > 1 ? t.epsWord : t.epWord}`;
+
+        const card = document.createElement("div");
+        card.className = "poster-card";
+        card.setAttribute("style", getBackgroundStyle(drama));
+        card.onclick = () => openDrama(originalIndex, 0);
+        card.innerHTML = `
+          <div class="card-glare"></div>
+          <div class="poster-top">
+            <span class="vip-tag">VIP</span>
+            <span class="season-pill">${badgeText}</span>
+          </div>
+          <div class="poster-bottom">
+            <div class="poster-title-si">${drama.titleSi}</div>
+            <div class="poster-title-en">${drama.titleEn}</div>
+          </div>
+        `;
+        attach3DTilt(card, card.querySelector(".card-glare"), 10);
+        grid.appendChild(card);
+      });
+    }
+
+    function openDrama(index, preserveSeason = 0) {
+      triggerHaptic("light");
+      activeDramaIndex = index;
+      activeSeasonIndex = preserveSeason;
+      const drama = DRAMAS[index];
+      const t = UI_TEXT[currentLang];
+
+      document.getElementById("home-view").style.display = "none";
+      document.getElementById("detail-view").style.display = "block";
+      window.scrollTo(0, 0);
+
+      document.getElementById("detail-hero").setAttribute("style", getBackgroundStyle(drama));
+      document.getElementById("detail-title").innerText = `${drama.titleSi} (${drama.titleEn})`;
+      document.getElementById("detail-desc").innerText = currentLang === "si" ? drama.descSi : drama.descEn;
+
+      const sCount = drama.seasons.length;
+      document.getElementById("detail-meta-row").innerHTML = `
+        <span class="match-text">${t.match}</span>
+        <span>${drama.year}</span>
+        <span>${sCount} ${sCount > 1 ? t.seasonsWord : t.seasonWord}</span>
+        <span class="hd-badge">HD</span>
+        <span class="hd-badge">18+ BL</span>
+        <span class="hd-badge">AI ORIGINAL</span>
+      `;
+
+      const select = document.getElementById("season-select");
+      select.innerHTML = "";
+      drama.seasons.forEach((season, sIndex) => {
+        const opt = document.createElement("option");
+        opt.value = sIndex;
+        opt.innerText = currentLang === "si" ? season.seasonNameSi : season.seasonNameEn;
+        if (sIndex == preserveSeason) opt.selected = true;
+        select.appendChild(opt);
+      });
+
+      renderEpisodesForSeason(preserveSeason);
+    }
+
+    function renderEpisodesForSeason(seasonIndex) {
+      triggerHaptic("selection");
+      activeSeasonIndex = seasonIndex;
+      const drama = DRAMAS[activeDramaIndex];
+      const season = drama.seasons[seasonIndex];
+      const t = UI_TEXT[currentLang];
+      const epList = document.getElementById("ep-list");
+      epList.innerHTML = "";
+
+      const mainPlayBtn = document.getElementById("detail-main-play");
+      if (season.episodes.length > 0) {
+        const firstEp = season.episodes[0];
+        const sNum = parseInt(seasonIndex) + 1;
+        mainPlayBtn.innerText = `${t.playPrefix} S${sNum}:E${firstEp.num}`;
+        mainPlayBtn.onclick = () => openTgLink(firstEp.link);
+      }
+
+      season.episodes.forEach(ep => {
+        const epTitle = currentLang === "si" ? ep.titleSi : ep.titleEn;
+        const epSub = currentLang === "si" ? ep.subSi : ep.subEn;
+
+        const row = document.createElement("div");
+        row.className = "ep-row";
+        row.onclick = () => openTgLink(ep.link);
+        row.innerHTML = `
+          <div class="ep-thumb" style="${getEpisodeThumbStyle(ep, drama)}">
+            <div class="play-circle-icon">▶</div>
+          </div>
+          <div class="ep-info">
+            <div class="ep-name">${ep.num}. ${epTitle}</div>
+            <div class="ep-sub">${epSub}</div>
+          </div>
+        `;
+        epList.appendChild(row);
+      });
+    }
+
+    function showHome() {
+      triggerHaptic("light");
+      activeDramaIndex = null;
+      document.getElementById("detail-view").style.display = "none";
+      document.getElementById("home-view").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    checkAgeGate();
+    attach3DTilt(document.getElementById("hero-card"), document.getElementById("hero-glare"), 6);
+    setLanguage("si");
+    resetHeroTimer();
+  </script>
+</body>
+</html>
