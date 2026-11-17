@@ -23,17 +23,17 @@ const DRAMAS = [
         episodes: [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep1.jpg", link: "https://t.me/c/4339816032/17" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep2.jpg", link: "https://t.me/c/4339816032/18" }
-          { num: 2, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep3.jpg", link: "https://t.me/c/4339816032/19" }
-          { num: 2, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep4.jpg", link: "https://t.me/c/4339816032/20" }
-          { num: 2, titleSi: "05 වන කොටස", titleEn: "Episode 05", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep5.jpg", link: "https://t.me/c/4339816032/21" }
-          { num: 2, titleSi: "06 වන කොටස", titleEn: "Episode 06", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep6.jpg", link: "https://t.me/c/4339816032/29" }
-          { num: 2, titleSi: "07 වන කොටස", titleEn: "Episode 07", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep7.jpg", link: "https://t.me/c/4339816032/31" }
-          { num: 2, titleSi: "08 වන කොටස", titleEn: "Episode 08", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep8.jpg", link: "https://t.me/c/4339816032/33" }
-          { num: 2, titleSi: "09 වන කොටස", titleEn: "Episode 09", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep9.jpg", link: "https://t.me/c/4339816032/35" }
-          { num: 2, titleSi: "10 වන කොටස", titleEn: "Episode 10", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep10.jpg", link: "https://t.me/c/4339816032/36" }
-          { num: 2, titleSi: "11 වන කොටස", titleEn: "Episode 11", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep11.jpg", link: "https://t.me/c/4339816032/38" }
-          { num: 2, titleSi: "12 වන කොටස", titleEn: "Episode 12", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep12.jpg", link: "https://t.me/c/4339816032/39" }
-          { num: 2, titleSi: "13 වන කොටස", titleEn: "Episode 13", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep13.jpg", link: "https://t.me/c/4339816032/40" }
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep3.jpg", link: "https://t.me/c/4339816032/19" }
+          { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep4.jpg", link: "https://t.me/c/4339816032/20" }
+          { num: 5, titleSi: "05 වන කොටස", titleEn: "Episode 05", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep5.jpg", link: "https://t.me/c/4339816032/21" }
+          { num: 6, titleSi: "06 වන කොටස", titleEn: "Episode 06", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep6.jpg", link: "https://t.me/c/4339816032/29" }
+          { num: 7, titleSi: "07 වන කොටස", titleEn: "Episode 07", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep7.jpg", link: "https://t.me/c/4339816032/31" }
+          { num: 8, titleSi: "08 වන කොටස", titleEn: "Episode 08", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep8.jpg", link: "https://t.me/c/4339816032/33" }
+          { num: 9, titleSi: "09 වන කොටස", titleEn: "Episode 09", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep9.jpg", link: "https://t.me/c/4339816032/35" }
+          { num: 10, titleSi: "10 වන කොටස", titleEn: "Episode 10", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep10.jpg", link: "https://t.me/c/4339816032/36" }
+          { num: 11, titleSi: "11 වන කොටස", titleEn: "Episode 11", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep11.jpg", link: "https://t.me/c/4339816032/38" }
+          { num: 12, titleSi: "12 වන කොටස", titleEn: "Episode 12", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep12.jpg", link: "https://t.me/c/4339816032/39" }
+          { num: 13, titleSi: "13 වන කොටස", titleEn: "Episode 13", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep13.jpg", link: "https://t.me/c/4339816032/40" }
 
         ]
       }
