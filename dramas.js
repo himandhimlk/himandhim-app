@@ -24,16 +24,7 @@ const DRAMAS = [
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/3" }
         ]
       },
-      {
-        seasonNameSi: "Season 2 (දෙවන කතා සමය)",
-        seasonNameEn: "Season 2",
-        episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/4" }
-        ]
-      }
-    ]
-  },
-  {
+        {
     titleSi: "කළු පාට ටැටූ",
     titleEn: "Kalu Pata Tattoo",
     year: "2026",
