@@ -11,8 +11,8 @@ const DRAMAS = [
     year: "2026",
     tagSi: "කතා සමයන් 2 • සිංහල BL",
     tagEn: "2 SEASONS • SINHALA BL",
-    descSi: "මනුෂ්‍ය ලෝකයෙන් ඔබ්බට ඇති පුරාණ නාග රාජධානිය තුළ... තමන් ආදරය කරන කෙනාව රැකගැනීම වෙනුවෙන් මුළු ලොවක් වුවද දවා අළු කිරීමට සූදානම් අපරාජිත රජෙකු සිටී. සෙවනැලි අවදි වෙමින් පවතී, මායා දැල් වියෙමින් පවතී, මහා යුද්ධය ඇරඹෙන්නට ආසන්නයි! Him & Him ඔස්සේ ගරළ (Garala) නරඹන්න! 👑🐍🔥",
-    descEn: "Beyond the human world lies the ancient Naga realm—where an unstoppable King will burn everything to protect the one he loves. Shadows are rising, illusions are weaving, and war is coming. Watch ගරළ (Garala) exclusively on Him & Him! 👑🐍🔥",
+    descSi: "සෙවනැලි යුද්ධය ඇරඹී ඇත! අඳුරු මායාවන් සහ පාවාදීම් මැද, අශේන් සහ නෙතුගේ නොබිඳෙන ආදරය ජය ගනීවිද? 🐍⚔️💙",
+    descEn: "The Civil War of Shadows has begun. Amid dark sorcery and betrayal, will Ashen and Nethu’s unbreakable bond survive? 🐍⚔️💙",
     posterUrl: "", // Upload poster to GitHub and type filename here (e.g., "garala_poster.webp")
     gradient: "linear-gradient(155deg, #0d4f3c 0%, #0b2922 55%, #07050c 100%)",
     seasons: [
