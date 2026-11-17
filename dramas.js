@@ -23,8 +23,11 @@ const DRAMAS = [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/2" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/3" }
         ]
-      },
-        {
+     
+      }
+    ]
+  },
+  {
     titleSi: "කළු පාට ටැටූ",
     titleEn: "Kalu Pata Tattoo",
     year: "2026",
