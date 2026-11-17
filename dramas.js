@@ -9,67 +9,20 @@ const DRAMAS = [
     titleSi: "ගරළ",
     titleEn: "Garala",
     year: "2026",
-    tagSi: "කතා සමයන් 2 • සිංහල BL",
-    tagEn: "2 SEASONS • SINHALA BL",
+    tagSi: "කතා සමයන් 1 • සිංහල BL",
+    tagEn: "1 SEASON • SINHALA BL",
     descSi: "සෙවනැලි යුද්ධය ඇරඹී ඇත! අඳුරු මායාවන් සහ පාවාදීම් මැද, අශේන් සහ නෙතුගේ නොබිඳෙන ආදරය ජය ගනීවිද? 🐍⚔️💙",
     descEn: "The Civil War of Shadows has begun. Amid dark sorcery and betrayal, will Ashen and Nethu’s unbreakable bond survive? 🐍⚔️💙",
-    posterUrl: "garala.jpg", // Upload poster to GitHub and type filename here (e.g., "garala_poster.webp")
+    slideUrl: "garala_slide.webp",
+    posterUrl: "garala.jpg",
     gradient: "linear-gradient(155deg, #0d4f3c 0%, #0b2922 55%, #07050c 100%)",
     seasons: [
       {
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/2" },
-          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/3" }
-        ]
-     
-      }
-    ]
-  },
-  {
-    titleSi: "කළු පාට ටැටූ",
-    titleEn: "Kalu Pata Tattoo",
-    year: "2026",
-    tagSi: "ඛේදනීය ආදර කතාව • සිංහල BL",
-    tagEn: "TRAGIC ROMANCE • SINHALA BL",
-    descSi: "දුරුතු සහ අයුර්ගේ ඛේදනීය කතාව. සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව Him & Him VIP නාලිකාවෙන් නරඹන්න.",
-    descEn: "The tragic and emotional love story of Duruthu and Ayur. Stream all complete uncut episodes without interruptions.",
-    posterUrl: "", // e.g., "tattoo_poster.webp"
-    gradient: "linear-gradient(155deg, #3a1c5c 0%, #1b0e2e 55%, #07050c 100%)",
-    seasons: [
-      {
-        seasonNameSi: "Season 1 (පළමු කතා සමය)",
-        seasonNameEn: "Season 1",
-        episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/5" }
-        ]
-      }
-    ]
-  },
-  {
-    titleSi: "මායාවියා",
-    titleEn: "Mayaviya",
-    year: "2026",
-    tagSi: "කතා සමයන් 2 • සිංහල BL",
-    tagEn: "2 SEASONS • SINHALA BL",
-    descSi: "ආත්ම ගත බැඳීමක මායා ලෝකය. මායාවියා කතා මාලාවේ පළමු සහ දෙවන කතා සමයන්හි සියලුම සම්පූර්ණ කොටස් නරඹන්න.",
-    descEn: "A magical world of a deep soulmate bond. Watch all complete episodes across Season 1 and Season 2 of Mayaviya.",
-    posterUrl: "", // e.g., "mayaviya_poster.webp"
-    gradient: "linear-gradient(155deg, #8a0e2c 0%, #3b0923 55%, #07050c 100%)",
-    seasons: [
-      {
-        seasonNameSi: "Season 1 (පළමු කතා සමය)",
-        seasonNameEn: "Season 1",
-        episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/6" }
-        ]
-      },
-      {
-        seasonNameSi: "Season 2 (දෙවන කතා සමය)",
-        seasonNameEn: "Season 2",
-        episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/7" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep1.webp", link: "https://t.me/c/4339816032/2" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "garala_ep2.webp", link: "https://t.me/c/4339816032/3" }
         ]
       }
     ]
@@ -78,38 +31,110 @@ const DRAMAS = [
     titleSi: "විරල හුස්ම",
     titleEn: "Virala Husma",
     year: "2026",
-    tagSi: "ආදර කතාව • සිංහල BL",
-    tagEn: "ROMANCE • SINHALA BL",
+    tagSi: "කතා සමයන් 1 • සිංහල BL",
+    tagEn: "1 SEASON • SINHALA BL",
     descSi: "සිනමාත්මක AI දර්ශන සමඟින් ඔබ වෙත ගෙන එන දුර්ලභ ආදර කතාවක්. Him & Him VIP සාමාජිකයින් සඳහා පමණි.",
     descEn: "A rare love story brought to life in cinematic AI visuals. Available exclusively for Him & Him VIP members.",
-    posterUrl: "", // e.g., "viralahusma_poster.webp"
+    slideUrl: "viralahusma_slide.webp",
+    posterUrl: "viralahusma_cover.webp",
     gradient: "linear-gradient(155deg, #7c3211 0%, #331618 55%, #07050c 100%)",
     seasons: [
       {
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/8" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/8" }
+        ]
+      }
+    ]
+  },
+  {
+    titleSi: "මායාවියා",
+    titleEn: "Mayawiya",
+    year: "2026",
+    tagSi: "කතා සමයන් 2 • සිංහල BL",
+    tagEn: "2 SEASONS • SINHALA BL",
+    descSi: "ආත්ම ගත බැඳීමක මායා ලෝකය. මායාවියා කතා මාලාවේ පළමු සහ දෙවන කතා සමයන්හි සියලුම සම්පූර්ණ කොටස් නරඹන්න.",
+    descEn: "A magical world of a deep soulmate bond. Watch all complete episodes across Season 1 and Season 2 of Mayawiya.",
+    slideUrl: "mayawiya_slide.webp",
+    posterUrl: "mayawiya_cover.webp",
+    gradient: "linear-gradient(155deg, #8a0e2c 0%, #3b0923 55%, #07050c 100%)",
+    seasons: [
+      {
+        seasonNameSi: "Season 1 (පළමු කතා සමය)",
+        seasonNameEn: "Season 1",
+        episodes: [
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep1.webp", link: "https://t.me/c/4339816032/6" }
+        ]
+      },
+      {
+        seasonNameSi: "Season 2 (දෙවන කතා සමය)",
+        seasonNameEn: "Season 2",
+        episodes: [
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep1.webp", link: "https://t.me/c/4339816032/7" }
         ]
       }
     ]
   },
   {
     titleSi: "ඝට්ටනය",
-    titleEn: "Gattanaya",
+    titleEn: "Ghattanaya",
     year: "2026",
-    tagSi: "සිංහල BL නාට්‍යය",
-    tagEn: "BL DRAMA • SINHALA",
+    tagSi: "කතා සමයන් 1 • සිංහල BL",
+    tagEn: "1 SEASON • SINHALA BL",
     descSi: "ගැටෙන හදවත් සහ නොකී රහස්. ඝට්ටනය කතා මාලාවේ සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව නරඹන්න.",
-    descEn: "Clashing hearts and untold secrets. Stream all complete episodes of Gattanaya without interruptions.",
-    posterUrl: "", // e.g., "gattanaya_poster.webp"
+    descEn: "Clashing hearts and untold secrets. Stream all complete episodes of Ghattanaya without interruptions.",
+    slideUrl: "ghattanaya_slide.webp",
+    posterUrl: "ghattanaya_cover.webp",
     gradient: "linear-gradient(155deg, #0f3d68 0%, #152242 55%, #07050c 100%)",
     seasons: [
       {
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "", link: "https://t.me/c/4339816032/9" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep1.webp", link: "https://t.me/c/4339816032/9" }
+        ]
+      }
+    ]
+  },
+  {
+    titleSi: "O+ (O Positive)",
+    titleEn: "O+ (O Positive)",
+    year: "2026",
+    tagSi: "කතා සමයන් 1 • සිංහල BL",
+    tagEn: "1 SEASON • SINHALA BL",
+    descSi: "එකම ලේ බැඳීමකින් සහ නොසිතූ ඉරණමකින් එකට බැඳුණු හදවත් දෙකක කතාව. O+ කතා මාලාවේ සියලුම සම්පූර්ණ කොටස් Him & Him VIP වෙතින් නරඹන්න.",
+    descEn: "Two hearts bound together by a rare bloodline and an unexpected destiny. Stream all complete uncut episodes of O+ exclusively on Him & Him VIP.",
+    slideUrl: "opositive_slide.webp",
+    posterUrl: "opositive_cover.webp",
+    gradient: "linear-gradient(155deg, #6e1028 0%, #2b0915 55%, #07050c 100%)",
+    seasons: [
+      {
+        seasonNameSi: "Season 1 (පළමු කතා සමය)",
+        seasonNameEn: "Season 1",
+        episodes: [
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "opositive_ep1.webp", link: "https://t.me/c/4339816032/10" }
+        ]
+      }
+    ]
+  },
+  {
+    titleSi: "කළු පාට ටැටූ",
+    titleEn: "The Black Tattoo",
+    year: "2026",
+    tagSi: "කතා සමයන් 1 • සිංහල BL",
+    tagEn: "1 SEASON • SINHALA BL",
+    descSi: "දුරුතු සහ අයුර්ගේ ඛේදනීය කතාව. සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව Him & Him VIP නාලිකාවෙන් නරඹන්න.",
+    descEn: "The tragic and emotional love story of Duruthu and Ayur. Stream all complete uncut episodes without interruptions.",
+    slideUrl: "blacktattoo_slide.webp",
+    posterUrl: "blacktattoo_cover.webp",
+    gradient: "linear-gradient(155deg, #3a1c5c 0%, #1b0e2e 55%, #07050c 100%)",
+    seasons: [
+      {
+        seasonNameSi: "Season 1 (පළමු කතා සමය)",
+        seasonNameEn: "Season 1",
+        episodes: [
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "blacktattoo_ep1.webp", link: "https://t.me/c/4339816032/5" }
         ]
       }
     ]
