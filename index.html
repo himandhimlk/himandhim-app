@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Him & Him — VIP 3D BL Cinema</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="dramas.js?v=6"></script>
+  <script src="dramas.js?v=8"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,700;1,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -27,6 +27,10 @@
       /* Custom BL Aesthetic SVG Cursors (Main App) */
       --cursor-default: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ee5db7'/%3E%3Cstop offset='100%25' stop-color='%23ff6d00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 3 L19 13 L12 15 L15 22 L12 23 L9 16 L4 20 Z' fill='url(%23g1)' stroke='%232ee6d6' stroke-width='1.3'/%3E%3Cpath d='M21 5 C20 3.5 18 4 18 5.8 C18 7.5 21 9.5 21 9.5 C21 9.5 24 7.5 24 5.8 C24 4 22 3.5 21 5 Z' fill='%23ee5db7'/%3E%3C/svg%3E") 4 3, auto;
       --cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232ee6d6'/%3E%3Cstop offset='50%25' stop-color='%23ee5db7'/%3E%3Cstop offset='100%25' stop-color='%23ff6d00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M15 26 C15 26 4 18.5 4 10.5 C4 6.8 7 4 10.5 4 C12.6 4 14.3 5 15 6.5 C15.7 5 17.4 4 19.5 4 C23 4 26 6.8 26 10.5 C26 18.5 15 26 15 26 Z' fill='url(%23g2)' stroke='%23ffffff' stroke-width='1.4'/%3E%3Ccircle cx='11' cy='10' r='1.5' fill='%23ffffff'/%3E%3C/svg%3E") 15 14, pointer;
+
+      /* Dedicated Sunday Billboard Spotlight Cursors */
+      --cursor-bb-area: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='11' fill='none' stroke='%23ee5db7' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%23ffd166'/%3E%3Cpath d='M15 1 V6 M15 24 V29 M1 15 H6 M24 15 H29' stroke='%232ee6d6' stroke-width='1.6'/%3E%3C/svg%3E") 15 15, auto;
+      --cursor-bb-action: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bbg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffd166'/%3E%3Cstop offset='50%25' stop-color='%23ee5db7'/%3E%3Cstop offset='100%25' stop-color='%23ff6d00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2 L19.8 11.2 L29.8 12 L22.2 18.5 L24.5 28.2 L16 23 L7.5 28.2 L9.8 18.5 L2.2 12 L12.2 11.2 Z' fill='url(%23bbg)' stroke='%23ffffff' stroke-width='1.4'/%3E%3C/svg%3E") 16 16, pointer;
 
       /* Dedicated Fantasy Cinema Cursors (Short Drama Segment) */
       --cursor-short-area: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cdefs%3E%3ClinearGradient id='sg1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232ee6d6'/%3E%3Cstop offset='100%25' stop-color='%23ee5db7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='4,4 21,11 14,15 10,22' fill='url(%23sg1)' stroke='%23ffffff' stroke-width='1.3'/%3E%3Cpath d='M22 17 L23.5 20.5 L27 22 L23.5 23.5 L22 27 L20.5 23.5 L17 22 L20.5 20.5 Z' fill='%23ffd166'/%3E%3C/svg%3E") 4 4, auto;
@@ -51,7 +55,21 @@
       cursor: var(--cursor-pointer) !important;
     }
 
-    /* Dedicated Cursor Override for the Entire Short Drama Segment */
+    /* Dedicated Cursor Override for Sunday Billboards Segment */
+    #hh-sunday-billboard-section,
+    #hh-sunday-billboard-section .hh-bb-shell,
+    #hh-sunday-billboard-section .hh-bb-header,
+    #hh-sunday-billboard-section .hh-bb-prism-stack,
+    #hh-sunday-billboard-section .hh-bb-medallion {
+      cursor: var(--cursor-bb-area) !important;
+    }
+    #hh-sunday-billboard-section .hh-bb-prism-wrap,
+    #hh-sunday-billboard-section .hh-bb-prism-wrap *,
+    #hh-sunday-billboard-section .hh-bb-cta {
+      cursor: var(--cursor-bb-action) !important;
+    }
+
+    /* Dedicated Cursor Override for Short Drama Segment */
     #hh-short-dramas-section,
     #hh-short-dramas-section .hh-sd-header,
     #hh-short-dramas-section .hh-sd-reel {
@@ -1678,9 +1696,9 @@
       const target = e.target;
       let category = "general";
 
-      if (target.closest(".vip-pill, .vip-showcase, #hero-vip-btn, #detail-vip-btn, .hh-sd-vip-btn")) {
+      if (target.closest(".vip-pill, .vip-showcase, #hero-vip-btn, #detail-vip-btn, .hh-sd-vip-btn, #hh-bb-coming")) {
         category = "vip";
-      } else if (target.closest(".poster-card, .btn-gradient-play, .full-play-btn")) {
+      } else if (target.closest(".poster-card, .btn-gradient-play, .full-play-btn, #hh-bb-previous")) {
         category = "drama";
       } else if (target.closest(".ep-row, .hh-sd-card, .hh-sd-watch-btn")) {
         category = "episode";
@@ -1783,6 +1801,10 @@
       document.getElementById("footer-ai-box").innerHTML = t.footerAi;
       document.getElementById("footer-legal").innerHTML = t.footerLegal;
       document.getElementById("footer-terms-link").innerText = t.footerTerms;
+
+      if (typeof window.refreshBillboardsLang === "function") {
+        window.refreshBillboardsLang(lang);
+      }
 
       updateHero(heroIndex, false);
       initGrid();

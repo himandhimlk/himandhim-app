@@ -153,8 +153,46 @@ const DRAMAS = [
 ];
 
 // ============================================================================
-// SHORT DRAMAS SEGMENT — Standalone Single-Episode Stories (Widescreen 16:9)
-// Edit, add, or remove items below; they render automatically below DRAMAS.
+// SUNDAY PREMIERE BILLBOARDS — Update Coming Sunday & Previous Sunday here!
+// Upload two separate images to your GitHub folder and set imageUrl below.
+// ============================================================================
+const SUNDAY_BILLBOARDS = {
+  comingSunday: {
+    pillSi: "✨ ඉදිරි ඉරිදා නිකුත් වන",
+    pillEn: "✨ COMING THIS SUNDAY",
+    timeSi: "ඉරිදා රාත්‍රී 8:00 • VIP",
+    timeEn: "SUNDAY 8:00 PM • VIP",
+    titleSi: "ගරළ — 14 වන කොටස",
+    titleEn: "Garala — Episode 14",
+    descSi: "සෙවනැලි යුද්ධයේ තීරණාත්මක අවස්ථාව! මේ ඉරිදා VIP නාලිකාවෙන්.",
+    descEn: "The turning point of the Shadow War! Premiering this Sunday on VIP.",
+    ctaSi: "👑 VIP වී සූදානම් වන්න",
+    ctaEn: "👑 Join VIP for Premiere",
+    imageUrl: "sunday_coming.webp",
+    fallbackUrl: "garala.jpg",
+    gradient: "linear-gradient(150deg, #7a104e 0%, #2b0b3d 55%, #07050c 100%)",
+    link: "https://t.me/himandhim_vip_bot"
+  },
+  previousSunday: {
+    pillSi: "🔥 පසුගිය ඉරිදා නිකුත් වූ",
+    pillEn: "🔥 PREVIOUS SUNDAY RELEASE",
+    timeSi: "දැන් නරඹන්න • FULL HD",
+    timeEn: "OUT NOW • FULL UNCUT",
+    titleSi: "ගරළ — 13 වන කොටස",
+    titleEn: "Garala — Episode 13",
+    descSi: "පසුගිය ඉරිදා නිකුත් වූ සම්පූර්ණ කොටස දැන් VIP නාලිකාවෙන් නරඹන්න.",
+    descEn: "Stream last Sunday's complete uncut episode right now on VIP.",
+    ctaSi: "▶ දැන්ම නරඹන්න",
+    ctaEn: "▶ Watch Release Now",
+    imageUrl: "sunday_previous.webp",
+    fallbackUrl: "garala_ep13.jpg",
+    gradient: "linear-gradient(150deg, #0c4d63 0%, #16123b 55%, #07050c 100%)",
+    link: "https://t.me/c/4339816032/40"
+  }
+};
+
+// ============================================================================
+// SHORT DRAMAS SEGMENT — Standalone Single-Episode Stories (3D Holographic Stage)
 // ============================================================================
 const SHORT_DRAMAS = [
   {
@@ -202,8 +240,557 @@ const SHORT_DRAMAS = [
 ];
 
 // ============================================================================
-// INNOVATIVE WIDESCREEN CINEMA REEL ENGINE FOR SHORT DRAMAS
-// Automatically injects below the main Series grid & matches site colors
+// 1. 3D INTERLOCKING DIAGONAL CRYSTAL PRISM BILLBOARD STAGE
+// Non-rectangular slanted geometry + curved IMAX 3D tilt + floating medallion
+// ============================================================================
+(function initSundayBillboards() {
+  if (typeof window === "undefined" || typeof SUNDAY_BILLBOARDS === "undefined") return;
+
+  let countdownInterval = null;
+
+  function openBillboardUrl(url) {
+    if (!url) return;
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg) {
+      if (url.startsWith("https://t.me/") && typeof tg.openTelegramLink === "function") {
+        tg.openTelegramLink(url);
+        return;
+      }
+      if (typeof tg.openLink === "function") {
+        tg.openLink(url);
+        return;
+      }
+    }
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function getNextSundayCountdown(lang) {
+    const now = new Date();
+    const slOffsetMs = 5.5 * 60 * 60 * 1000;
+    const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+    const slNow = new Date(utcMs + slOffsetMs);
+
+    const target = new Date(slNow);
+    const dayOfWeek = slNow.getDay();
+    let daysUntilSunday = (7 - dayOfWeek) % 7;
+    if (daysUntilSunday === 0 && slNow.getHours() >= 20) {
+      daysUntilSunday = 7;
+    }
+    target.setDate(slNow.getDate() + daysUntilSunday);
+    target.setHours(20, 0, 0, 0);
+
+    const diffMs = Math.max(0, target.getTime() - slNow.getTime());
+    const d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diffMs / (1000 * 60)) % 60);
+
+    if (lang === "en") {
+      return `⏳ Next Drop: ${d}d ${h}h ${m}m`;
+    }
+    return `⏳ මීළඟ කොටසට: දින ${d} පැය ${h} මි. ${m}`;
+  }
+
+  function injectBillboardStyles() {
+    if (document.getElementById("hh-billboard-styles")) return;
+    const style = document.createElement("style");
+    style.id = "hh-billboard-styles";
+    style.textContent = `
+      /* Chamfered Octagonal Cinema Marquee Outer Stage */
+      #hh-sunday-billboard-section {
+        position: relative;
+        margin: 0 16px 24px 16px;
+        padding: 2px;
+        background: linear-gradient(135deg, #ee5db7 0%, #ff6d00 48%, #2ee6d6 100%);
+        clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 18px 100%, 0 calc(100% - 18px), 0 18px);
+        box-shadow: 0 24px 55px rgba(0, 0, 0, 0.88);
+      }
+      .hh-bb-shell {
+        position: relative;
+        padding: 18px 14px 20px 14px;
+        background: radial-gradient(circle at 50% 0%, rgba(44, 16, 68, 0.96) 0%, rgba(10, 6, 20, 0.98) 65%, #050309 100%);
+        clip-path: polygon(17px 0, calc(100% - 17px) 0, 100% 17px, 100% calc(100% - 17px), calc(100% - 17px) 100%, 17px 100%, 0 calc(100% - 17px), 0 17px);
+        overflow: hidden;
+      }
+
+      /* Overhead Volumetric Cinema Spotlight Beams */
+      .hh-bb-beam-a,
+      .hh-bb-beam-b {
+        position: absolute;
+        top: -30px;
+        width: 55%;
+        height: 280px;
+        pointer-events: none;
+        z-index: 1;
+        filter: blur(18px);
+        transform-origin: top center;
+      }
+      .hh-bb-beam-a {
+        left: 0;
+        background: conic-gradient(from 150deg at 45% 0%, transparent 0deg, rgba(238, 93, 183, 0.32) 25deg, rgba(255, 109, 0, 0.2) 40deg, transparent 60deg);
+        animation: hhBeamSweepA 6.5s ease-in-out infinite alternate;
+      }
+      .hh-bb-beam-b {
+        right: 0;
+        background: conic-gradient(from 150deg at 55% 0%, transparent 0deg, rgba(46, 230, 214, 0.28) 25deg, rgba(157, 78, 221, 0.22) 40deg, transparent 60deg);
+        animation: hhBeamSweepB 7s ease-in-out infinite alternate;
+      }
+      @keyframes hhBeamSweepA {
+        0% { transform: rotate(-8deg); opacity: 0.7; }
+        100% { transform: rotate(7deg); opacity: 1; }
+      }
+      @keyframes hhBeamSweepB {
+        0% { transform: rotate(8deg); opacity: 0.7; }
+        100% { transform: rotate(-7deg); opacity: 1; }
+      }
+
+      /* Marquee Header */
+      .hh-bb-header {
+        position: relative;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .hh-bb-title-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .hh-bb-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #ff94d2;
+      }
+      .hh-bb-bulbs {
+        display: inline-flex;
+        gap: 4px;
+      }
+      .hh-bb-bulb {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #ffd166;
+        box-shadow: 0 0 7px #ff6d00;
+        animation: hhBulbPulse 1.1s infinite alternate;
+      }
+      .hh-bb-bulb:nth-child(2) { animation-delay: 0.28s; background: #ee5db7; box-shadow: 0 0 7px #ee5db7; }
+      .hh-bb-bulb:nth-child(3) { animation-delay: 0.56s; background: #2ee6d6; box-shadow: 0 0 7px #2ee6d6; }
+      @keyframes hhBulbPulse {
+        0% { opacity: 0.35; transform: scale(0.85); }
+        100% { opacity: 1; transform: scale(1.25); }
+      }
+      .hh-bb-heading {
+        font-size: 17px;
+        font-weight: 800;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(238, 93, 183, 0.45);
+      }
+      .hh-bb-countdown {
+        padding: 5px 11px;
+        border-radius: 999px;
+        font-size: 10.5px;
+        font-weight: 800;
+        color: #ffe29a;
+        background: linear-gradient(135deg, rgba(238, 93, 183, 0.24), rgba(255, 109, 0, 0.24));
+        border: 1px solid rgba(255, 174, 0, 0.45);
+        box-shadow: 0 0 16px rgba(255, 109, 0, 0.25);
+      }
+
+      /* 3D Interlocking Diagonal Cinerama Stage */
+      .hh-bb-prism-stack {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+      }
+
+      /* Outer Slanted Neon Polygon Border Wrapper */
+      .hh-bb-prism-wrap {
+        position: relative;
+        padding: 2px;
+        transform-style: preserve-3d;
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+        will-change: transform;
+      }
+      .hh-bb-prism-wrap.top-prism {
+        background: linear-gradient(135deg, #ee5db7 0%, #ff6d00 60%, #ffd166 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+        transform: rotateX(-4.5deg) translateZ(8px);
+        z-index: 2;
+      }
+      .hh-bb-prism-wrap.bottom-prism {
+        margin-top: -28px;
+        background: linear-gradient(135deg, #2ee6d6 0%, #9d4edd 55%, #ee5db7 100%);
+        clip-path: polygon(0 16%, 100% 0, 100% 100%, 0 100%);
+        transform: rotateX(4.5deg) translateZ(8px);
+        z-index: 2;
+      }
+      .hh-bb-prism-wrap:hover {
+        z-index: 5;
+        filter: drop-shadow(0 0 18px rgba(238, 93, 183, 0.45));
+      }
+
+      /* Inner Slanted Crystal Screen */
+      .hh-bb-prism-inner {
+        position: relative;
+        min-height: 215px;
+        overflow: hidden;
+        background: #0b0716;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .top-prism .hh-bb-prism-inner {
+        clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+        padding: 13px 14px 36px 14px;
+      }
+      .bottom-prism .hh-bb-prism-inner {
+        clip-path: polygon(0 16%, 100% 0, 100% 100%, 0 100%);
+        padding: 40px 14px 15px 14px;
+      }
+
+      .hh-bb-bg-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 22%;
+        z-index: 0;
+        transition: transform 0.65s ease;
+      }
+      .hh-bb-prism-wrap:hover .hh-bb-bg-img {
+        transform: scale(1.07);
+      }
+
+      .hh-bb-scrim {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+          95deg,
+          rgba(5, 3, 9, 0.94) 0%,
+          rgba(9, 5, 18, 0.78) 52%,
+          rgba(5, 3, 9, 0.25) 100%
+        );
+      }
+      .bottom-prism .hh-bb-scrim {
+        background: linear-gradient(
+          265deg,
+          rgba(5, 3, 9, 0.94) 0%,
+          rgba(9, 5, 18, 0.78) 52%,
+          rgba(5, 3, 9, 0.25) 100%
+        );
+      }
+
+      /* Holographic Specular Glare */
+      .hh-bb-glare {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.24), transparent 65%);
+      }
+
+      /* Sweeping Diagonal Laser Beam */
+      .hh-bb-laser {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.22) 48%, rgba(238, 93, 183, 0.22) 55%, transparent 75%);
+        transform: translateX(-130%);
+        animation: hhLaserSweep 5.5s infinite ease-in-out;
+      }
+      .bottom-prism .hh-bb-laser {
+        animation-delay: 2.7s;
+      }
+      @keyframes hhLaserSweep {
+        0%, 60% { transform: translateX(-130%); }
+        100% { transform: translateX(130%); }
+      }
+
+      /* Content Inside Top & Bottom Slanted Prisms */
+      .hh-bb-top-row {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .bottom-prism .hh-bb-top-row {
+        justify-content: flex-end;
+      }
+      .hh-bb-badge {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        color: #ffffff;
+        background: linear-gradient(135deg, rgba(238, 93, 183, 0.85), rgba(255, 109, 0, 0.85));
+        box-shadow: 0 4px 14px rgba(238, 93, 183, 0.45);
+      }
+      .bottom-prism .hh-bb-badge {
+        background: linear-gradient(135deg, rgba(46, 230, 214, 0.85), rgba(157, 78, 221, 0.85));
+        box-shadow: 0 4px 14px rgba(46, 230, 214, 0.4);
+      }
+      .hh-bb-time-pill {
+        padding: 3px 9px;
+        border-radius: 999px;
+        font-size: 9.5px;
+        font-weight: 800;
+        color: #ffe29a;
+        background: rgba(5, 3, 9, 0.78);
+        border: 1px solid rgba(255, 174, 0, 0.45);
+        backdrop-filter: blur(6px);
+      }
+      .bottom-prism .hh-bb-time-pill {
+        color: #8ff7ee;
+        border-color: rgba(46, 230, 214, 0.45);
+      }
+
+      .hh-bb-copy-block {
+        position: relative;
+        z-index: 3;
+        max-width: 78%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .bottom-prism .hh-bb-copy-block {
+        margin-left: auto;
+        text-align: right;
+        align-items: flex-end;
+      }
+      .hh-bb-title {
+        font-size: 17px;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.25;
+        text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95);
+      }
+      .hh-bb-desc {
+        font-size: 11.5px;
+        line-height: 1.45;
+        color: #e4dcf2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .hh-bb-cta {
+        margin-top: 4px;
+        width: fit-content;
+        padding: 7px 14px;
+        border-radius: 999px;
+        border: none;
+        font-size: 11px;
+        font-weight: 800;
+        color: #ffffff;
+        background: linear-gradient(135deg, #ee5db7 0%, #ff6d00 100%);
+        box-shadow: 0 5px 16px rgba(238, 93, 183, 0.48), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      }
+      .bottom-prism .hh-bb-cta {
+        background: linear-gradient(135deg, #2ee6d6 0%, #9d4edd 100%);
+        box-shadow: 0 5px 16px rgba(46, 230, 214, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      }
+
+      /* Center Floating 3D Hexagonal Seam Medallion */
+      .hh-bb-medallion {
+        position: relative;
+        z-index: 6;
+        align-self: center;
+        margin: -18px 0 -10px 0;
+        padding: 5px 14px;
+        background: linear-gradient(135deg, #1a0d2e 0%, #090612 100%);
+        border: 1.5px solid #ffd166;
+        clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+        color: #ffe29a;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 0 22px rgba(255, 109, 0, 0.65);
+        animation: hhMedallionFloat 3.2s ease-in-out infinite alternate;
+      }
+      @keyframes hhMedallionFloat {
+        0% { transform: translateZ(28px) scale(0.98); }
+        100% { transform: translateZ(42px) scale(1.04); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function attachPrismTilt(wrapEl, defaultRotX) {
+    const glare = wrapEl.querySelector(".hh-bb-glare");
+    function onMove(clientX, clientY) {
+      const rect = wrapEl.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      const rx = ((y - rect.height / 2) / (rect.height / 2)) * -6;
+      const ry = ((x - rect.width / 2) / (rect.width / 2)) * 6;
+      wrapEl.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(26px) scale(1.02)`;
+      if (glare) {
+        glare.style.opacity = "1";
+        glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.28), transparent 65%)`;
+      }
+    }
+    function onReset() {
+      wrapEl.style.transform = `rotateX(${defaultRotX}deg) rotateY(0deg) translateZ(8px) scale(1)`;
+      if (glare) glare.style.opacity = "0";
+    }
+    wrapEl.addEventListener("mousemove", (e) => onMove(e.clientX, e.clientY));
+    wrapEl.addEventListener("mouseleave", onReset);
+    wrapEl.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 1) onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    wrapEl.addEventListener("touchend", onReset);
+  }
+
+  function renderBillboards(lang) {
+    injectBillboardStyles();
+    const activeLang = lang || (typeof currentLang !== "undefined" ? currentLang : "si");
+    const existing = document.getElementById("hh-sunday-billboard-section");
+    if (existing) existing.remove();
+
+    const c = SUNDAY_BILLBOARDS.comingSunday;
+    const p = SUNDAY_BILLBOARDS.previousSunday;
+
+    const section = document.createElement("section");
+    section.id = "hh-sunday-billboard-section";
+    section.setAttribute("aria-label", "Sunday Premiere Billboards");
+
+    section.innerHTML = `
+      <div class="hh-bb-shell">
+        <div class="hh-bb-beam-a"></div>
+        <div class="hh-bb-beam-b"></div>
+
+        <div class="hh-bb-header">
+          <div class="hh-bb-title-wrap">
+            <span class="hh-bb-eyebrow">
+              <span class="hh-bb-bulbs"><span class="hh-bb-bulb"></span><span class="hh-bb-bulb"></span><span class="hh-bb-bulb"></span></span>
+              ${activeLang === "en" ? "SUNDAY CINEMA MARQUEE" : "ඉරිදා විශේෂ සිනමා පුවරුව"}
+            </span>
+            <div class="hh-bb-heading">${activeLang === "en" ? "Weekly Premiere Stage" : "ඉදිරි සහ පසුගිය ඉරිදා කතා"}</div>
+          </div>
+          <div class="hh-bb-countdown" id="hh-bb-countdown">${getNextSundayCountdown(activeLang)}</div>
+        </div>
+
+        <div class="hh-bb-prism-stack">
+          <!-- UPPER DIAGONAL CRYSTAL PRISM: COMING SUNDAY -->
+          <article class="hh-bb-prism-wrap top-prism" id="hh-bb-coming">
+            <div class="hh-bb-prism-inner" style="background: ${c.gradient};">
+              <img
+                class="hh-bb-bg-img"
+                src="${c.imageUrl}"
+                alt="${c.titleEn}"
+                loading="lazy"
+                onerror="if(!this.dataset.fb && '${c.fallbackUrl || ""}'){this.dataset.fb='1';this.src='${c.fallbackUrl}';}else{this.style.display='none';}"
+              />
+              <div class="hh-bb-scrim"></div>
+              <div class="hh-bb-glare"></div>
+              <div class="hh-bb-laser"></div>
+
+              <div class="hh-bb-top-row">
+                <span class="hh-bb-badge">${activeLang === "en" ? c.pillEn : c.pillSi}</span>
+                <span class="hh-bb-time-pill">${activeLang === "en" ? c.timeEn : c.timeSi}</span>
+              </div>
+
+              <div class="hh-bb-copy-block">
+                <div class="hh-bb-title">${activeLang === "en" ? c.titleEn : c.titleSi}</div>
+                <div class="hh-bb-desc">${activeLang === "en" ? c.descEn : c.descSi}</div>
+                <button type="button" class="hh-bb-cta">${activeLang === "en" ? c.ctaEn : c.ctaSi}</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- FLOATING 3D HEXAGONAL SEAM MEDALLION -->
+          <div class="hh-bb-medallion">⚡ ${activeLang === "en" ? "SUNDAY TIMELINE" : "ඉරිදා කාලසටහන"} ⚡</div>
+
+          <!-- LOWER DIAGONAL CRYSTAL PRISM: PREVIOUS SUNDAY -->
+          <article class="hh-bb-prism-wrap bottom-prism" id="hh-bb-previous">
+            <div class="hh-bb-prism-inner" style="background: ${p.gradient};">
+              <img
+                class="hh-bb-bg-img"
+                src="${p.imageUrl}"
+                alt="${p.titleEn}"
+                loading="lazy"
+                onerror="if(!this.dataset.fb && '${p.fallbackUrl || ""}'){this.dataset.fb='1';this.src='${p.fallbackUrl}';}else{this.style.display='none';}"
+              />
+              <div class="hh-bb-scrim"></div>
+              <div class="hh-bb-glare"></div>
+              <div class="hh-bb-laser"></div>
+
+              <div class="hh-bb-top-row">
+                <span class="hh-bb-time-pill">${activeLang === "en" ? p.timeEn : p.timeSi}</span>
+                <span class="hh-bb-badge">${activeLang === "en" ? p.pillEn : p.pillSi}</span>
+              </div>
+
+              <div class="hh-bb-copy-block">
+                <div class="hh-bb-title">${activeLang === "en" ? p.titleEn : p.titleSi}</div>
+                <div class="hh-bb-desc">${activeLang === "en" ? p.descEn : p.descSi}</div>
+                <button type="button" class="hh-bb-cta">${activeLang === "en" ? p.ctaEn : p.ctaSi}</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    `;
+
+    const comingEl = section.querySelector("#hh-bb-coming");
+    const prevEl = section.querySelector("#hh-bb-previous");
+
+    attachPrismTilt(comingEl, -4.5);
+    attachPrismTilt(prevEl, 4.5);
+
+    comingEl.addEventListener("click", () => openBillboardUrl(c.link));
+    prevEl.addEventListener("click", () => openBillboardUrl(p.link));
+
+    const vipCard = document.querySelector(".vip-showcase");
+    const homeView = document.getElementById("home-view");
+    if (vipCard && vipCard.parentNode) {
+      vipCard.parentNode.insertBefore(section, vipCard.nextSibling);
+    } else if (homeView) {
+      homeView.prepend(section);
+    }
+
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+      const cdEl = document.getElementById("hh-bb-countdown");
+      if (cdEl) {
+        const cur = typeof currentLang !== "undefined" ? currentLang : activeLang;
+        cdEl.textContent = getNextSundayCountdown(cur);
+      }
+    }, 30000);
+  }
+
+  window.refreshBillboardsLang = function (lang) {
+    renderBillboards(lang);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => renderBillboards("si"));
+  } else {
+    renderBillboards("si");
+  }
+})();
+
+// ============================================================================
+// 2. 3D CURVED COVERFLOW & HOLOGRAPHIC DEPTH STAGE FOR SHORT DRAMAS
 // ============================================================================
 (function initShortDramasSegment() {
   if (typeof window === "undefined" || !Array.isArray(SHORT_DRAMAS) || SHORT_DRAMAS.length === 0) {
@@ -233,33 +820,55 @@ const SHORT_DRAMAS = [
     style.textContent = `
       #hh-short-dramas-section {
         position: relative;
-        width: 100%;
-        max-width: 1240px;
-        margin: 34px auto 28px auto;
-        padding: 22px 16px 26px 16px;
+        width: calc(100% - 32px);
+        max-width: 1208px;
+        margin: 30px auto 24px auto;
+        padding: 22px 16px 28px 16px;
         box-sizing: border-box;
-        border-radius: 22px;
-        background: linear-gradient(165deg, rgba(24, 14, 38, 0.86) 0%, rgba(11, 8, 20, 0.94) 60%, rgba(7, 5, 12, 0.98) 100%);
-        border: 1px solid rgba(255, 42, 109, 0.28);
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        background: linear-gradient(165deg, rgba(22, 13, 42, 0.88) 0%, rgba(10, 8, 22, 0.94) 55%, rgba(6, 4, 14, 0.98) 100%);
+        border: 1px solid rgba(46, 230, 214, 0.34);
+        box-shadow:
+          0 24px 55px rgba(0, 0, 0, 0.78),
+          0 0 34px rgba(46, 230, 214, 0.14),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14);
         overflow: hidden;
+        backdrop-filter: blur(14px);
       }
       #hh-short-dramas-section::before {
         content: "";
         position: absolute;
-        top: -90px;
-        right: -60px;
-        width: 240px;
-        height: 240px;
-        background: radial-gradient(circle, rgba(255, 42, 109, 0.22) 0%, rgba(157, 78, 221, 0.08) 45%, transparent 72%);
+        left: -15%;
+        right: -15%;
+        bottom: -24px;
+        height: 130px;
+        background-image:
+          linear-gradient(to right, rgba(46, 230, 214, 0.16) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(238, 93, 183, 0.16) 1px, transparent 1px);
+        background-size: 28px 28px;
+        transform: perspective(300px) rotateX(64deg);
+        mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        pointer-events: none;
+      }
+      #hh-short-dramas-section::after {
+        content: "";
+        position: absolute;
+        top: -80px;
+        left: 20%;
+        width: 260px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(46, 230, 214, 0.2) 0%, rgba(238, 93, 183, 0.1) 50%, transparent 72%);
         pointer-events: none;
       }
       .hh-sd-header {
+        position: relative;
+        z-index: 2;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
       }
       .hh-sd-title-group {
@@ -274,20 +883,20 @@ const SHORT_DRAMAS = [
         width: fit-content;
         padding: 4px 11px;
         border-radius: 999px;
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 10.5px;
+        font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: #ff8fb3;
-        background: rgba(255, 42, 109, 0.14);
-        border: 1px solid rgba(255, 42, 109, 0.35);
+        color: #8ff7ee;
+        background: rgba(46, 230, 214, 0.14);
+        border: 1px solid rgba(46, 230, 214, 0.38);
       }
       .hh-sd-pulse-dot {
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: #ff2a6d;
-        box-shadow: 0 0 10px #ff2a6d;
+        background: #2ee6d6;
+        box-shadow: 0 0 10px #2ee6d6;
         animation: hhSdPulse 1.8s infinite ease-in-out;
       }
       @keyframes hhSdPulse {
@@ -296,18 +905,17 @@ const SHORT_DRAMAS = [
       }
       .hh-sd-heading {
         margin: 0;
-        font-size: clamp(19px, 2.6vw, 24px);
+        font-size: clamp(18px, 2.6vw, 23px);
         font-weight: 800;
         color: #ffffff;
-        letter-spacing: 0.01em;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
       }
       .hh-sd-heading span.hh-sd-sub {
         font-size: 13px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.62);
+        font-weight: 600;
+        color: #ee5db7;
       }
       .hh-sd-controls {
         display: flex;
@@ -317,40 +925,45 @@ const SHORT_DRAMAS = [
       .hh-sd-count-pill {
         padding: 5px 11px;
         border-radius: 999px;
-        font-size: 12px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #d6faf6;
+        background: rgba(46, 230, 214, 0.1);
+        border: 1px solid rgba(46, 230, 214, 0.25);
       }
       .hh-sd-nav-btn {
         width: 34px;
         height: 34px;
         border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(46, 230, 214, 0.35);
         background: rgba(255, 255, 255, 0.06);
         color: #ffffff;
         font-size: 15px;
-        cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         transition: all 0.22s ease;
       }
       .hh-sd-nav-btn:hover {
-        background: linear-gradient(135deg, #ff2a6d, #9d4edd);
+        background: linear-gradient(135deg, #2ee6d6, #ee5db7);
         border-color: transparent;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(46, 230, 214, 0.4);
       }
+
       .hh-sd-reel {
+        position: relative;
+        z-index: 2;
         display: flex;
-        gap: 16px;
+        gap: 18px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
-        padding-bottom: 6px;
+        padding: 16px 24px 24px 24px;
+        perspective: 1100px;
+        transform-style: preserve-3d;
         scrollbar-width: thin;
-        scrollbar-color: rgba(255, 42, 109, 0.45) rgba(255, 255, 255, 0.04);
+        scrollbar-color: rgba(46, 230, 214, 0.45) rgba(255, 255, 255, 0.04);
       }
       .hh-sd-reel::-webkit-scrollbar {
         height: 5px;
@@ -360,50 +973,77 @@ const SHORT_DRAMAS = [
         border-radius: 999px;
       }
       .hh-sd-reel::-webkit-scrollbar-thumb {
-        background: linear-gradient(90deg, #ff2a6d, #9d4edd);
+        background: linear-gradient(90deg, #2ee6d6, #ee5db7);
         border-radius: 999px;
       }
+
       .hh-sd-card {
-        flex: 0 0 min(320px, 84vw);
-        scroll-snap-align: start;
-        border-radius: 18px;
-        background: rgba(14, 11, 24, 0.92);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        overflow: hidden;
+        position: relative;
+        flex: 0 0 min(305px, 78vw);
+        scroll-snap-align: center;
+        border-radius: 20px;
+        background: linear-gradient(160deg, rgba(26, 17, 46, 0.96) 0%, rgba(11, 8, 22, 0.98) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         display: flex;
         flex-direction: column;
-        transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow:
+          0 20px 38px rgba(0, 0, 0, 0.85),
+          inset 0 1px 1px rgba(255, 255, 255, 0.22);
       }
+      .hh-sd-card::after {
+        content: "";
+        position: absolute;
+        left: 10%;
+        right: 10%;
+        bottom: -14px;
+        height: 14px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse at center, rgba(46, 230, 214, 0.45) 0%, rgba(238, 93, 183, 0.2) 55%, transparent 80%);
+        filter: blur(5px);
+        transform: translateZ(-20px);
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .hh-sd-card.is-center-3d,
       .hh-sd-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(255, 42, 109, 0.65);
-        box-shadow: 0 14px 30px rgba(255, 42, 109, 0.2);
+        border-color: rgba(46, 230, 214, 0.72);
+        box-shadow:
+          0 26px 48px rgba(0, 0, 0, 0.92),
+          0 0 28px rgba(46, 230, 214, 0.26),
+          0 0 16px rgba(238, 93, 183, 0.22),
+          inset 0 1px 1px rgba(255, 255, 255, 0.35);
       }
+
       .hh-sd-media {
         position: relative;
         width: 100%;
         aspect-ratio: 16 / 9;
+        border-radius: 19px 19px 0 0;
         overflow: hidden;
+        transform-style: preserve-3d;
       }
       .hh-sd-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.45s ease;
+        transition: transform 0.5s ease;
       }
-      .hh-sd-card:hover .hh-sd-media img {
-        transform: scale(1.06);
+      .hh-sd-card:hover .hh-sd-media img,
+      .hh-sd-card.is-center-3d .hh-sd-media img {
+        transform: scale(1.07);
       }
       .hh-sd-media-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(7, 5, 12, 0.25) 0%, rgba(7, 5, 12, 0.1) 45%, rgba(7, 5, 12, 0.88) 100%);
+        background: linear-gradient(180deg, rgba(5, 3, 9, 0.28) 0%, rgba(5, 3, 9, 0.08) 45%, rgba(11, 8, 22, 0.94) 100%);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         padding: 10px 12px;
+        transform: translateZ(18px);
       }
       .hh-sd-top-badges {
         display: flex;
@@ -414,78 +1054,88 @@ const SHORT_DRAMAS = [
       .hh-sd-badge {
         padding: 3px 9px;
         border-radius: 999px;
-        font-size: 10.5px;
-        font-weight: 700;
+        font-size: 10px;
+        font-weight: 800;
         letter-spacing: 0.04em;
         backdrop-filter: blur(8px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
       }
       .hh-sd-badge.vip {
         color: #ffe29a;
-        background: rgba(255, 183, 3, 0.22);
-        border: 1px solid rgba(255, 209, 102, 0.48);
+        background: rgba(255, 109, 0, 0.28);
+        border: 1px solid rgba(255, 209, 102, 0.55);
       }
       .hh-sd-badge.free {
-        color: #80ffdb;
-        background: rgba(6, 214, 160, 0.2);
-        border: 1px solid rgba(128, 255, 219, 0.45);
+        color: #8ff7ee;
+        background: rgba(46, 230, 214, 0.22);
+        border: 1px solid rgba(46, 230, 214, 0.55);
       }
       .hh-sd-duration {
         padding: 3px 9px;
         border-radius: 999px;
-        font-size: 11px;
-        font-weight: 600;
+        font-size: 10.5px;
+        font-weight: 700;
         color: #ffffff;
-        background: rgba(7, 5, 12, 0.72);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(5, 3, 9, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         backdrop-filter: blur(6px);
       }
+
       .hh-sd-play-orb {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        width: 46px;
-        height: 46px;
+        transform: translate3d(-50%, -50%, 30px);
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
-        background: linear-gradient(135deg, rgba(255, 42, 109, 0.92), rgba(157, 78, 221, 0.92));
-        border: 2px solid rgba(255, 255, 255, 0.85);
-        box-shadow: 0 0 22px rgba(255, 42, 109, 0.65);
+        background: linear-gradient(135deg, rgba(46, 230, 214, 0.92), rgba(238, 93, 183, 0.94));
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        box-shadow:
+          0 10px 24px rgba(0, 0, 0, 0.75),
+          0 0 24px rgba(46, 230, 214, 0.75);
         display: flex;
         align-items: center;
         justify-content: center;
         color: #ffffff;
         font-size: 16px;
         padding-left: 3px;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        transition: transform 0.28s ease, box-shadow 0.28s ease;
       }
-      .hh-sd-card:hover .hh-sd-play-orb {
-        transform: translate(-50%, -50%) scale(1.12);
-        box-shadow: 0 0 30px rgba(255, 42, 109, 0.95);
+      .hh-sd-card:hover .hh-sd-play-orb,
+      .hh-sd-card.is-center-3d .hh-sd-play-orb {
+        transform: translate3d(-50%, -50%, 42px) scale(1.12);
+        box-shadow:
+          0 14px 28px rgba(0, 0, 0, 0.85),
+          0 0 32px rgba(238, 93, 183, 0.95);
       }
+
       .hh-sd-body {
         padding: 13px 14px 15px 14px;
         display: flex;
         flex-direction: column;
-        gap: 7px;
+        gap: 6px;
         flex: 1;
+        transform: translateZ(14px);
       }
       .hh-sd-card-title {
         margin: 0;
         font-size: 15.5px;
-        font-weight: 700;
+        font-weight: 800;
         color: #ffffff;
         line-height: 1.35;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
       }
       .hh-sd-card-subtitle {
         font-size: 12px;
-        font-weight: 600;
-        color: #ff8fb3;
+        font-weight: 700;
+        color: #2ee6d6;
       }
       .hh-sd-card-desc {
         margin: 0;
-        font-size: 12.5px;
+        font-size: 12px;
         line-height: 1.5;
-        color: rgba(255, 255, 255, 0.72);
+        color: rgba(255, 255, 255, 0.74);
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -493,22 +1143,23 @@ const SHORT_DRAMAS = [
       }
       .hh-sd-actions {
         margin-top: auto;
-        padding-top: 8px;
+        padding-top: 9px;
         display: flex;
         align-items: center;
         gap: 8px;
+        transform: translateZ(20px);
       }
       .hh-sd-watch-btn {
         flex: 1;
         padding: 9px 12px;
         border: none;
         border-radius: 11px;
-        background: linear-gradient(135deg, #ff2a6d 0%, #9d4edd 100%);
+        background: linear-gradient(135deg, #2ee6d6 0%, #ee5db7 60%, #ff6d00 100%);
         color: #ffffff;
-        font-size: 12.5px;
-        font-weight: 700;
-        cursor: pointer;
+        font-size: 12px;
+        font-weight: 800;
         text-align: center;
+        box-shadow: 0 6px 18px rgba(238, 93, 183, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.45);
         transition: filter 0.2s ease, transform 0.2s ease;
       }
       .hh-sd-watch-btn:hover {
@@ -517,17 +1168,16 @@ const SHORT_DRAMAS = [
       .hh-sd-vip-btn {
         padding: 9px 11px;
         border-radius: 11px;
-        border: 1px solid rgba(255, 209, 102, 0.42);
-        background: rgba(255, 183, 3, 0.12);
+        border: 1px solid rgba(255, 174, 0, 0.48);
+        background: rgba(255, 109, 0, 0.16);
         color: #ffd166;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 800;
         white-space: nowrap;
         transition: background 0.2s ease;
       }
       .hh-sd-vip-btn:hover {
-        background: rgba(255, 183, 3, 0.24);
+        background: rgba(255, 109, 0, 0.3);
       }
     `;
     document.head.appendChild(style);
@@ -547,16 +1197,58 @@ const SHORT_DRAMAS = [
       if (el) return el;
     }
 
-    // Fallback: locate the container holding the rendered drama cards
     const allElements = document.querySelectorAll("div, section");
     for (const el of allElements) {
-      if (el.id === "hh-short-dramas-section") continue;
+      if (el.id === "hh-short-dramas-section" || el.id === "hh-sunday-billboard-section") continue;
       if (el.textContent && el.textContent.includes("Garala") && el.children.length >= 2 && el.children.length <= 30) {
         return el;
       }
     }
 
     return document.querySelector("main") || document.body;
+  }
+
+  function updateCoverflow3D(reel, hoveredCard = null) {
+    if (!reel) return;
+    const cards = Array.from(reel.querySelectorAll(".hh-sd-card")).filter(
+      (c) => c.style.display !== "none"
+    );
+    if (cards.length === 0) return;
+
+    const reelRect = reel.getBoundingClientRect();
+    const reelCenter = reelRect.left + reelRect.width / 2;
+
+    let closestCard = null;
+    let minDist = Infinity;
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(reelCenter - cardCenter);
+      if (dist < minDist) {
+        minDist = dist;
+        closestCard = card;
+      }
+    });
+
+    const activeFocus = hoveredCard || closestCard;
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const offsetRatio = Math.max(-1.4, Math.min(1.4, (cardCenter - reelCenter) / (reelRect.width * 0.55)));
+
+      if (card === activeFocus) {
+        card.classList.add("is-center-3d");
+        card.style.transform = "translateZ(32px) rotateY(0deg) scale(1.03)";
+      } else {
+        card.classList.remove("is-center-3d");
+        const rotY = (-offsetRatio * 18).toFixed(2);
+        const transZ = (-Math.abs(offsetRatio) * 28).toFixed(1);
+        const scale = Math.max(0.9, 1 - Math.abs(offsetRatio) * 0.06).toFixed(3);
+        card.style.transform = `translateZ(${transZ}px) rotateY(${rotY}deg) scale(${scale})`;
+      }
+    });
   }
 
   function buildShortDramasSection() {
@@ -571,7 +1263,7 @@ const SHORT_DRAMAS = [
     section.innerHTML = `
       <div class="hh-sd-header">
         <div class="hh-sd-title-group">
-          <span class="hh-sd-kicker"><span class="hh-sd-pulse-dot"></span> SINGLE-EPISODE CINEMA • කෙටි කතා</span>
+          <span class="hh-sd-kicker"><span class="hh-sd-pulse-dot"></span> 3D CINEMA REEL • කෙටි කතා</span>
           <h2 class="hh-sd-heading">⚡ Short Dramas <span class="hh-sd-sub">• කෙටි නාට්‍ය</span></h2>
         </div>
         <div class="hh-sd-controls">
@@ -618,6 +1310,9 @@ const SHORT_DRAMAS = [
         </div>
       `;
 
+      card.addEventListener("mouseenter", () => updateCoverflow3D(reel, card));
+      card.addEventListener("mouseleave", () => updateCoverflow3D(reel, null));
+
       card.addEventListener("click", (e) => {
         if (e.target.closest(".hh-sd-vip-btn")) {
           e.stopPropagation();
@@ -630,15 +1325,16 @@ const SHORT_DRAMAS = [
       reel.appendChild(card);
     });
 
-    // Horizontal reel navigation buttons
+    reel.addEventListener("scroll", () => updateCoverflow3D(reel), { passive: true });
+    window.addEventListener("resize", () => updateCoverflow3D(reel));
+
     section.querySelector("#hh-sd-prev").addEventListener("click", () => {
-      reel.scrollBy({ left: -340, behavior: "smooth" });
+      reel.scrollBy({ left: -320, behavior: "smooth" });
     });
     section.querySelector("#hh-sd-next").addEventListener("click", () => {
-      reel.scrollBy({ left: 340, behavior: "smooth" });
+      reel.scrollBy({ left: 320, behavior: "smooth" });
     });
 
-    // Place cleanly right below the main Series grid (and above footer)
     const anchor = findInsertionAnchor();
     const footer = document.querySelector("footer");
     if (anchor && anchor !== document.body && anchor.parentNode) {
@@ -649,7 +1345,8 @@ const SHORT_DRAMAS = [
       document.body.appendChild(section);
     }
 
-    // Sync with the site's live search input if present
+    requestAnimationFrame(() => updateCoverflow3D(reel));
+
     const searchInput = document.querySelector('input[type="search"], input[type="text"]');
     if (searchInput && !searchInput.dataset.hhShortBound) {
       searchInput.dataset.hhShortBound = "1";
@@ -663,13 +1360,13 @@ const SHORT_DRAMAS = [
         });
         const countEl = document.getElementById("hh-sd-count");
         if (countEl) countEl.textContent = `${visibleCount} ${visibleCount === 1 ? "Story" : "Stories"}`;
+        updateCoverflow3D(reel);
       });
     }
   }
 
   function mountWhenReady() {
     buildShortDramasSection();
-    // Re-check once after 350ms in case index.html renders DRAMAS asynchronously
     setTimeout(() => {
       if (!document.getElementById("hh-short-dramas-section")) {
         buildShortDramasSection();
