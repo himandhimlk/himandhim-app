@@ -196,47 +196,20 @@ const SUNDAY_BILLBOARDS = {
 // ============================================================================
 const SHORT_DRAMAS = [
   {
-    titleSi: "වැස්සක මතක (Short Film)",
-    titleEn: "Memories in the Rain",
-    durationSi: "මිනිත්තු 14",
-    durationEn: "14 MIN",
+    titleSi: "අසම්මතයේ සිරකරුවෝ  (Short Film)",
+    titleEn: "Prisoners of the Unconventional",
+    durationSi: "මිනිත්තු 26",
+    durationEn: "26 MIN",
     badgeSi: "VIP කෙටි නාට්‍යය",
     badgeEn: "VIP SHORT",
     isVip: true,
-    descSi: "එක් වැසි රාත්‍රියක අහම්බෙන් හමුවූ හදවත් දෙකක සංවේදී කෙටි කතාව. සම්පූර්ණ දර්ශනය නරඹන්න.",
-    descEn: "An emotional short story of two hearts meeting by chance on a rainy night. Stream the complete uncut film.",
-    thumbUrl: "short_rain.webp",
+    descSi: "වෙස් මංගල්‍යයේදි  හමුවූ හදවත් දෙකක සංවේදී කෙටි කතාව. සම්පූර්ණ දර්ශනය නරඹන්න.",
+    descEn: "A touching short story of two hearts that met at the Ves festival. Stream the complete uncut film.",
+    thumbUrl: "asammathe.webp",
     gradient: "linear-gradient(135deg, #5a1238 0%, #1e0b2e 55%, #07050c 100%)",
-    link: "https://t.me/c/4339816032/41"
-  },
-  {
-    titleSi: "අවසන් හමුවීම (Short Film)",
-    titleEn: "The Last Goodbye",
-    durationSi: "මිනිත්තු 10",
-    durationEn: "10 MIN",
-    badgeSi: "VIP කෙටි නාට්‍යය",
-    badgeEn: "VIP SHORT",
-    isVip: true,
-    descSi: "කාලය විසින් වෙන් කළ ආදරයක නොකී වදන්. Him & Him VIP සාමාජිකයින් සඳහා විශේෂ කෙටි නාට්‍යය.",
-    descEn: "Unspoken words of a love separated by time. A special standalone short drama for Him & Him VIP members.",
-    thumbUrl: "short_goodbye.webp",
-    gradient: "linear-gradient(135deg, #0e4a5c 0%, #101c36 55%, #07050c 100%)",
-    link: "https://t.me/c/4339816032/42"
-  },
-  {
-    titleSi: "රහස් බැල්ම (Short Film)",
-    titleEn: "Secret Glance",
-    durationSi: "මිනිත්තු 08",
-    durationEn: "08 MIN",
-    badgeSi: "නොමිලේ නරඹන්න",
-    badgeEn: "FREE PREVIEW",
-    isVip: false,
-    descSi: "වචන නැතිව ඇස් වලින් කතා කළ ආදරයක ආරම්භය. දැන්ම සම්පූර්ණ කෙටි කතාව නරඹන්න.",
-    descEn: "The beginning of a romance spoken only through glances. Watch the full short story right now.",
-    thumbUrl: "short_glance.webp",
-    gradient: "linear-gradient(135deg, #6b2614 0%, #261024 55%, #07050c 100%)",
-    link: "https://youtu.be/YOUR_VIDEO_ID"
+    link: "https://t.me/c/4339816032/32"
   }
+  
 ];
 
 // ============================================================================
