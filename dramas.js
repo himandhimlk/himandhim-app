@@ -179,7 +179,7 @@ const SUNDAY_BILLBOARDS = {
     timeSi: "දැන් නරඹන්න • FULL HD",
     timeEn: "OUT NOW • FULL UNCUT",
     titleSi: "මායාවියා S02 — 02 වන කොටස",
-    titleEn: "Mayawiya — Episode 02",
+    titleEn: "Mayawiya S02 — Episode 02",
     descSi: "පසුගිය ඉරිදා නිකුත් වූ සම්පූර්ණ කොටස දැන් VIP නාලිකාවෙන් නරඹන්න.",
     descEn: "Stream last Sunday's complete uncut episode right now on VIP.",
     ctaSi: "▶ දැන්ම නරඹන්න",
