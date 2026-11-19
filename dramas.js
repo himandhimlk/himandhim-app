@@ -14,7 +14,7 @@ const DRAMAS = [
     descSi: "සෙවනැලි යුද්ධය ඇරඹී ඇත! අඳුරු මායාවන් සහ පාවාදීම් මැද, අශේන් සහ නෙතුගේ නොබිඳෙන ආදරය ජය ගනීවිද? 🐍⚔️💙",
     descEn: "The Civil War of Shadows has begun. Amid dark sorcery and betrayal, will Ashen and Nethu’s unbreakable bond survive? 🐍⚔️💙",
     slideUrl: "garala_slide.webp",
-    posterUrl: "garala.jpg",
+    posterUrl: "garala_cover.webp",
     gradient: "linear-gradient(155deg, #0d4f3c 0%, #0b2922 55%, #07050c 100%)",
     seasons: [
       {
@@ -116,8 +116,8 @@ const DRAMAS = [
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "එකම ලේ බැඳීමකින් සහ නොසිතූ ඉරණමකින් එකට බැඳුණු හදවත් දෙකක කතාව. O+ කතා මාලාවේ සියලුම සම්පූර්ණ කොටස් Him & Him VIP වෙතින් නරඹන්න.",
     descEn: "Two hearts bound together by a rare bloodline and an unexpected destiny. Stream all complete uncut episodes of O+ exclusively on Him & Him VIP.",
-    slideUrl: "opositive_slide.webp",
-    posterUrl: "opositive_cover.webp",
+    slideUrl: "o_slide.webp",
+    posterUrl: "o_cover.webp",
     gradient: "linear-gradient(155deg, #6e1028 0%, #2b0915 55%, #07050c 100%)",
     seasons: [
       {
@@ -137,8 +137,8 @@ const DRAMAS = [
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "දුරුතු සහ අයුර්ගේ ඛේදනීය කතාව. සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව Him & Him VIP නාලිකාවෙන් නරඹන්න.",
     descEn: "The tragic and emotional love story of Duruthu and Ayur. Stream all complete uncut episodes without interruptions.",
-    slideUrl: "blacktattoo_slide.webp",
-    posterUrl: "blacktattoo_cover.webp",
+    slideUrl: "kalupatatatoo_slide.webp",
+    posterUrl: "kalupatatatoo_cover.webp",
     gradient: "linear-gradient(155deg, #3a1c5c 0%, #1b0e2e 55%, #07050c 100%)",
     seasons: [
       {
