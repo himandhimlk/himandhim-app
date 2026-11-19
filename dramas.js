@@ -54,7 +54,9 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/8" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/4" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep2.webp", link: "https://t.me/c/4339816032/5" }
+
         ]
       }
     ]
@@ -75,14 +77,22 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep1.webp", link: "https://t.me/c/4339816032/6" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep1.webp", link: "https://t.me/c/4339816032/42" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep2.webp", link: "https://t.me/c/4339816032/43" },
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep3.webp", link: "https://t.me/c/4339816032/44" },
+          { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep4.webp", link: "https://t.me/c/4339816032/45" },
+          { num: 5, titleSi: "කතා මාලාවේ අවසාන කොටස", titleEn: "Season Finale", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep5.webp", link: "https://t.me/c/4339816032/46" }
+
+
         ]
       },
       {
         seasonNameSi: "Season 2 (දෙවන කතා සමය)",
         seasonNameEn: "Season 2",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep1.webp", link: "https://t.me/c/4339816032/7" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep1.webp", link: "https://t.me/c/4339816032/9" },
+          { num: 1, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep2.webp", link: "https://t.me/c/4339816032/48" }
+
         ]
       }
     ]
@@ -103,7 +113,10 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep1.webp", link: "https://t.me/c/4339816032/9" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep1.webp", link: "https://t.me/c/4339816032/10" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep2.webp", link: "https://t.me/c/4339816032/11" },
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep3.webp", link: "https://t.me/c/4339816032/12" }
+
         ]
       }
     ]
@@ -124,7 +137,11 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "opositive_ep1.webp", link: "https://t.me/c/4339816032/10" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep1.webp", link: "https://t.me/c/4339816032/6" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep2.webp", link: "https://t.me/c/4339816032/7" },
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep3.webp", link: "https://t.me/c/4339816032/8" }
+
+
         ]
       }
     ]
@@ -145,7 +162,21 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "blacktattoo_ep1.webp", link: "https://t.me/c/4339816032/5" }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep1.webp", link: "https://t.me/c/4339816032/22" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep2.webp", link: "https://t.me/c/4339816032/23" },
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep3.webp", link: "https://t.me/c/4339816032/24" },
+          { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep4.webp", link: "https://t.me/c/4339816032/25" },
+          { num: 5, titleSi: "05 වන කොටස", titleEn: "Episode 05", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep5.webp", link: "https://t.me/c/4339816032/26" },
+          { num: 6, titleSi: "06 වන කොටස", titleEn: "Episode 06", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep6.webp", link: "https://t.me/c/4339816032/27" },
+          { num: 7, titleSi: "07 වන කොටස", titleEn: "Episode 07", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep7.webp", link: "https://t.me/c/4339816032/28" },
+          { num: 8, titleSi: "08 වන කොටස", titleEn: "Episode 08", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep8.webp", link: "https://t.me/c/4339816032/30" },
+          { num: 9, titleSi: "09 වන කොටස", titleEn: "Episode 09", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep9.webp", link: "https://t.me/c/4339816032/34" },
+          { num: 10, titleSi: "10 වන කොටස", titleEn: "Episode 10", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep10.webp", link: "https://t.me/c/4339816032/37" },
+          { num: 11, titleSi: "අවසාන කොටස", titleEn: "Final Episode", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep11.webp", link: "https://t.me/c/4339816032/41" }
+
+
+
+
         ]
       }
     ]
