@@ -109,8 +109,8 @@ const DRAMAS = [
     ]
   },
   {
-    titleSi: "O+ (O Positive)",
-    titleEn: "O+ (O Positive)",
+    titleSi: "O+",
+    titleEn: "O Positive",
     year: "2026",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
