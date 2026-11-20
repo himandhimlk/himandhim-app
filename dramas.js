@@ -11,6 +11,70 @@ const VIP_BOT_URL = "https://t.me/himandhim_vip_bot";
 // ============================================================================
 const DRAMAS = [
   {
+    titleSi: "නව කතා මාලාව (Coming Soon)",
+    titleEn: "New Original Series",
+    year: "2026",
+    status: "upcoming",
+    statusNoteSi: "ළඟදීම VIP නාලිකාවෙන්",
+    statusNoteEn: "Premiering Soon on VIP",
+    tagSi: "නව කතා සමය 1 • සිංහල BL",
+    tagEn: "NEW SERIES • SINHALA BL",
+    descSi: "Him & Him වෙතින් ගෙන එන අලුත්ම සිංහල BL කතා මාලාව! පළමු කොටස ළඟදීම VIP නාලිකාවෙන් බලාපොරොත්තු වන්න... ✨💙🔥",
+    descEn: "A brand-new original Sinhala BL series from Him & Him! Stay tuned for the official premiere exclusively on VIP. ✨💙🔥",
+    slideUrl: "upcoming_slide.webp",
+    posterUrl: "upcoming_cover.webp",
+    gradient: "linear-gradient(155deg, #0b4f6c 0%, #1c1138 55%, #07050c 100%)",
+    seasons: [
+      {
+        seasonNameSi: "පූර්ව දැක්ම (Coming Soon)",
+        seasonNameEn: "Official Premiere Preview",
+        episodes: [
+          {
+            num: 1,
+            titleSi: "පළමු කොටස ළඟදීම • VIP දැනුම්දීම",
+            titleEn: "Episode 01 Coming Soon • Join VIP",
+            subSi: "ළඟදීම නිකුත් වේ • VIP සාමාජිකත්වය ලබාගන්න",
+            subEn: "Premiering Soon • Tap to Join VIP",
+            thumbUrl: "upcoming_slide.webp",
+            link: "https://t.me/himandhim_vip_bot"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    titleSi: "ගරළ — Season 2",
+    titleEn: "Garala — Season 2",
+    year: "2026",
+    status: "next_season",
+    statusNoteSi: "දෙවන කතා සමය ළඟදීම",
+    statusNoteEn: "Season 2 Coming Soon",
+    tagSi: "දෙවන කතා සමය • සිංහල BL",
+    tagEn: "SEASON 2 PREVIEW • SINHALA BL",
+    descSi: "සෙවනැලි යුද්ධයේ මීළඟ පරිච්ඡේදය! අශේන් සහ නෙතුගේ ආදර කතාවේ දෙවන කතා සමය (Season 2) ළඟදීම Him & Him VIP වෙතින්... 🐍🔥💙",
+    descEn: "The next chapter of the Shadow War begins! Season 2 of Ashen and Nethu’s story is coming soon exclusively to Him & Him VIP. 🐍🔥💙",
+    slideUrl: "garala_s2_slide.webp",
+    posterUrl: "garala_s2_cover.webp",
+    gradient: "linear-gradient(155deg, #5b186e 0%, #1d1038 55%, #07050c 100%)",
+    seasons: [
+      {
+        seasonNameSi: "Season 2 — පූර්ව දැක්ම (Coming Soon)",
+        seasonNameEn: "Season 2 — Official Preview",
+        episodes: [
+          {
+            num: 1,
+            titleSi: "Season 2 පූර්ව දැක්ම • VIP දැනුම්දීම",
+            titleEn: "Season 2 Teaser & VIP Early Access",
+            subSi: "ළඟදීම නිකුත් වේ • VIP සාමාජිකත්වය ලබාගන්න",
+            subEn: "Coming Soon • Tap to Join VIP",
+            thumbUrl: "garala_slide.webp",
+            link: "https://t.me/himandhim_vip_bot"
+          }
+        ]
+      }
+    ]
+  },
+  {
     titleSi: "ගරළ",
     titleEn: "Garala",
     year: "2026",
@@ -491,12 +555,18 @@ const SHORT_DRAMAS = [
   function matchDramaForCard(cardEl) {
     const imgs = Array.from(cardEl.querySelectorAll("img"));
     for (const drama of DRAMAS) {
-      if (drama.posterUrl && imgs.some((img) => (img.getAttribute("src") || "").includes(drama.posterUrl))) {
+      if (
+        (drama.posterUrl && imgs.some((img) => (img.getAttribute("src") || "").includes(drama.posterUrl))) ||
+        (drama.slideUrl && imgs.some((img) => (img.getAttribute("src") || "").includes(drama.slideUrl)))
+      ) {
         return drama;
       }
     }
     const text = (cardEl.textContent || "").toLowerCase();
-    for (const drama of DRAMAS) {
+    const sortedByLongestTitle = [...DRAMAS].sort(
+      (a, b) => (b.titleEn || b.titleSi || "").length - (a.titleEn || a.titleSi || "").length
+    );
+    for (const drama of sortedByLongestTitle) {
       if (
         (drama.titleEn && text.includes(drama.titleEn.toLowerCase())) ||
         (drama.titleSi && text.includes(drama.titleSi.toLowerCase()))
