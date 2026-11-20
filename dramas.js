@@ -41,7 +41,6 @@ const DRAMAS = [
         ]
       }
     ]
-  
   },
   {
     titleSi: "ගරළ",
@@ -289,6 +288,205 @@ const SHORT_DRAMAS = [
     link: "https://t.me/c/4339816032/32"
   }
 ];
+
+// ============================================================================
+// BL AESTHETIC SOUND ENGINE (Web Audio Synthesizer — Zero External MP3s Needed)
+// Soft romantic heartbeat + music-box timer tick & glassy harp/bell UI chimes
+// ============================================================================
+(function initBlSoundEngine() {
+  if (typeof window === "undefined") return;
+
+  const STORAGE_KEY = "hh_bl_sound_muted";
+  let audioCtx = null;
+  let isMuted = false;
+
+  try {
+    isMuted = localStorage.getItem(STORAGE_KEY) === "1";
+  } catch (e) {
+    isMuted = false;
+  }
+
+  function ensureContext() {
+    if (!audioCtx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (Ctx) {
+        audioCtx = new Ctx();
+      }
+    }
+    if (audioCtx && audioCtx.state === "suspended") {
+      audioCtx.resume().catch(() => {});
+    }
+    return audioCtx;
+  }
+
+  // Unlock Web Audio on first user touch/click in Telegram WebView
+  function unlockOnGesture() {
+    ensureContext();
+  }
+  window.addEventListener("pointerdown", unlockOnGesture, { passive: true });
+  window.addEventListener("touchstart", unlockOnGesture, { passive: true });
+  window.addEventListener("keydown", unlockOnGesture, { passive: true });
+
+  // 1. Intimate BL Heartbeat + Crystal Music-Box Timer Tick (every second)
+  function playTimerTick(secondNum) {
+    if (isMuted || document.hidden) return;
+    const ctx = ensureContext();
+    if (!ctx || ctx.state !== "running") return;
+
+    const now = ctx.currentTime;
+
+    // Soft warm heartbeat thump
+    const heartOsc = ctx.createOscillator();
+    const heartGain = ctx.createGain();
+    heartOsc.type = "sine";
+    heartOsc.frequency.setValueAtTime(108, now);
+    heartOsc.frequency.exponentialRampToValueAtTime(52, now + 0.13);
+
+    heartGain.gain.setValueAtTime(0.0001, now);
+    heartGain.gain.linearRampToValueAtTime(0.048, now + 0.015);
+    heartGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+
+    heartOsc.connect(heartGain);
+    heartGain.connect(ctx.destination);
+    heartOsc.start(now);
+    heartOsc.stop(now + 0.16);
+
+    // Delicate alternating crystal music-box shimmer (E5 / B5)
+    const chimeOsc = ctx.createOscillator();
+    const chimeGain = ctx.createGain();
+    chimeOsc.type = "sine";
+    const freq = (secondNum % 2 === 0) ? 659.25 : 987.77;
+    chimeOsc.frequency.setValueAtTime(freq, now + 0.01);
+
+    chimeGain.gain.setValueAtTime(0.0001, now + 0.01);
+    chimeGain.gain.linearRampToValueAtTime(0.016, now + 0.025);
+    chimeGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+
+    chimeOsc.connect(chimeGain);
+    chimeGain.connect(ctx.destination);
+    chimeOsc.start(now + 0.01);
+    chimeOsc.stop(now + 0.25);
+  }
+
+  // 2. Soft Rose-Quartz Bell Tap (for filter pills, nav arrows, general taps)
+  function playSoftTap() {
+    if (isMuted) return;
+    const ctx = ensureContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    const notes = [880, 1318.51]; // A5 -> E6 fifth interval
+    notes.forEach((freq, idx) => {
+      const start = now + idx * 0.032;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, start);
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(idx === 0 ? 0.042 : 0.028, start + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.24);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + 0.25);
+    });
+  }
+
+  // 3. Dreamy BL Harp / Chime Glissando (for drama cards, premieres, VIP buttons)
+  function playRomanticChime() {
+    if (isMuted) return;
+    const ctx = ensureContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    // Cmaj9 ethereal arpeggio: C5, G5, B5, D6, E6
+    const chord = [523.25, 783.99, 987.77, 1174.66, 1318.51];
+    chord.forEach((freq, idx) => {
+      const start = now + idx * 0.042;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = idx % 2 === 0 ? "sine" : "triangle";
+      osc.frequency.setValueAtTime(freq, start);
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(0.038 - idx * 0.004, start + 0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.58);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + 0.6);
+    });
+  }
+
+  function updateSoundButtonUI() {
+    const btn = document.getElementById("hh-sound-toggle");
+    if (!btn) return;
+    const activeLang = typeof currentLang !== "undefined" ? currentLang : "si";
+    btn.classList.toggle("is-muted", isMuted);
+    if (isMuted) {
+      btn.innerHTML = activeLang === "en" ? "🔇 Muted" : "🔇 නිහඬයි";
+    } else {
+      btn.innerHTML = activeLang === "en" ? "🔊 BL Sound" : "🔊 නාදය";
+    }
+  }
+
+  function toggleMute() {
+    isMuted = !isMuted;
+    try {
+      localStorage.setItem(STORAGE_KEY, isMuted ? "1" : "0");
+    } catch (e) {}
+    updateSoundButtonUI();
+    if (!isMuted) {
+      ensureContext();
+      playRomanticChime();
+    }
+  }
+
+  window.HHBLAudio = {
+    tick: playTimerTick,
+    tap: playSoftTap,
+    chime: playRomanticChime,
+    toggle: toggleMute,
+    isMuted: () => isMuted,
+    syncUI: updateSoundButtonUI
+  };
+
+  // Global delegated click sound handler across the entire Mini App
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+    if (!target || typeof target.closest !== "function") return;
+    if (target.closest("#hh-sound-toggle")) return;
+
+    // Romantic chime for drama cards, Sunday billboards, Short Dramas, episodes & VIP CTAs
+    if (
+      target.closest(".hh-bb-prism-wrap") ||
+      target.closest(".hh-sd-card") ||
+      target.closest(".drama-card") ||
+      target.closest(".ep-card") ||
+      target.closest(".episode-card") ||
+      target.closest(".vip-showcase") ||
+      target.closest(".hero-cta") ||
+      target.closest("#dramaGrid > *") ||
+      target.closest("#dramasGrid > *")
+    ) {
+      playRomanticChime();
+      return;
+    }
+
+    // Soft rose-quartz bell tap for filter pills, carousel buttons, language switches & modals
+    if (
+      target.closest(".hh-flt-btn") ||
+      target.closest(".hh-sd-nav-btn") ||
+      target.closest("button") ||
+      target.closest("a")
+    ) {
+      playSoftTap();
+    }
+  });
+})();
 
 // ============================================================================
 // 0. 3D DRAMA STATUS RIBBONS & INTERACTIVE CATEGORY FILTER BAR
@@ -618,7 +816,6 @@ const SHORT_DRAMAS = [
       const stKey = drama.status || "ongoing";
       const meta = STATUS_META[stKey] || STATUS_META.ongoing;
 
-      // Apply category filter
       const matchesFilter =
         activeFilter === "all" ||
         (activeFilter === "upcoming"
@@ -626,7 +823,6 @@ const SHORT_DRAMAS = [
           : stKey === activeFilter);
       card.style.display = matchesFilter ? "" : "none";
 
-      // Attach badges onto the poster image container (or card root)
       const posterImg = card.querySelector("img");
       const host =
         posterImg && posterImg.parentElement && posterImg.parentElement !== gridEl
@@ -635,7 +831,6 @@ const SHORT_DRAMAS = [
 
       host.classList.add("hh-status-host");
 
-      // Remove old injected badges before re-rendering
       host.querySelectorAll(".hh-status-ribbon, .hh-status-subpill").forEach((el) => el.remove());
 
       const ribbon = document.createElement("div");
@@ -695,7 +890,7 @@ const SHORT_DRAMAS = [
 
 // ============================================================================
 // 1. 3D INTERLOCKING DIAGONAL CRYSTAL PRISM BILLBOARD STAGE
-// + LIVE 3D BL COUNTDOWN WITH TWO REACHING MALE CHARACTERS
+// + LIVE 3D BL COUNTDOWN WITH TWO REACHING MALE CHARACTERS & SOUND
 // ============================================================================
 (function initSundayBillboards() {
   if (typeof window === "undefined" || typeof SUNDAY_BILLBOARDS === "undefined") return;
@@ -740,6 +935,7 @@ const SHORT_DRAMAS = [
     const s = Math.floor((diffMs / 1000) % 60);
 
     return {
+      rawSec: s,
       days: String(d).padStart(2, "0"),
       hours: String(h).padStart(2, "0"),
       minutes: String(m).padStart(2, "0"),
@@ -962,6 +1158,31 @@ const SHORT_DRAMAS = [
         font-weight: 800;
         color: #ffffff;
         text-shadow: 0 2px 12px rgba(238, 93, 183, 0.45);
+      }
+      .hh-bb-header-pills {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hh-bb-sound-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        color: #8ff7ee;
+        background: rgba(46, 230, 214, 0.16);
+        border: 1px solid rgba(46, 230, 214, 0.45);
+        box-shadow: 0 0 12px rgba(46, 230, 214, 0.22);
+        transition: all 0.2s ease;
+      }
+      .hh-bb-sound-btn.is-muted {
+        color: rgba(255, 255, 255, 0.65);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
       }
       .hh-bb-live-pill {
         display: inline-flex;
@@ -1460,6 +1681,10 @@ const SHORT_DRAMAS = [
     mEl.textContent = parts.minutes;
     sEl.textContent = parts.seconds;
 
+    if (window.HHBLAudio && typeof window.HHBLAudio.tick === "function") {
+      window.HHBLAudio.tick(parts.rawSec);
+    }
+
     if (secTile) {
       secTile.classList.add("tick-pulse");
       setTimeout(() => secTile.classList.remove("tick-pulse"), 260);
@@ -1482,6 +1707,7 @@ const SHORT_DRAMAS = [
 
     const leftPng = SUNDAY_BILLBOARDS.leftCharPng || "bb_char_left.png";
     const rightPng = SUNDAY_BILLBOARDS.rightCharPng || "bb_char_right.png";
+    const mutedState = window.HHBLAudio && window.HHBLAudio.isMuted();
 
     const section = document.createElement("section");
     section.id = "hh-sunday-billboard-section";
@@ -1500,9 +1726,16 @@ const SHORT_DRAMAS = [
             </span>
             <div class="hh-bb-heading">${activeLang === "en" ? "Weekly Premiere Stage" : "ඉදිරි සහ පසුගිය ඉරිදා කතා"}</div>
           </div>
-          <div class="hh-bb-live-pill">
-            <span class="hh-bb-live-dot"></span>
-            ${activeLang === "en" ? "LIVE COUNTDOWN" : "සජීවී ගණන් කිරීම"}
+          <div class="hh-bb-header-pills">
+            <button type="button" class="hh-bb-sound-btn ${mutedState ? "is-muted" : ""}" id="hh-sound-toggle" aria-label="Toggle BL Sound">
+              ${mutedState
+                ? (activeLang === "en" ? "🔇 Muted" : "🔇 නිහඬයි")
+                : (activeLang === "en" ? "🔊 BL Sound" : "🔊 නාදය")}
+            </button>
+            <div class="hh-bb-live-pill">
+              <span class="hh-bb-live-dot"></span>
+              ${activeLang === "en" ? "LIVE" : "සජීවී"}
+            </div>
           </div>
         </div>
 
@@ -1616,6 +1849,14 @@ const SHORT_DRAMAS = [
         if (svgWrapper) svgWrapper.style.display = "none";
       });
     });
+
+    const soundBtn = section.querySelector("#hh-sound-toggle");
+    if (soundBtn && window.HHBLAudio) {
+      soundBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.HHBLAudio.toggle();
+      });
+    }
 
     const comingEl = section.querySelector("#hh-bb-coming");
     const prevEl = section.querySelector("#hh-bb-previous");
