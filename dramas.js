@@ -56,7 +56,6 @@ const DRAMAS = [
         episodes: [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/4" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep2.webp", link: "https://t.me/c/4339816032/5" }
-
         ]
       }
     ]
@@ -82,8 +81,6 @@ const DRAMAS = [
           { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep3.webp", link: "https://t.me/c/4339816032/44" },
           { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep4.webp", link: "https://t.me/c/4339816032/45" },
           { num: 5, titleSi: "කතා මාලාවේ අවසාන කොටස", titleEn: "Season Finale", subSi: "පළමු කතා සමය • VIP", subEn: "Full Uncut • VIP", thumbUrl: "mayawiya_s1_ep5.webp", link: "https://t.me/c/4339816032/46" }
-
-
         ]
       },
       {
@@ -91,8 +88,7 @@ const DRAMAS = [
         seasonNameEn: "Season 2",
         episodes: [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep1.webp", link: "https://t.me/c/4339816032/9" },
-          { num: 1, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep2.webp", link: "https://t.me/c/4339816032/48" }
-
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "දෙවන කතා සමය • VIP", subEn: "Season 2 • VIP", thumbUrl: "mayawiya_s2_ep2.webp", link: "https://t.me/c/4339816032/48" }
         ]
       }
     ]
@@ -116,7 +112,6 @@ const DRAMAS = [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep1.webp", link: "https://t.me/c/4339816032/10" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep2.webp", link: "https://t.me/c/4339816032/11" },
           { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "ghattanaya_ep3.webp", link: "https://t.me/c/4339816032/12" }
-
         ]
       }
     ]
@@ -140,8 +135,6 @@ const DRAMAS = [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep1.webp", link: "https://t.me/c/4339816032/6" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep2.webp", link: "https://t.me/c/4339816032/7" },
           { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep3.webp", link: "https://t.me/c/4339816032/8" }
-
-
         ]
       }
     ]
@@ -173,10 +166,6 @@ const DRAMAS = [
           { num: 9, titleSi: "09 වන කොටස", titleEn: "Episode 09", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep9.webp", link: "https://t.me/c/4339816032/34" },
           { num: 10, titleSi: "10 වන කොටස", titleEn: "Episode 10", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep10.webp", link: "https://t.me/c/4339816032/37" },
           { num: 11, titleSi: "අවසාන කොටස", titleEn: "Final Episode", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "kpt_ep11.webp", link: "https://t.me/c/4339816032/41" }
-
-
-
-
         ]
       }
     ]
@@ -185,9 +174,12 @@ const DRAMAS = [
 
 // ============================================================================
 // SUNDAY PREMIERE BILLBOARDS — Update Coming Sunday & Previous Sunday here!
-// Upload two separate images to your GitHub folder and set imageUrl below.
+// Optional: Upload transparent PNG cutouts named bb_char_left.png & bb_char_right.png
+// to replace the built-in BL vector silhouettes flanking the 3D countdown!
 // ============================================================================
 const SUNDAY_BILLBOARDS = {
+  leftCharPng: "bb_char_left.png",
+  rightCharPng: "bb_char_right.png",
   comingSunday: {
     pillSi: "✨ ඉදිරි ඉරිදා නිකුත් වන",
     pillEn: "✨ COMING THIS SUNDAY",
@@ -240,12 +232,11 @@ const SHORT_DRAMAS = [
     gradient: "linear-gradient(135deg, #5a1238 0%, #1e0b2e 55%, #07050c 100%)",
     link: "https://t.me/c/4339816032/32"
   }
-  
 ];
 
 // ============================================================================
 // 1. 3D INTERLOCKING DIAGONAL CRYSTAL PRISM BILLBOARD STAGE
-// Non-rectangular slanted geometry + curved IMAX 3D tilt + floating medallion
+// + LIVE 3D BL COUNTDOWN WITH TWO REACHING MALE CHARACTERS
 // ============================================================================
 (function initSundayBillboards() {
   if (typeof window === "undefined" || typeof SUNDAY_BILLBOARDS === "undefined") return;
@@ -268,7 +259,7 @@ const SHORT_DRAMAS = [
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
-  function getNextSundayCountdown(lang) {
+  function getNextSundayParts() {
     const now = new Date();
     const slOffsetMs = 5.5 * 60 * 60 * 1000;
     const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
@@ -287,11 +278,127 @@ const SHORT_DRAMAS = [
     const d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const h = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
     const m = Math.floor((diffMs / (1000 * 60)) % 60);
+    const s = Math.floor((diffMs / 1000) % 60);
 
-    if (lang === "en") {
-      return `⏳ Next Drop: ${d}d ${h}h ${m}m`;
-    }
-    return `⏳ මීළඟ කොටසට: දින ${d} පැය ${h} මි. ${m}`;
+    return {
+      days: String(d).padStart(2, "0"),
+      hours: String(h).padStart(2, "0"),
+      minutes: String(m).padStart(2, "0"),
+      seconds: String(s).padStart(2, "0")
+    };
+  }
+
+  function getLeftBlCharacterSvg() {
+    return `
+      <svg class="hh-bl-svg left-svg" viewBox="0 0 260 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="hhBlPinkFill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#361242" />
+            <stop offset="55%" stop-color="#180929" />
+            <stop offset="100%" stop-color="#0b0517" />
+          </linearGradient>
+          <linearGradient id="hhBlPinkRim" x1="0" y1="0" x2="1" y2="0.4">
+            <stop offset="0%" stop-color="#ff94d2" />
+            <stop offset="55%" stop-color="#ee5db7" />
+            <stop offset="100%" stop-color="#ffd166" />
+          </linearGradient>
+        </defs>
+        <circle cx="62" cy="44" r="32" fill="#ee5db7" opacity="0.22" />
+        <circle cx="242" cy="52" r="14" fill="#ff94d2" opacity="0.32" />
+        <path d="M16 130
+                 L22 92
+                 C24 80 33 73 45 70
+                 L48 60
+                 C41 56 37 48 39 38
+                 C33 36 31 29 36 24
+                 C34 17 42 10 52 12
+                 C58 6 70 7 76 14
+                 C84 15 89 22 86 29
+                 C90 32 89 37 85 39
+                 L87 44
+                 C88 46 86 48 84 49
+                 L85 53
+                 C84 57 79 60 72 60
+                 L70 69
+                 C84 71 98 73 114 70
+                 L178 55
+                 C194 51 208 49 222 47
+                 C229 46 238 45 244 47
+                 C247 48 247 50 243 51
+                 L234 52
+                 C242 52 248 53 248 55
+                 C248 57 241 58 233 58
+                 C239 59 243 60 242 62
+                 C241 64 234 64 227 63
+                 C222 65 215 65 208 63
+                 L180 71
+                 L116 93
+                 C104 97 95 106 92 119
+                 L90 130 Z"
+              fill="url(#hhBlPinkFill)"
+              stroke="url(#hhBlPinkRim)"
+              stroke-width="2.1"
+              stroke-linejoin="round" />
+        <path d="M46 72 L61 88 L73 71" stroke="#ff94d2" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+        <path d="M104 75 C124 74 146 69 168 62" stroke="#ffd166" stroke-width="1.3" stroke-linecap="round" opacity="0.65" />
+      </svg>
+    `;
+  }
+
+  function getRightBlCharacterSvg() {
+    return `
+      <svg class="hh-bl-svg right-svg" viewBox="0 0 260 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="hhBlCyanFill" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#133b4a" />
+            <stop offset="55%" stop-color="#0d1930" />
+            <stop offset="100%" stop-color="#070a18" />
+          </linearGradient>
+          <linearGradient id="hhBlCyanRim" x1="1" y1="0" x2="0" y2="0.4">
+            <stop offset="0%" stop-color="#8ff7ee" />
+            <stop offset="55%" stop-color="#2ee6d6" />
+            <stop offset="100%" stop-color="#ffd166" />
+          </linearGradient>
+        </defs>
+        <circle cx="198" cy="40" r="32" fill="#2ee6d6" opacity="0.22" />
+        <circle cx="18" cy="52" r="14" fill="#8ff7ee" opacity="0.32" />
+        <path d="M244 130
+                 L238 89
+                 C236 77 227 70 214 67
+                 L211 57
+                 C219 53 223 44 221 34
+                 C226 30 225 22 219 18
+                 C218 11 209 6 199 9
+                 C192 4 180 6 175 13
+                 C168 15 165 22 169 28
+                 L166 36
+                 C165 39 167 41 169 42
+                 L168 47
+                 C169 52 175 56 183 56
+                 L185 66
+                 C171 68 157 71 142 68
+                 L82 54
+                 C66 50 52 48 38 47
+                 C31 46 22 45 16 47
+                 C13 48 13 50 17 51
+                 L26 52
+                 C18 52 12 53 12 55
+                 C12 57 19 58 27 58
+                 C21 59 17 60 18 62
+                 C19 64 26 64 33 63
+                 C38 65 45 65 52 63
+                 L80 71
+                 L144 92
+                 C156 96 165 105 168 119
+                 L170 130 Z"
+              fill="url(#hhBlCyanFill)"
+              stroke="url(#hhBlCyanRim)"
+              stroke-width="2.1"
+              stroke-linejoin="round" />
+        <path d="M213 69 L198 86 L186 68" stroke="#8ff7ee" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+        <path d="M155 73 C135 72 114 67 92 61" stroke="#ffd166" stroke-width="1.3" stroke-linecap="round" opacity="0.65" />
+      </svg>
+    `;
   }
 
   function injectBillboardStyles() {
@@ -355,7 +462,7 @@ const SHORT_DRAMAS = [
         align-items: center;
         justify-content: space-between;
         gap: 8px;
-        margin-bottom: 14px;
+        margin-bottom: 10px;
         flex-wrap: wrap;
       }
       .hh-bb-title-wrap {
@@ -397,15 +504,242 @@ const SHORT_DRAMAS = [
         color: #ffffff;
         text-shadow: 0 2px 12px rgba(238, 93, 183, 0.45);
       }
-      .hh-bb-countdown {
-        padding: 5px 11px;
+      .hh-bb-live-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
         border-radius: 999px;
-        font-size: 10.5px;
+        font-size: 10px;
         font-weight: 800;
+        letter-spacing: 0.05em;
         color: #ffe29a;
-        background: linear-gradient(135deg, rgba(238, 93, 183, 0.24), rgba(255, 109, 0, 0.24));
-        border: 1px solid rgba(255, 174, 0, 0.45);
-        box-shadow: 0 0 16px rgba(255, 109, 0, 0.25);
+        background: linear-gradient(135deg, rgba(238, 93, 183, 0.24), rgba(46, 230, 214, 0.2));
+        border: 1px solid rgba(255, 209, 102, 0.45);
+        box-shadow: 0 0 14px rgba(238, 93, 183, 0.28);
+      }
+      .hh-bb-live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ff4d8d;
+        box-shadow: 0 0 8px #ff4d8d;
+        animation: hhBulbPulse 0.8s infinite alternate;
+      }
+
+      /* ====================================================================
+         3D BL REACHING-HANDS LIVE COUNTDOWN STAGE
+         ==================================================================== */
+      .hh-bb-cd-stage {
+        position: relative;
+        z-index: 4;
+        margin: 4px 0 16px 0;
+        padding: 74px 10px 14px 10px;
+        border-radius: 20px;
+        background:
+          radial-gradient(ellipse at 22% 28%, rgba(238, 93, 183, 0.26) 0%, transparent 52%),
+          radial-gradient(ellipse at 78% 28%, rgba(46, 230, 214, 0.24) 0%, transparent 52%),
+          radial-gradient(circle at 50% 34%, rgba(255, 209, 102, 0.16) 0%, rgba(12, 7, 26, 0.94) 68%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 16px 36px rgba(0, 0, 0, 0.78),
+          inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        perspective: 950px;
+      }
+
+      /* Subtle floating romantic starlight particles */
+      .hh-bb-cd-particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background-image:
+          radial-gradient(2px 2px at 18% 22%, rgba(255, 148, 210, 0.85), transparent),
+          radial-gradient(2px 2px at 82% 20%, rgba(143, 247, 238, 0.85), transparent),
+          radial-gradient(2.5px 2.5px at 50% 16%, rgba(255, 209, 102, 0.95), transparent),
+          radial-gradient(1.5px 1.5px at 36% 35%, rgba(255, 255, 255, 0.7), transparent),
+          radial-gradient(1.5px 1.5px at 64% 33%, rgba(255, 255, 255, 0.7), transparent);
+        animation: hhParticlesFloat 4.5s ease-in-out infinite alternate;
+      }
+      @keyframes hhParticlesFloat {
+        0% { transform: translateY(2px) scale(0.98); opacity: 0.75; }
+        100% { transform: translateY(-5px) scale(1.03); opacity: 1; }
+      }
+
+      /* Left & Right Male Characters Reaching Toward Center */
+      .hh-bb-char-slot {
+        position: absolute;
+        top: 2px;
+        width: 50%;
+        max-width: 245px;
+        height: 112px;
+        pointer-events: none;
+        z-index: 2;
+        display: flex;
+        align-items: flex-end;
+      }
+      .hh-bb-char-slot.left-char {
+        left: 0;
+        justify-content: flex-start;
+        transform-origin: bottom left;
+        animation: hhReachLeft 3.6s ease-in-out infinite alternate;
+      }
+      .hh-bb-char-slot.right-char {
+        right: 0;
+        justify-content: flex-end;
+        transform-origin: bottom right;
+        animation: hhReachRight 3.6s ease-in-out infinite alternate;
+      }
+      @keyframes hhReachLeft {
+        0% { transform: translateX(-3px) rotate(-0.8deg); }
+        100% { transform: translateX(5px) rotate(1.1deg); }
+      }
+      @keyframes hhReachRight {
+        0% { transform: translateX(3px) rotate(0.8deg); }
+        100% { transform: translateX(-5px) rotate(-1.1deg); }
+      }
+
+      .hh-bl-svg,
+      .hh-bl-png {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      .hh-bb-char-slot.left-char .hh-bl-svg,
+      .hh-bb-char-slot.left-char .hh-bl-png {
+        filter: drop-shadow(0 4px 14px rgba(238, 93, 183, 0.65));
+      }
+      .hh-bb-char-slot.right-char .hh-bl-svg,
+      .hh-bb-char-slot.right-char .hh-bl-png {
+        filter: drop-shadow(0 4px 14px rgba(46, 230, 214, 0.65));
+      }
+
+      /* Center Fingertip Magnetic Energy Spark */
+      .hh-bb-touch-nexus {
+        position: absolute;
+        top: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 34px;
+        height: 34px;
+        z-index: 3;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease;
+      }
+      .hh-bb-touch-ring {
+        position: absolute;
+        inset: 2px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 232, 163, 0.95) 0%, rgba(238, 93, 183, 0.65) 45%, rgba(46, 230, 214, 0.25) 72%, transparent 100%);
+        filter: blur(2px);
+        animation: hhNexusGlow 1.6s ease-in-out infinite alternate;
+      }
+      .hh-bb-touch-star {
+        position: relative;
+        font-size: 15px;
+        line-height: 1;
+        filter: drop-shadow(0 0 8px #ffd166);
+        animation: hhStarSpin 6s linear infinite;
+      }
+      .hh-bb-touch-nexus.tick-pulse {
+        transform: translateX(-50%) scale(1.32);
+      }
+      @keyframes hhNexusGlow {
+        0% { transform: scale(0.85); opacity: 0.75; }
+        100% { transform: scale(1.25); opacity: 1; }
+      }
+      @keyframes hhStarSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* 4-Column 3D Beveled Countdown Tiles */
+      .hh-bb-tiles-row {
+        position: relative;
+        z-index: 4;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        transform-style: preserve-3d;
+      }
+      .hh-bb-tile {
+        position: relative;
+        padding: 9px 4px 8px 4px;
+        border-radius: 14px;
+        background: linear-gradient(165deg, rgba(30, 16, 56, 0.94) 0%, rgba(9, 6, 20, 0.98) 100%);
+        border: 1px solid rgba(238, 93, 183, 0.45);
+        box-shadow:
+          0 6px 0 rgba(18, 9, 36, 0.96),
+          0 12px 22px rgba(0, 0, 0, 0.85),
+          inset 0 1px 1px rgba(255, 255, 255, 0.28);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease;
+      }
+      .hh-bb-tile.left-tint {
+        transform: rotateY(6deg) translateZ(8px);
+        border-color: rgba(238, 93, 183, 0.52);
+      }
+      .hh-bb-tile.right-tint {
+        transform: rotateY(-6deg) translateZ(8px);
+        border-color: rgba(46, 230, 214, 0.52);
+      }
+      .hh-bb-tile.is-sec.tick-pulse {
+        transform: rotateY(-6deg) translateZ(16px) translateY(-2px) scale(1.06);
+        border-color: #ffd166;
+        box-shadow:
+          0 8px 0 rgba(36, 16, 54, 0.98),
+          0 14px 26px rgba(238, 93, 183, 0.45),
+          0 0 18px rgba(46, 230, 214, 0.45),
+          inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+      .hh-bb-num {
+        font-size: clamp(22px, 6.2vw, 30px);
+        font-weight: 900;
+        line-height: 1.05;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+        background: linear-gradient(180deg, #ffffff 15%, #ffd6ef 65%, #ff94d2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 2px 8px rgba(238, 93, 183, 0.45));
+      }
+      .hh-bb-tile.right-tint .hh-bb-num {
+        background: linear-gradient(180deg, #ffffff 15%, #ccf9f5 65%, #8ff7ee 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 2px 8px rgba(46, 230, 214, 0.45));
+      }
+      .hh-bb-unit {
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #ffe29a;
+        opacity: 0.92;
+      }
+
+      .hh-bb-cd-caption {
+        position: relative;
+        z-index: 4;
+        margin-top: 12px;
+        text-align: center;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #e4dcf2;
+      }
+      .hh-bb-cd-caption span {
+        color: #ffd166;
+        font-weight: 800;
       }
 
       /* 3D Interlocking Diagonal Cinerama Stage */
@@ -665,6 +999,32 @@ const SHORT_DRAMAS = [
     wrapEl.addEventListener("touchend", onReset);
   }
 
+  function updateLiveCountdownDom() {
+    const parts = getNextSundayParts();
+    const dEl = document.getElementById("hh-cd-days");
+    const hEl = document.getElementById("hh-cd-hrs");
+    const mEl = document.getElementById("hh-cd-min");
+    const sEl = document.getElementById("hh-cd-sec");
+    const secTile = document.getElementById("hh-tile-sec");
+    const nexus = document.getElementById("hh-touch-nexus");
+
+    if (!dEl || !hEl || !mEl || !sEl) return;
+
+    dEl.textContent = parts.days;
+    hEl.textContent = parts.hours;
+    mEl.textContent = parts.minutes;
+    sEl.textContent = parts.seconds;
+
+    if (secTile) {
+      secTile.classList.add("tick-pulse");
+      setTimeout(() => secTile.classList.remove("tick-pulse"), 260);
+    }
+    if (nexus) {
+      nexus.classList.add("tick-pulse");
+      setTimeout(() => nexus.classList.remove("tick-pulse"), 260);
+    }
+  }
+
   function renderBillboards(lang) {
     injectBillboardStyles();
     const activeLang = lang || (typeof currentLang !== "undefined" ? currentLang : "si");
@@ -673,6 +1033,10 @@ const SHORT_DRAMAS = [
 
     const c = SUNDAY_BILLBOARDS.comingSunday;
     const p = SUNDAY_BILLBOARDS.previousSunday;
+    const initParts = getNextSundayParts();
+
+    const leftPng = SUNDAY_BILLBOARDS.leftCharPng || "bb_char_left.png";
+    const rightPng = SUNDAY_BILLBOARDS.rightCharPng || "bb_char_right.png";
 
     const section = document.createElement("section");
     section.id = "hh-sunday-billboard-section";
@@ -691,7 +1055,59 @@ const SHORT_DRAMAS = [
             </span>
             <div class="hh-bb-heading">${activeLang === "en" ? "Weekly Premiere Stage" : "ඉදිරි සහ පසුගිය ඉරිදා කතා"}</div>
           </div>
-          <div class="hh-bb-countdown" id="hh-bb-countdown">${getNextSundayCountdown(activeLang)}</div>
+          <div class="hh-bb-live-pill">
+            <span class="hh-bb-live-dot"></span>
+            ${activeLang === "en" ? "LIVE COUNTDOWN" : "සජීවී ගණන් කිරීම"}
+          </div>
+        </div>
+
+        <!-- 3D BL COUNTDOWN STAGE WITH TWO REACHING MALE CHARACTERS -->
+        <div class="hh-bb-cd-stage">
+          <div class="hh-bb-cd-particles"></div>
+
+          <!-- Left BL Character Reaching Hand Right -->
+          <div class="hh-bb-char-slot left-char">
+            <img class="hh-bl-png" src="${leftPng}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+            <div style="display:block;width:100%;height:100%;">${getLeftBlCharacterSvg()}</div>
+          </div>
+
+          <!-- Center Fingertip Touch Spark -->
+          <div class="hh-bb-touch-nexus" id="hh-touch-nexus">
+            <div class="hh-bb-touch-ring"></div>
+            <span class="hh-bb-touch-star">💗</span>
+          </div>
+
+          <!-- Right BL Character Reaching Hand Left -->
+          <div class="hh-bb-char-slot right-char">
+            <img class="hh-bl-png" src="${rightPng}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+            <div style="display:block;width:100%;height:100%;">${getRightBlCharacterSvg()}</div>
+          </div>
+
+          <!-- 4 Large 3D Beveled Countdown Tiles -->
+          <div class="hh-bb-tiles-row">
+            <div class="hh-bb-tile left-tint">
+              <div class="hh-bb-num" id="hh-cd-days">${initParts.days}</div>
+              <div class="hh-bb-unit">${activeLang === "en" ? "DAYS" : "දින"}</div>
+            </div>
+            <div class="hh-bb-tile left-tint">
+              <div class="hh-bb-num" id="hh-cd-hrs">${initParts.hours}</div>
+              <div class="hh-bb-unit">${activeLang === "en" ? "HOURS" : "පැය"}</div>
+            </div>
+            <div class="hh-bb-tile right-tint">
+              <div class="hh-bb-num" id="hh-cd-min">${initParts.minutes}</div>
+              <div class="hh-bb-unit">${activeLang === "en" ? "MINUTES" : "මිනිත්තු"}</div>
+            </div>
+            <div class="hh-bb-tile right-tint is-sec" id="hh-tile-sec">
+              <div class="hh-bb-num" id="hh-cd-sec">${initParts.seconds}</div>
+              <div class="hh-bb-unit">${activeLang === "en" ? "SECONDS" : "තත්පර"}</div>
+            </div>
+          </div>
+
+          <div class="hh-bb-cd-caption">
+            ${activeLang === "en"
+              ? "⏳ Until Next Sunday Premiere • <span>8:00 PM SL Time</span>"
+              : "⏳ මීළඟ ඉරිදා නව කොටසට • <span>රාත්‍රී 8:00ට</span>"}
+          </div>
         </div>
 
         <div class="hh-bb-prism-stack">
@@ -755,6 +1171,16 @@ const SHORT_DRAMAS = [
       </div>
     `;
 
+    // Ensure custom PNG hides the SVG fallback if the PNG successfully loads
+    section.querySelectorAll(".hh-bl-png").forEach((imgEl) => {
+      const svgWrapper = imgEl.nextElementSibling;
+      imgEl.style.display = "none";
+      imgEl.addEventListener("load", () => {
+        imgEl.style.display = "block";
+        if (svgWrapper) svgWrapper.style.display = "none";
+      });
+    });
+
     const comingEl = section.querySelector("#hh-bb-coming");
     const prevEl = section.querySelector("#hh-bb-previous");
 
@@ -773,13 +1199,7 @@ const SHORT_DRAMAS = [
     }
 
     if (countdownInterval) clearInterval(countdownInterval);
-    countdownInterval = setInterval(() => {
-      const cdEl = document.getElementById("hh-bb-countdown");
-      if (cdEl) {
-        const cur = typeof currentLang !== "undefined" ? currentLang : activeLang;
-        cdEl.textContent = getNextSundayCountdown(cur);
-      }
-    }, 30000);
+    countdownInterval = setInterval(updateLiveCountdownDom, 1000);
   }
 
   window.refreshBillboardsLang = function (lang) {
