@@ -3,12 +3,20 @@ const VIP_BOT_URL = "https://t.me/himandhim_vip_bot";
 
 // ============================================================================
 // YOUR DRAMA CATALOG — Edit only this file to add episodes, seasons, or posters
+// Status options for each drama:
+//   "ongoing"     -> 🔴 ONGOING • විකාශය වේ
+//   "completed"   -> ✅ COMPLETED • සම්පූර්ණයි
+//   "next_season" -> ✨ NEW SEASON • නව සමය ළඟදීම
+//   "upcoming"    -> ⏳ COMING SOON • ළඟදීම
 // ============================================================================
 const DRAMAS = [
   {
     titleSi: "ගරළ",
     titleEn: "Garala",
     year: "2026",
+    status: "next_season",
+    statusNoteSi: "Season 2 ළඟදීම",
+    statusNoteEn: "Season 2 Coming Soon",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "සෙවනැලි යුද්ධය ඇරඹී ඇත! අඳුරු මායාවන් සහ පාවාදීම් මැද, අශේන් සහ නෙතුගේ නොබිඳෙන ආදරය ජය ගනීවිද? 🐍⚔️💙",
@@ -42,6 +50,9 @@ const DRAMAS = [
     titleSi: "විරල හුස්ම",
     titleEn: "Virala Husma",
     year: "2026",
+    status: "ongoing",
+    statusNoteSi: "නව කොටස් ළඟදීම",
+    statusNoteEn: "New Episodes Soon",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "සැඩ කුණාටුවක් සහ නිහඬ අහසක් එකම හුස්මකට යාවුණු අසම්මත ප්‍රේමය... ⛈️✨",
@@ -64,6 +75,9 @@ const DRAMAS = [
     titleSi: "මායාවියා",
     titleEn: "Mayawiya",
     year: "2026",
+    status: "ongoing",
+    statusNoteSi: "Season 2 විකාශය වේ",
+    statusNoteEn: "Season 2 Airing",
     tagSi: "කතා සමයන් 2 • සිංහල BL",
     tagEn: "2 SEASONS • SINHALA BL",
     descSi: "වසර 500ක සංසාර ශාපයක් සහ අමරණීය ප්‍රේමයක කතාව — \"මායාවියා\" දැන් නරඹන්න! 🔥💙",
@@ -97,6 +111,9 @@ const DRAMAS = [
     titleSi: "ඝට්ටනය",
     titleEn: "Ghattanaya",
     year: "2026",
+    status: "ongoing",
+    statusNoteSi: "නව කොටස් ළඟදීම",
+    statusNoteEn: "New Episodes Soon",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "පන්තිය සහ ප්‍රේමය අතර රළු ගැටුම! ඝට්ටනය කතා මාලාවේ සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව නරඹන්න.",
@@ -120,6 +137,9 @@ const DRAMAS = [
     titleSi: "O+",
     titleEn: "O Positive",
     year: "2026",
+    status: "ongoing",
+    statusNoteSi: "නව කොටස් ළඟදීම",
+    statusNoteEn: "New Episodes Soon",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "මීදුම අස්සේ සැඟවුණු, ලේ බැඳීමකට එහා ගිය අසම්මත ආදර කතාව... 🩸❤️. O+ කතා මාලාවේ සියලුම සම්පූර්ණ කොටස් Him & Him VIP වෙතින් නරඹන්න.",
@@ -143,6 +163,9 @@ const DRAMAS = [
     titleSi: "කළු පාට ටැටූ",
     titleEn: "The Black Tattoo",
     year: "2026",
+    status: "completed",
+    statusNoteSi: "සම්පූර්ණ කොටස් 11",
+    statusNoteEn: "All 11 Episodes",
     tagSi: "කතා සමයන් 1 • සිංහල BL",
     tagEn: "1 SEASON • SINHALA BL",
     descSi: "දුරුතු සහ අයුර්ගේ ඛේදනීය කතාව. සියලුම සම්පූර්ණ කොටස් බාධාවකින් තොරව Him & Him VIP නාලිකාවෙන් නරඹන්න.",
@@ -233,6 +256,403 @@ const SHORT_DRAMAS = [
     link: "https://t.me/c/4339816032/32"
   }
 ];
+
+// ============================================================================
+// 0. 3D DRAMA STATUS RIBBONS & INTERACTIVE CATEGORY FILTER BAR
+// Clearly labels Ongoing, Completed, Next Season & Upcoming Dramas
+// ============================================================================
+(function initDramaStatusBadges() {
+  if (typeof window === "undefined" || !Array.isArray(DRAMAS) || DRAMAS.length === 0) return;
+
+  let activeFilter = "all";
+  let observer = null;
+  let applyTimer = null;
+
+  const STATUS_META = {
+    ongoing: {
+      badgeEn: "ONGOING",
+      badgeSi: "විකාශය වේ",
+      cls: "hh-st-ongoing",
+      dot: true
+    },
+    completed: {
+      badgeEn: "COMPLETED",
+      badgeSi: "සම්පූර්ණයි",
+      cls: "hh-st-completed",
+      dot: false
+    },
+    next_season: {
+      badgeEn: "NEW SEASON",
+      badgeSi: "නව සමය ළඟදීම",
+      cls: "hh-st-next",
+      dot: true
+    },
+    upcoming: {
+      badgeEn: "COMING SOON",
+      badgeSi: "ළඟදීම",
+      cls: "hh-st-upcoming",
+      dot: true
+    }
+  };
+
+  function injectStatusStyles() {
+    if (document.getElementById("hh-drama-status-styles")) return;
+    const style = document.createElement("style");
+    style.id = "hh-drama-status-styles";
+    style.textContent = `
+      /* Interactive 3D Filter Pills Bar Above Drama Grid */
+      #hh-drama-filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 4px 16px 14px 16px;
+        margin: 0 auto;
+        max-width: 1240px;
+        scrollbar-width: none;
+      }
+      #hh-drama-filter-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .hh-flt-btn {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: linear-gradient(145deg, rgba(26, 15, 44, 0.88), rgba(10, 7, 20, 0.94));
+        color: #dfd7ee;
+        font-size: 11.5px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .hh-flt-btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(238, 93, 183, 0.55);
+      }
+      .hh-flt-btn.is-active {
+        color: #ffffff;
+        border-color: transparent;
+        background: linear-gradient(135deg, #ee5db7 0%, #ff6d00 100%);
+        box-shadow: 0 8px 20px rgba(238, 93, 183, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      }
+      .hh-flt-btn[data-filter="completed"].is-active {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      }
+      .hh-flt-btn[data-filter="upcoming"].is-active {
+        background: linear-gradient(135deg, #8b5cf6 0%, #2ee6d6 100%);
+        box-shadow: 0 8px 20px rgba(46, 230, 214, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      }
+      .hh-flt-count {
+        padding: 1px 7px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 900;
+        background: rgba(0, 0, 0, 0.38);
+        color: #ffe29a;
+      }
+
+      /* 3D Top Status Ribbon Attached to Drama Poster Cards */
+      .hh-status-host {
+        position: relative !important;
+      }
+      .hh-status-ribbon {
+        position: absolute;
+        top: 9px;
+        left: 9px;
+        z-index: 12;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 9.5px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        color: #ffffff;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        pointer-events: none;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.72), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+        max-width: calc(100% - 18px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .hh-status-ribbon.hh-st-ongoing {
+        background: linear-gradient(135deg, rgba(238, 93, 183, 0.94) 0%, rgba(255, 109, 0, 0.94) 100%);
+        border: 1px solid rgba(255, 209, 102, 0.65);
+      }
+      .hh-status-ribbon.hh-st-completed {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.94) 0%, rgba(6, 95, 70, 0.96) 100%);
+        border: 1px solid rgba(110, 231, 183, 0.65);
+      }
+      .hh-status-ribbon.hh-st-next {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(238, 93, 183, 0.95) 100%);
+        border: 1px solid rgba(255, 209, 102, 0.7);
+      }
+      .hh-status-ribbon.hh-st-upcoming {
+        background: linear-gradient(135deg, rgba(46, 230, 214, 0.94) 0%, rgba(37, 99, 235, 0.95) 100%);
+        border: 1px solid rgba(143, 247, 238, 0.7);
+      }
+
+      .hh-st-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ffffff;
+        box-shadow: 0 0 8px #ffffff;
+        flex-shrink: 0;
+        animation: hhStatusPulse 1.15s infinite alternate;
+      }
+      @keyframes hhStatusPulse {
+        0% { transform: scale(0.8); opacity: 0.45; }
+        100% { transform: scale(1.25); opacity: 1; }
+      }
+
+      /* Bottom Poster Schedule / Episode Count Glass Strip */
+      .hh-status-subpill {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        z-index: 12;
+        padding: 4px 8px;
+        border-radius: 9px;
+        font-size: 9.5px;
+        font-weight: 800;
+        text-align: center;
+        color: #ffe29a;
+        background: rgba(7, 5, 16, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        pointer-events: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75);
+      }
+      .hh-status-subpill.hh-st-completed {
+        color: #a7f3d0;
+        border-color: rgba(52, 211, 153, 0.35);
+      }
+      .hh-status-subpill.hh-st-upcoming,
+      .hh-status-subpill.hh-st-next {
+        color: #8ff7ee;
+        border-color: rgba(46, 230, 214, 0.38);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function findDramaGridContainer() {
+    const knownSelectors = [
+      "#dramaGrid",
+      "#dramasGrid",
+      "#seriesGrid",
+      "#catalogGrid",
+      ".dramas-grid",
+      ".drama-grid"
+    ];
+    for (const sel of knownSelectors) {
+      const el = document.querySelector(sel);
+      if (el) return el;
+    }
+
+    const candidates = document.querySelectorAll("div, section");
+    for (const el of candidates) {
+      if (
+        el.id === "hh-sunday-billboard-section" ||
+        el.id === "hh-short-dramas-section" ||
+        el.id === "hh-drama-filter-bar"
+      ) {
+        continue;
+      }
+      const txt = el.textContent || "";
+      if (
+        txt.includes("Garala") &&
+        (txt.includes("Mayawiya") || txt.includes("Ghattanaya")) &&
+        el.children.length >= 3 &&
+        el.children.length <= 30
+      ) {
+        return el;
+      }
+    }
+    return null;
+  }
+
+  function matchDramaForCard(cardEl) {
+    const imgs = Array.from(cardEl.querySelectorAll("img"));
+    for (const drama of DRAMAS) {
+      if (drama.posterUrl && imgs.some((img) => (img.getAttribute("src") || "").includes(drama.posterUrl))) {
+        return drama;
+      }
+    }
+    const text = (cardEl.textContent || "").toLowerCase();
+    for (const drama of DRAMAS) {
+      if (
+        (drama.titleEn && text.includes(drama.titleEn.toLowerCase())) ||
+        (drama.titleSi && text.includes(drama.titleSi.toLowerCase()))
+      ) {
+        return drama;
+      }
+    }
+    return null;
+  }
+
+  function buildFilterBar(gridEl, lang) {
+    let bar = document.getElementById("hh-drama-filter-bar");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.id = "hh-drama-filter-bar";
+      if (gridEl && gridEl.parentNode) {
+        gridEl.parentNode.insertBefore(bar, gridEl);
+      }
+    }
+
+    const totalCount = DRAMAS.length;
+    const ongoingCount = DRAMAS.filter((d) => (d.status || "ongoing") === "ongoing").length;
+    const completedCount = DRAMAS.filter((d) => d.status === "completed").length;
+    const futureCount = DRAMAS.filter((d) => d.status === "upcoming" || d.status === "next_season").length;
+
+    const buttons = [
+      {
+        key: "all",
+        label: lang === "en" ? "🎬 All Dramas" : "🎬 සියලුම කතා",
+        count: totalCount
+      },
+      {
+        key: "ongoing",
+        label: lang === "en" ? "🔴 Ongoing" : "🔴 විකාශය වන",
+        count: ongoingCount
+      },
+      {
+        key: "completed",
+        label: lang === "en" ? "✅ Completed" : "✅ සම්පූර්ණයි",
+        count: completedCount
+      },
+      {
+        key: "upcoming",
+        label: lang === "en" ? "✨ Coming / Next Season" : "✨ ඉදිරියට එන",
+        count: futureCount
+      }
+    ];
+
+    bar.innerHTML = buttons
+      .map(
+        (b) => `
+        <button type="button" class="hh-flt-btn ${activeFilter === b.key ? "is-active" : ""}" data-filter="${b.key}">
+          <span>${b.label}</span>
+          <span class="hh-flt-count">${b.count}</span>
+        </button>
+      `
+      )
+      .join("");
+
+    bar.querySelectorAll(".hh-flt-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.filter;
+        applyStatusBadgesAndFilter(lang);
+      });
+    });
+  }
+
+  function applyStatusBadgesAndFilter(langOverride) {
+    injectStatusStyles();
+    const activeLang = langOverride || (typeof currentLang !== "undefined" ? currentLang : "si");
+    const gridEl = findDramaGridContainer();
+    if (!gridEl) return;
+
+    buildFilterBar(gridEl, activeLang);
+
+    Array.from(gridEl.children).forEach((card) => {
+      const drama = matchDramaForCard(card);
+      if (!drama) return;
+
+      const stKey = drama.status || "ongoing";
+      const meta = STATUS_META[stKey] || STATUS_META.ongoing;
+
+      // Apply category filter
+      const matchesFilter =
+        activeFilter === "all" ||
+        (activeFilter === "upcoming"
+          ? stKey === "upcoming" || stKey === "next_season"
+          : stKey === activeFilter);
+      card.style.display = matchesFilter ? "" : "none";
+
+      // Attach badges onto the poster image container (or card root)
+      const posterImg = card.querySelector("img");
+      const host =
+        posterImg && posterImg.parentElement && posterImg.parentElement !== gridEl
+          ? posterImg.parentElement
+          : card;
+
+      host.classList.add("hh-status-host");
+
+      // Remove old injected badges before re-rendering
+      host.querySelectorAll(".hh-status-ribbon, .hh-status-subpill").forEach((el) => el.remove());
+
+      const ribbon = document.createElement("div");
+      ribbon.className = `hh-status-ribbon ${meta.cls}`;
+      const mainLabel =
+        activeLang === "en"
+          ? `${meta.badgeEn} • ${meta.badgeSi}`
+          : `${meta.badgeSi} • ${meta.badgeEn}`;
+      ribbon.innerHTML = `${meta.dot ? '<span class="hh-st-dot"></span>' : ""}<span>${mainLabel}</span>`;
+      host.appendChild(ribbon);
+
+      const noteText = activeLang === "en" ? drama.statusNoteEn : drama.statusNoteSi;
+      if (noteText) {
+        const subPill = document.createElement("div");
+        subPill.className = `hh-status-subpill ${meta.cls}`;
+        subPill.textContent = noteText;
+        host.appendChild(subPill);
+      }
+    });
+  }
+
+  function startObserver() {
+    if (observer) return;
+    observer = new MutationObserver((mutations) => {
+      const hasExternalChange = mutations.some((m) =>
+        Array.from(m.addedNodes).some(
+          (n) =>
+            n.nodeType === 1 &&
+            !n.classList.contains("hh-status-ribbon") &&
+            !n.classList.contains("hh-status-subpill") &&
+            n.id !== "hh-drama-filter-bar"
+        )
+      );
+      if (!hasExternalChange) return;
+      clearTimeout(applyTimer);
+      applyTimer = setTimeout(() => applyStatusBadgesAndFilter(), 80);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  window.refreshDramaStatusLang = function (lang) {
+    applyStatusBadgesAndFilter(lang);
+  };
+
+  function boot() {
+    applyStatusBadgesAndFilter("si");
+    startObserver();
+    setTimeout(() => applyStatusBadgesAndFilter(), 350);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
 
 // ============================================================================
 // 1. 3D INTERLOCKING DIAGONAL CRYSTAL PRISM BILLBOARD STAGE
@@ -527,9 +947,7 @@ const SHORT_DRAMAS = [
         animation: hhBulbPulse 0.8s infinite alternate;
       }
 
-      /* ====================================================================
-         3D BL REACHING-HANDS LIVE COUNTDOWN STAGE
-         ==================================================================== */
+      /* 3D BL Reaching-Hands Live Countdown Stage */
       .hh-bb-cd-stage {
         position: relative;
         z-index: 4;
@@ -547,8 +965,6 @@ const SHORT_DRAMAS = [
         overflow: hidden;
         perspective: 950px;
       }
-
-      /* Subtle floating romantic starlight particles */
       .hh-bb-cd-particles {
         position: absolute;
         inset: 0;
@@ -567,7 +983,6 @@ const SHORT_DRAMAS = [
         100% { transform: translateY(-5px) scale(1.03); opacity: 1; }
       }
 
-      /* Left & Right Male Characters Reaching Toward Center */
       .hh-bb-char-slot {
         position: absolute;
         top: 2px;
@@ -616,7 +1031,6 @@ const SHORT_DRAMAS = [
         filter: drop-shadow(0 4px 14px rgba(46, 230, 214, 0.65));
       }
 
-      /* Center Fingertip Magnetic Energy Spark */
       .hh-bb-touch-nexus {
         position: absolute;
         top: 32px;
@@ -658,7 +1072,6 @@ const SHORT_DRAMAS = [
         100% { transform: rotate(360deg); }
       }
 
-      /* 4-Column 3D Beveled Countdown Tiles */
       .hh-bb-tiles-row {
         position: relative;
         z-index: 4;
@@ -751,8 +1164,6 @@ const SHORT_DRAMAS = [
         perspective: 1000px;
         transform-style: preserve-3d;
       }
-
-      /* Outer Slanted Neon Polygon Border Wrapper */
       .hh-bb-prism-wrap {
         position: relative;
         padding: 2px;
@@ -778,7 +1189,6 @@ const SHORT_DRAMAS = [
         filter: drop-shadow(0 0 18px rgba(238, 93, 183, 0.45));
       }
 
-      /* Inner Slanted Crystal Screen */
       .hh-bb-prism-inner {
         position: relative;
         min-height: 215px;
@@ -831,7 +1241,6 @@ const SHORT_DRAMAS = [
         );
       }
 
-      /* Holographic Specular Glare */
       .hh-bb-glare {
         position: absolute;
         inset: 0;
@@ -842,7 +1251,6 @@ const SHORT_DRAMAS = [
         background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.24), transparent 65%);
       }
 
-      /* Sweeping Diagonal Laser Beam */
       .hh-bb-laser {
         position: absolute;
         inset: 0;
@@ -860,7 +1268,6 @@ const SHORT_DRAMAS = [
         100% { transform: translateX(130%); }
       }
 
-      /* Content Inside Top & Bottom Slanted Prisms */
       .hh-bb-top-row {
         position: relative;
         z-index: 3;
@@ -947,7 +1354,6 @@ const SHORT_DRAMAS = [
         box-shadow: 0 5px 16px rgba(46, 230, 214, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.45);
       }
 
-      /* Center Floating 3D Hexagonal Seam Medallion */
       .hh-bb-medallion {
         position: relative;
         z-index: 6;
@@ -1061,29 +1467,24 @@ const SHORT_DRAMAS = [
           </div>
         </div>
 
-        <!-- 3D BL COUNTDOWN STAGE WITH TWO REACHING MALE CHARACTERS -->
         <div class="hh-bb-cd-stage">
           <div class="hh-bb-cd-particles"></div>
 
-          <!-- Left BL Character Reaching Hand Right -->
           <div class="hh-bb-char-slot left-char">
             <img class="hh-bl-png" src="${leftPng}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
             <div style="display:block;width:100%;height:100%;">${getLeftBlCharacterSvg()}</div>
           </div>
 
-          <!-- Center Fingertip Touch Spark -->
           <div class="hh-bb-touch-nexus" id="hh-touch-nexus">
             <div class="hh-bb-touch-ring"></div>
             <span class="hh-bb-touch-star">💗</span>
           </div>
 
-          <!-- Right BL Character Reaching Hand Left -->
           <div class="hh-bb-char-slot right-char">
             <img class="hh-bl-png" src="${rightPng}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
             <div style="display:block;width:100%;height:100%;">${getRightBlCharacterSvg()}</div>
           </div>
 
-          <!-- 4 Large 3D Beveled Countdown Tiles -->
           <div class="hh-bb-tiles-row">
             <div class="hh-bb-tile left-tint">
               <div class="hh-bb-num" id="hh-cd-days">${initParts.days}</div>
@@ -1111,7 +1512,6 @@ const SHORT_DRAMAS = [
         </div>
 
         <div class="hh-bb-prism-stack">
-          <!-- UPPER DIAGONAL CRYSTAL PRISM: COMING SUNDAY -->
           <article class="hh-bb-prism-wrap top-prism" id="hh-bb-coming">
             <div class="hh-bb-prism-inner" style="background: ${c.gradient};">
               <img
@@ -1138,10 +1538,8 @@ const SHORT_DRAMAS = [
             </div>
           </article>
 
-          <!-- FLOATING 3D HEXAGONAL SEAM MEDALLION -->
           <div class="hh-bb-medallion">⚡ ${activeLang === "en" ? "SUNDAY TIMELINE" : "ඉරිදා කාලසටහන"} ⚡</div>
 
-          <!-- LOWER DIAGONAL CRYSTAL PRISM: PREVIOUS SUNDAY -->
           <article class="hh-bb-prism-wrap bottom-prism" id="hh-bb-previous">
             <div class="hh-bb-prism-inner" style="background: ${p.gradient};">
               <img
@@ -1171,7 +1569,6 @@ const SHORT_DRAMAS = [
       </div>
     `;
 
-    // Ensure custom PNG hides the SVG fallback if the PNG successfully loads
     section.querySelectorAll(".hh-bl-png").forEach((imgEl) => {
       const svgWrapper = imgEl.nextElementSibling;
       imgEl.style.display = "none";
@@ -1204,6 +1601,9 @@ const SHORT_DRAMAS = [
 
   window.refreshBillboardsLang = function (lang) {
     renderBillboards(lang);
+    if (typeof window.refreshDramaStatusLang === "function") {
+      window.refreshDramaStatusLang(lang);
+    }
   };
 
   if (document.readyState === "loading") {
