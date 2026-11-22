@@ -186,7 +186,9 @@ const DRAMAS = [
         episodes: [
           { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep1.webp", link: "https://t.me/c/4339816032/6" },
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep2.webp", link: "https://t.me/c/4339816032/7" },
-          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep3.webp", link: "https://t.me/c/4339816032/8" }
+          { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep3.webp", link: "https://t.me/c/4339816032/8" },
+          { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep4.webp", link: "https://t.me/c/4339816032/53" }
+
         ]
       }
     ]
@@ -265,7 +267,7 @@ const SUNDAY_BILLBOARDS = {
     imageUrl: "o_slide.webp",
     fallbackUrl: "o_slide.webp",
     gradient: "linear-gradient(150deg, #0c4d63 0%, #16123b 55%, #07050c 100%)",
-    link: "https://t.me/c/4339816032/48"
+    link: "https://t.me/c/4339816032/53"
   }
 };
 
