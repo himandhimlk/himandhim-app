@@ -97,26 +97,8 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          {
-            num: 1,
-            titleSi: "01 වන කොටස",
-            titleEn: "Episode 01",
-            subSi: "සම්පූර්ණ කොටස • VIP",
-            subEn: "Full Uncut • VIP",
-            thumbUrl: "viralahusma_ep1.webp",
-            link: "https://t.me/c/4339816032/4",      // Main VIP Club link
-            vhLink: "https://t.me/c/4307616878/5"                                // <-- Paste https://t.me/c/4307616878/... link here for Virala Husma VIP channel members!
-          },
-          {
-            num: 2,
-            titleSi: "02 වන කොටස",
-            titleEn: "Episode 02",
-            subSi: "සම්පූර්ණ කොටස • VIP",
-            subEn: "Full Uncut • VIP",
-            thumbUrl: "viralahusma_ep2.webp",
-            link: "https://t.me/c/4339816032/5",      // Main VIP Club link
-            vhLink: "https://t.me/c/4307616878/6"                                // <-- Paste https://t.me/c/4307616878/... link here for Virala Husma VIP channel members!
-          }
+          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/4" },
+          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep2.webp", link: "https://t.me/c/4339816032/5" }
         ]
       }
     ]
@@ -338,6 +320,7 @@ const SHORT_DRAMAS = [
     return audioCtx;
   }
 
+  // Unlock Web Audio on first user touch/click in Telegram WebView
   function unlockOnGesture() {
     ensureContext();
   }
@@ -345,6 +328,7 @@ const SHORT_DRAMAS = [
   window.addEventListener("touchstart", unlockOnGesture, { passive: true });
   window.addEventListener("keydown", unlockOnGesture, { passive: true });
 
+  // 1. Intimate BL Heartbeat + Crystal Music-Box Timer Tick (every second)
   function playTimerTick(secondNum) {
     if (isMuted || document.hidden) return;
     const ctx = ensureContext();
@@ -352,6 +336,7 @@ const SHORT_DRAMAS = [
 
     const now = ctx.currentTime;
 
+    // Soft warm heartbeat thump
     const heartOsc = ctx.createOscillator();
     const heartGain = ctx.createGain();
     heartOsc.type = "sine";
@@ -367,6 +352,7 @@ const SHORT_DRAMAS = [
     heartOsc.start(now);
     heartOsc.stop(now + 0.16);
 
+    // Delicate alternating crystal music-box shimmer (E5 / B5)
     const chimeOsc = ctx.createOscillator();
     const chimeGain = ctx.createGain();
     chimeOsc.type = "sine";
@@ -383,13 +369,14 @@ const SHORT_DRAMAS = [
     chimeOsc.stop(now + 0.25);
   }
 
+  // 2. Soft Rose-Quartz Bell Tap (for filter pills, nav arrows, general taps)
   function playSoftTap() {
     if (isMuted) return;
     const ctx = ensureContext();
     if (!ctx) return;
 
     const now = ctx.currentTime;
-    const notes = [880, 1318.51];
+    const notes = [880, 1318.51]; // A5 -> E6 fifth interval
     notes.forEach((freq, idx) => {
       const start = now + idx * 0.032;
       const osc = ctx.createOscillator();
@@ -408,12 +395,14 @@ const SHORT_DRAMAS = [
     });
   }
 
+  // 3. Dreamy BL Harp / Chime Glissando (for drama cards, premieres, VIP buttons)
   function playRomanticChime() {
     if (isMuted) return;
     const ctx = ensureContext();
     if (!ctx) return;
 
     const now = ctx.currentTime;
+    // Cmaj9 ethereal arpeggio: C5, G5, B5, D6, E6
     const chord = [523.25, 783.99, 987.77, 1174.66, 1318.51];
     chord.forEach((freq, idx) => {
       const start = now + idx * 0.042;
@@ -466,15 +455,16 @@ const SHORT_DRAMAS = [
     syncUI: updateSoundButtonUI
   };
 
+  // Global delegated click sound handler across the entire Mini App
   document.addEventListener("click", (e) => {
     const target = e.target;
     if (!target || typeof target.closest !== "function") return;
     if (target.closest("#hh-sound-toggle")) return;
 
+    // Romantic chime for drama cards, Sunday billboards, Short Dramas, episodes & VIP CTAs
     if (
       target.closest(".hh-bb-prism-wrap") ||
       target.closest(".hh-sd-card") ||
-      target.closest(".hh-vh-3d-btn") ||
       target.closest(".drama-card") ||
       target.closest(".ep-card") ||
       target.closest(".episode-card") ||
@@ -487,6 +477,7 @@ const SHORT_DRAMAS = [
       return;
     }
 
+    // Soft rose-quartz bell tap for filter pills, carousel buttons, language switches & modals
     if (
       target.closest(".hh-flt-btn") ||
       target.closest(".hh-sd-nav-btn") ||
@@ -541,6 +532,7 @@ const SHORT_DRAMAS = [
     const style = document.createElement("style");
     style.id = "hh-drama-status-styles";
     style.textContent = `
+      /* Interactive 3D Filter Pills Bar Above Drama Grid */
       #hh-drama-filter-bar {
         display: flex;
         align-items: center;
@@ -597,6 +589,7 @@ const SHORT_DRAMAS = [
         color: #ffe29a;
       }
 
+      /* 3D Top Status Ribbon Attached to Drama Poster Cards */
       .hh-status-host {
         position: relative !important;
       }
@@ -655,6 +648,7 @@ const SHORT_DRAMAS = [
         100% { transform: scale(1.25); opacity: 1; }
       }
 
+      /* Bottom Poster Schedule / Episode Count Glass Strip */
       .hh-status-subpill {
         position: absolute;
         left: 8px;
@@ -896,410 +890,6 @@ const SHORT_DRAMAS = [
 })();
 
 // ============================================================================
-// 0B. 3D DEDICATED CHANNEL BUTTON FOR "⛈ විරල හුස්ම VIP" EPISODES
-// Injects a 3D storm-electric button below the top VIP Pass bar AND directly
-// underneath every episode row on the Virala Husma detail page
-// ============================================================================
-(function initViralaHusmaDualButtons() {
-  if (typeof window === "undefined" || !Array.isArray(DRAMAS)) return;
-
-  let vhObserver = null;
-  let vhTimer = null;
-
-  function openTelegramPost(url) {
-    if (!url || url === "#") {
-      showVhToast();
-      return;
-    }
-    const tg = window.Telegram && window.Telegram.WebApp;
-    if (tg) {
-      if (url.startsWith("https://t.me/") && typeof tg.openTelegramLink === "function") {
-        tg.openTelegramLink(url);
-        return;
-      }
-      if (typeof tg.openLink === "function") {
-        tg.openLink(url);
-        return;
-      }
-    }
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
-  function showVhToast() {
-    let toast = document.getElementById("hh-vh-toast");
-    if (toast) toast.remove();
-    toast = document.createElement("div");
-    toast.id = "hh-vh-toast";
-    toast.innerHTML = `
-      <div style="font-weight:800;font-size:13px;color:#8ff7ee;margin-bottom:4px;">
-        ⛈ විරල හුස්ම VIP නාලිකාව (Virala Husma Channel)
-      </div>
-      <div style="font-size:11.5px;line-height:1.45;color:#f3eefc;">
-        මෙම කොටස වෙනම <b>විරල හුස්ම VIP</b> නාලිකාවට ළඟදීම එක් කෙරේ (දෙසැම්බර් 1 සිට).<br/>
-        <span style="color:#ffd166;">This episode link for the dedicated Virala Husma VIP channel will be active from Dec 1!</span>
-      </div>
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-      if (toast && toast.parentNode) toast.remove();
-    }, 4200);
-  }
-
-  function injectVhButtonStyles() {
-    if (document.getElementById("hh-vh-dual-btn-styles")) return;
-    const style = document.createElement("style");
-    style.id = "hh-vh-dual-btn-styles";
-    style.textContent = `
-      /* Top Hero 3D Storm-Electric Bar on Virala Husma Detail Page */
-      .hh-vh-hero-dock {
-        position: relative;
-        width: 100%;
-        box-sizing: border-box;
-        margin: 10px 0 12px 0;
-        padding: 10px 14px 12px 14px;
-        border-radius: 14px;
-        background: linear-gradient(155deg, rgba(10, 28, 56, 0.96) 0%, rgba(22, 12, 52, 0.98) 100%);
-        border: 1px solid rgba(56, 189, 248, 0.55);
-        box-shadow:
-          0 14px 30px rgba(0, 0, 0, 0.78),
-          0 0 22px rgba(56, 189, 248, 0.22),
-          inset 0 1px 0 rgba(186, 230, 253, 0.28);
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        perspective: 850px;
-      }
-
-      /* 3D Storm-Electric Container Placed Directly Under Each Virala Husma Episode */
-      .hh-vh-3d-dock {
-        position: relative;
-        width: 100%;
-        box-sizing: border-box;
-        margin: -6px 0 14px 0;
-        padding: 9px 12px 11px 12px;
-        border-radius: 0 0 14px 14px;
-        background: linear-gradient(160deg, rgba(11, 29, 54, 0.96) 0%, rgba(18, 12, 42, 0.98) 100%);
-        border: 1px solid rgba(56, 189, 248, 0.45);
-        border-top: 1px dashed rgba(56, 189, 248, 0.35);
-        box-shadow:
-          0 14px 28px rgba(0, 0, 0, 0.78),
-          inset 0 1px 0 rgba(125, 211, 252, 0.22);
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        perspective: 800px;
-      }
-
-      /* Bilingual Instruction Strip (Visible on Mobile + Hover Tooltip on Desktop) */
-      .hh-vh-3d-hint {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 11px;
-        font-weight: 700;
-        line-height: 1.4;
-        color: #bae6fd;
-        transition: color 0.25s ease, transform 0.25s ease;
-      }
-      .hh-vh-3d-dock:hover .hh-vh-3d-hint,
-      .hh-vh-hero-dock:hover .hh-vh-3d-hint {
-        color: #ffffff;
-        transform: translateX(2px);
-      }
-      .hh-vh-3d-hint-icon {
-        font-size: 14px;
-        flex-shrink: 0;
-        filter: drop-shadow(0 0 6px #38bdf8);
-      }
-
-      /* Distinct 3D Beveled Storm-Cyan & Electric-Indigo Button */
-      .hh-vh-3d-btn {
-        position: relative;
-        width: 100%;
-        padding: 11px 14px;
-        border: 1px solid rgba(186, 230, 253, 0.68);
-        border-radius: 12px;
-        background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #6d28d9 100%);
-        color: #ffffff;
-        font-size: 12.5px;
-        font-weight: 900;
-        letter-spacing: 0.02em;
-        text-align: center;
-        cursor: pointer;
-        overflow: hidden;
-        transform: translateZ(10px);
-        box-shadow:
-          0 5px 0 #1e1b4b,
-          0 10px 22px rgba(2, 132, 199, 0.5),
-          inset 0 1.5px 1px rgba(255, 255, 255, 0.65);
-        transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.16s ease, filter 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .hh-vh-3d-btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -120%;
-        width: 80%;
-        height: 100%;
-        background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.38) 50%, transparent 80%);
-        animation: hhVhLightningSweep 3.8s infinite ease-in-out;
-        pointer-events: none;
-      }
-      @keyframes hhVhLightningSweep {
-        0%, 55% { left: -120%; }
-        100% { left: 140%; }
-      }
-      .hh-vh-3d-btn:hover {
-        filter: brightness(1.12);
-        transform: translateY(-2px) translateZ(14px);
-        box-shadow:
-          0 7px 0 #1e1b4b,
-          0 14px 26px rgba(56, 189, 248, 0.65),
-          inset 0 1.5px 1px rgba(255, 255, 255, 0.8);
-      }
-      .hh-vh-3d-btn:active {
-        transform: translateY(3px) translateZ(4px);
-        box-shadow:
-          0 2px 0 #1e1b4b,
-          0 4px 10px rgba(2, 132, 199, 0.4),
-          inset 0 1px 1px rgba(255, 255, 255, 0.5);
-      }
-
-      .hh-vh-badge-tag {
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-size: 10px;
-        font-weight: 900;
-        background: rgba(5, 8, 22, 0.52);
-        border: 1px solid rgba(186, 230, 253, 0.5);
-        color: #e0f2fe;
-      }
-
-      #hh-vh-toast {
-        position: fixed;
-        left: 16px;
-        right: 16px;
-        bottom: 24px;
-        z-index: 99999;
-        max-width: 460px;
-        margin: 0 auto;
-        padding: 13px 16px;
-        border-radius: 16px;
-        background: linear-gradient(155deg, rgba(12, 30, 58, 0.97), rgba(16, 10, 36, 0.98));
-        border: 1px solid rgba(56, 189, 248, 0.6);
-        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.88), 0 0 24px rgba(56, 189, 248, 0.35);
-        backdrop-filter: blur(12px);
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function getViralaEpisodesList() {
-    const vhDrama = DRAMAS.find(
-      (d) =>
-        (d.titleEn && d.titleEn.toLowerCase() === "virala husma") ||
-        (d.titleSi && d.titleSi.includes("විරල හුස්ම"))
-    );
-    if (!vhDrama || !Array.isArray(vhDrama.seasons)) return [];
-    const list = [];
-    vhDrama.seasons.forEach((s) => {
-      if (Array.isArray(s.episodes)) {
-        s.episodes.forEach((ep) => list.push(ep));
-      }
-    });
-    return list;
-  }
-
-  function isElementVisible(el) {
-    if (!el) return false;
-    const style = window.getComputedStyle(el);
-    if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0") {
-      return false;
-    }
-    return el.offsetWidth > 0 && el.offsetHeight > 0;
-  }
-
-  function isViralaDetailPageVisible() {
-    const headings = document.querySelectorAll("h1, h2, h3, .detail-title, #detailTitle, [id*='title'], [class*='title']");
-    for (const h of headings) {
-      if (!isElementVisible(h)) continue;
-      const txt = (h.textContent || "").trim();
-      if (
-        (txt.includes("විරල හුස්ම") || txt.toLowerCase().includes("virala husma")) &&
-        txt.length < 60
-      ) {
-        // Confirm we are on the detail page (which shows "කොටස්" / "Episodes" or "නරඹන්න" / "Watch")
-        const bodyTxt = document.body.textContent || "";
-        if (bodyTxt.includes("කොටස්") || bodyTxt.includes("Episodes")) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function cleanupOldVhDocks() {
-    document.querySelectorAll(".hh-vh-3d-dock, .hh-vh-hero-dock").forEach((el) => el.remove());
-  }
-
-  function createVhDockElement(ep, isHero = false) {
-    const tooltipText =
-      "⛈ විරල හුස්ම VIP නාලිකාවේ පමණක් සාමාජිකයින් මෙම බොත්තම ඔබන්න • Click this if you're just a member of Virala Husma VIP";
-
-    const dock = document.createElement("div");
-    dock.className = isHero ? "hh-vh-hero-dock" : "hh-vh-3d-dock";
-    dock.dataset.vhDockFor = isHero ? "hero" : `ep-${ep.num}`;
-    dock.title = tooltipText;
-
-    const epTag = isHero ? "S1:E1" : `EP ${String(ep.num).padStart(2, "0")}`;
-
-    dock.innerHTML = `
-      <div class="hh-vh-3d-hint">
-        <span class="hh-vh-3d-hint-icon">⛈</span>
-        <span>
-          <b>විරල හුස්ම</b> නාලිකාවේ පමණක් සාමාජිකයින් මෙය ඔබන්න •
-          <i>Tap here if you're just a member of Virala Husma VIP</i>
-        </span>
-      </div>
-      <button type="button" class="hh-vh-3d-btn" title="${tooltipText}">
-        <span class="hh-vh-badge-tag">⛈ VH-VIP • ${epTag}</span>
-        <span>විරල හුස්ම නාලිකාවෙන් නරඹන්න • Watch (VH Only) ▶</span>
-      </button>
-    `;
-
-    const btn = dock.querySelector(".hh-vh-3d-btn");
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (window.HHBLAudio && typeof window.HHBLAudio.chime === "function") {
-        window.HHBLAudio.chime();
-      }
-      openTelegramPost(ep.vhLink);
-    });
-
-    return dock;
-  }
-
-  function findFullWidthEpisodeRow(ep, allEpisodes) {
-    const otherTitles = allEpisodes
-      .filter((other) => other.num !== ep.num)
-      .flatMap((other) => [other.titleSi, other.titleEn].filter(Boolean));
-
-    // Find any visible leaf/text element containing this episode's exact title ("01 වන කොටස" or "Episode 01")
-    const candidates = Array.from(document.querySelectorAll("div, span, h3, h4, p, a, button"));
-    for (const el of candidates) {
-      if (!isElementVisible(el)) continue;
-      if (el.closest(".hh-vh-3d-dock, .hh-vh-hero-dock, #hh-sunday-billboard-section, #hh-short-dramas-section")) {
-        continue;
-      }
-      const txt = (el.textContent || "").trim();
-      const matchesTitle =
-        (ep.titleSi && txt.includes(ep.titleSi)) ||
-        (ep.titleEn && txt.includes(ep.titleEn));
-      if (!matchesTitle) continue;
-      if (otherTitles.some((ot) => txt.includes(ot))) continue;
-
-      // Walk up to the full-width episode row card (the child directly inside the episodes list container)
-      let row = el;
-      while (row && row.parentElement && row.parentElement !== document.body) {
-        const parent = row.parentElement;
-        const parentTxt = parent.textContent || "";
-        // Stop climbing once parent holds multiple episodes or the "කොටස් (Episodes)" header
-        if (
-          otherTitles.some((ot) => parentTxt.includes(ot)) ||
-          parentTxt.includes("කොටස්") ||
-          parentTxt.includes("Episodes")
-        ) {
-          if (row.offsetWidth >= 240) {
-            return row;
-          }
-        }
-        row = parent;
-      }
-    }
-    return null;
-  }
-
-  function injectViralaEpisodeButtons() {
-    injectVhButtonStyles();
-
-    if (!isViralaDetailPageVisible()) {
-      cleanupOldVhDocks();
-      return;
-    }
-
-    const vhEpisodes = getViralaEpisodesList();
-    if (vhEpisodes.length === 0) return;
-
-    // 1. Inject Top Hero 3D Button right below the "මාසික VIP Pass" / "Watch S1:E1" bar
-    if (!document.querySelector('[data-vh-dock-for="hero"]')) {
-      const actionBtns = Array.from(document.querySelectorAll("button, a"));
-      const vipPassBtn = actionBtns.find((b) => {
-        if (!isElementVisible(b)) return false;
-        const t = b.textContent || "";
-        return t.includes("VIP Pass") || t.includes("සියලු කොටස් නැරඹීමට");
-      });
-      if (vipPassBtn && vipPassBtn.parentNode) {
-        const heroDock = createVhDockElement(vhEpisodes[0], true);
-        vipPassBtn.parentNode.insertBefore(heroDock, vipPassBtn.nextSibling);
-      }
-    }
-
-    // 2. Inject Full-Width 3D Button directly underneath each Episode Card
-    vhEpisodes.forEach((ep) => {
-      const dockKey = `ep-${ep.num}`;
-      if (document.querySelector(`[data-vh-dock-for="${dockKey}"]`)) return;
-
-      const epRow = findFullWidthEpisodeRow(ep, vhEpisodes);
-      if (!epRow || !epRow.parentNode) return;
-
-      const epDock = createVhDockElement(ep, false);
-      epRow.parentNode.insertBefore(epDock, epRow.nextSibling);
-    });
-  }
-
-  function startVhObserver() {
-    if (vhObserver) return;
-    vhObserver = new MutationObserver((mutations) => {
-      const relevant = mutations.some((m) =>
-        Array.from(m.addedNodes).some(
-          (n) =>
-            n.nodeType === 1 &&
-            !n.classList.contains("hh-vh-3d-dock") &&
-            !n.classList.contains("hh-vh-hero-dock")
-        )
-      );
-      if (!relevant) return;
-      clearTimeout(vhTimer);
-      vhTimer = setTimeout(injectViralaEpisodeButtons, 60);
-    });
-    vhObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ["style", "class"]
-    });
-  }
-
-  function bootVh() {
-    injectViralaEpisodeButtons();
-    startVhObserver();
-    setInterval(injectViralaEpisodeButtons, 500);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bootVh);
-  } else {
-    bootVh();
-  }
-})();
-
-// ============================================================================
 // 1. 3D INTERLOCKING DIAGONAL CRYSTAL PRISM BILLBOARD STAGE
 // + LIVE 3D BL COUNTDOWN WITH TWO REACHING MALE CHARACTERS & SOUND
 // ============================================================================
@@ -1472,6 +1062,7 @@ const SHORT_DRAMAS = [
     const style = document.createElement("style");
     style.id = "hh-billboard-styles";
     style.textContent = `
+      /* Chamfered Octagonal Cinema Marquee Outer Stage */
       #hh-sunday-billboard-section {
         position: relative;
         margin: 0 16px 24px 16px;
@@ -1488,6 +1079,7 @@ const SHORT_DRAMAS = [
         overflow: hidden;
       }
 
+      /* Overhead Volumetric Cinema Spotlight Beams */
       .hh-bb-beam-a,
       .hh-bb-beam-b {
         position: absolute;
@@ -1518,6 +1110,7 @@ const SHORT_DRAMAS = [
         100% { transform: rotate(-7deg); opacity: 1; }
       }
 
+      /* Marquee Header */
       .hh-bb-header {
         position: relative;
         z-index: 4;
@@ -1615,6 +1208,7 @@ const SHORT_DRAMAS = [
         animation: hhBulbPulse 0.8s infinite alternate;
       }
 
+      /* 3D BL Reaching-Hands Live Countdown Stage */
       .hh-bb-cd-stage {
         position: relative;
         z-index: 4;
@@ -1822,6 +1416,7 @@ const SHORT_DRAMAS = [
         font-weight: 800;
       }
 
+      /* 3D Interlocking Diagonal Cinerama Stage */
       .hh-bb-prism-stack {
         position: relative;
         z-index: 3;
