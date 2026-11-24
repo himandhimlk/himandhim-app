@@ -97,8 +97,26 @@ const DRAMAS = [
         seasonNameSi: "Season 1 (පළමු කතා සමය)",
         seasonNameEn: "Season 1",
         episodes: [
-          { num: 1, titleSi: "01 වන කොටස", titleEn: "Episode 01", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep1.webp", link: "https://t.me/c/4339816032/4" },
-          { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "viralahusma_ep2.webp", link: "https://t.me/c/4339816032/5" }
+          {
+            num: 1,
+            titleSi: "01 වන කොටස",
+            titleEn: "Episode 01",
+            subSi: "සම්පූර්ණ කොටස • VIP",
+            subEn: "Full Uncut • VIP",
+            thumbUrl: "viralahusma_ep1.webp",
+            link: "https://t.me/c/4339816032/4",      // Main VIP Club link
+            vhLink: "https://t.me/c/4307616878/5"                                // <-- Paste https://t.me/c/4307616878/... link here for Virala Husma VIP channel members!
+          },
+          {
+            num: 2,
+            titleSi: "02 වන කොටස",
+            titleEn: "Episode 02",
+            subSi: "සම්පූර්ණ කොටස • VIP",
+            subEn: "Full Uncut • VIP",
+            thumbUrl: "viralahusma_ep2.webp",
+            link: "https://t.me/c/4339816032/5",      // Main VIP Club link
+            vhLink: "https://t.me/c/4307616878/6"                                // <-- Paste https://t.me/c/4307616878/... link here for Virala Husma VIP channel members!
+          }
         ]
       }
     ]
@@ -188,7 +206,6 @@ const DRAMAS = [
           { num: 2, titleSi: "02 වන කොටස", titleEn: "Episode 02", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep2.webp", link: "https://t.me/c/4339816032/7" },
           { num: 3, titleSi: "03 වන කොටස", titleEn: "Episode 03", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep3.webp", link: "https://t.me/c/4339816032/8" },
           { num: 4, titleSi: "04 වන කොටස", titleEn: "Episode 04", subSi: "සම්පූර්ණ කොටස • VIP", subEn: "Full Uncut • VIP", thumbUrl: "o_ep4.webp", link: "https://t.me/c/4339816032/53" }
-
         ]
       }
     ]
@@ -466,6 +483,7 @@ const SHORT_DRAMAS = [
     if (
       target.closest(".hh-bb-prism-wrap") ||
       target.closest(".hh-sd-card") ||
+      target.closest(".hh-vh-3d-btn") ||
       target.closest(".drama-card") ||
       target.closest(".ep-card") ||
       target.closest(".episode-card") ||
@@ -887,6 +905,315 @@ const SHORT_DRAMAS = [
     document.addEventListener("DOMContentLoaded", boot);
   } else {
     boot();
+  }
+})();
+
+// ============================================================================
+// 0B. 3D DEDICATED CHANNEL BUTTON FOR "⛈ විරල හුස්ම VIP" EPISODES
+// Adds a distinct 3D storm-electric button below every Virala Husma episode
+// so separate Virala Husma channel subscribers can watch via their own link
+// ============================================================================
+(function initViralaHusmaDualButtons() {
+  if (typeof window === "undefined" || !Array.isArray(DRAMAS)) return;
+
+  let vhObserver = null;
+  let vhTimer = null;
+
+  function openTelegramPost(url) {
+    if (!url || url === "#") {
+      showVhToast();
+      return;
+    }
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg) {
+      if (url.startsWith("https://t.me/") && typeof tg.openTelegramLink === "function") {
+        tg.openTelegramLink(url);
+        return;
+      }
+      if (typeof tg.openLink === "function") {
+        tg.openLink(url);
+        return;
+      }
+    }
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function showVhToast() {
+    let toast = document.getElementById("hh-vh-toast");
+    if (toast) toast.remove();
+    toast = document.createElement("div");
+    toast.id = "hh-vh-toast";
+    toast.innerHTML = `
+      <div style="font-weight:800;font-size:13px;color:#8ff7ee;margin-bottom:4px;">
+        ⛈ විරල හුස්ම VIP නාලිකාව (Virala Husma Channel)
+      </div>
+      <div style="font-size:11.5px;line-height:1.45;color:#f3eefc;">
+        මෙම කොටස වෙනම <b>විරල හුස්ම VIP</b> නාලිකාවට ළඟදීම එක් කෙරේ (දෙසැම්බර් 1 සිට).<br/>
+        <span style="color:#ffd166;">This episode link for the dedicated Virala Husma VIP channel will be active from Dec 1!</span>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      if (toast && toast.parentNode) toast.remove();
+    }, 4200);
+  }
+
+  function injectVhButtonStyles() {
+    if (document.getElementById("hh-vh-dual-btn-styles")) return;
+    const style = document.createElement("style");
+    style.id = "hh-vh-dual-btn-styles";
+    style.textContent = `
+      /* 3D Storm-Electric Container Placed Directly Under Each Virala Husma Episode */
+      .hh-vh-3d-dock {
+        position: relative;
+        margin: -4px 0 14px 0;
+        padding: 9px 11px 11px 11px;
+        border-radius: 0 0 16px 16px;
+        background: linear-gradient(160deg, rgba(11, 29, 54, 0.96) 0%, rgba(18, 12, 42, 0.98) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.42);
+        border-top: 1px dashed rgba(56, 189, 248, 0.35);
+        box-shadow:
+          0 14px 28px rgba(0, 0, 0, 0.78),
+          inset 0 1px 0 rgba(125, 211, 252, 0.22);
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        perspective: 800px;
+      }
+
+      /* Bilingual Instruction Strip (Visible on Mobile + Hover Tooltip on Desktop) */
+      .hh-vh-3d-hint {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10.5px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: #bae6fd;
+        transition: color 0.25s ease, transform 0.25s ease;
+      }
+      .hh-vh-3d-dock:hover .hh-vh-3d-hint {
+        color: #ffffff;
+        transform: translateX(2px);
+      }
+      .hh-vh-3d-hint-icon {
+        font-size: 13px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 6px #38bdf8);
+      }
+
+      /* Distinct 3D Beveled Storm-Cyan & Electric-Indigo Button */
+      .hh-vh-3d-btn {
+        position: relative;
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid rgba(186, 230, 253, 0.65);
+        border-radius: 12px;
+        background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #6d28d9 100%);
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-align: center;
+        cursor: pointer;
+        overflow: hidden;
+        transform: translateZ(10px);
+        box-shadow:
+          0 5px 0 #1e1b4b,
+          0 10px 22px rgba(2, 132, 199, 0.48),
+          inset 0 1.5px 1px rgba(255, 255, 255, 0.65);
+        transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.16s ease, filter 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .hh-vh-3d-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 80%;
+        height: 100%;
+        background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.38) 50%, transparent 80%);
+        animation: hhVhLightningSweep 3.8s infinite ease-in-out;
+        pointer-events: none;
+      }
+      @keyframes hhVhLightningSweep {
+        0%, 55% { left: -120%; }
+        100% { left: 140%; }
+      }
+      .hh-vh-3d-btn:hover {
+        filter: brightness(1.12);
+        transform: translateY(-2px) translateZ(14px);
+        box-shadow:
+          0 7px 0 #1e1b4b,
+          0 14px 26px rgba(56, 189, 248, 0.62),
+          inset 0 1.5px 1px rgba(255, 255, 255, 0.8);
+      }
+      .hh-vh-3d-btn:active {
+        transform: translateY(3px) translateZ(4px);
+        box-shadow:
+          0 2px 0 #1e1b4b,
+          0 4px 10px rgba(2, 132, 199, 0.4),
+          inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      }
+
+      .hh-vh-badge-tag {
+        padding: 2px 7px;
+        border-radius: 6px;
+        font-size: 9.5px;
+        font-weight: 900;
+        background: rgba(5, 8, 22, 0.48);
+        border: 1px solid rgba(186, 230, 253, 0.45);
+        color: #e0f2fe;
+      }
+
+      /* Floating Bilingual Toast Notification */
+      #hh-vh-toast {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        bottom: 24px;
+        z-index: 99999;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 13px 16px;
+        border-radius: 16px;
+        background: linear-gradient(155deg, rgba(12, 30, 58, 0.97), rgba(16, 10, 36, 0.98));
+        border: 1px solid rgba(56, 189, 248, 0.6);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.88), 0 0 24px rgba(56, 189, 248, 0.35);
+        backdrop-filter: blur(12px);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function getViralaEpisodesList() {
+    const vhDrama = DRAMAS.find(
+      (d) =>
+        (d.titleEn && d.titleEn.toLowerCase() === "virala husma") ||
+        (d.titleSi && d.titleSi.includes("විරල හුස්ම"))
+    );
+    if (!vhDrama || !Array.isArray(vhDrama.seasons)) return [];
+    const list = [];
+    vhDrama.seasons.forEach((s) => {
+      if (Array.isArray(s.episodes)) {
+        s.episodes.forEach((ep) => list.push(ep));
+      }
+    });
+    return list;
+  }
+
+  function injectViralaEpisodeButtons() {
+    injectVhButtonStyles();
+    const vhEpisodes = getViralaEpisodesList();
+    if (vhEpisodes.length === 0) return;
+
+    const modalEl = document.querySelector("#dramaModal, .drama-modal, .modal.open, [role='dialog']");
+    const modalText = modalEl ? (modalEl.textContent || "") : document.body.textContent || "";
+    const isViralaContext =
+      modalText.includes("විරල හුස්ම") || modalText.toLowerCase().includes("virala husma");
+
+    vhEpisodes.forEach((ep) => {
+      let epCard = null;
+
+      if (ep.thumbUrl) {
+        const img = document.querySelector(`img[src*="${ep.thumbUrl}"]`);
+        if (img) {
+          epCard =
+            img.closest(".ep-card, .episode-card, .episode-item, a, li") ||
+            img.parentElement;
+        }
+      }
+
+      if (!epCard && isViralaContext && modalEl) {
+        const candidates = modalEl.querySelectorAll(".ep-card, .episode-card, .episode-item, a, li, div");
+        for (const el of candidates) {
+          if (el.dataset.vhInjected || el.classList.contains("hh-vh-3d-dock")) continue;
+          const t = el.textContent || "";
+          if (
+            (ep.titleSi && t.includes(ep.titleSi)) ||
+            (ep.titleEn && t.includes(ep.titleEn))
+          ) {
+            if (el.children.length <= 8 && t.length < 220) {
+              epCard = el;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!epCard || epCard.dataset.vhInjected === "1") return;
+      if (epCard.nextElementSibling && epCard.nextElementSibling.classList.contains("hh-vh-3d-dock")) {
+        epCard.dataset.vhInjected = "1";
+        return;
+      }
+
+      epCard.dataset.vhInjected = "1";
+
+      const tooltipText =
+        "⛈ විරල හුස්ම VIP නාලිකාවේ පමණක් සාමාජිකයින් මෙම බොත්තම ඔබන්න • Click this if you are a member of ONLY Virala Husma VIP channel";
+
+      const dock = document.createElement("div");
+      dock.className = "hh-vh-3d-dock";
+      dock.title = tooltipText;
+
+      dock.innerHTML = `
+        <div class="hh-vh-3d-hint">
+          <span class="hh-vh-3d-hint-icon">⛈</span>
+          <span>
+            <b>විරල හුස්ම</b> නාලිකාවේ පමණක් සාමාජිකයින් මෙය ඔබන්න •
+            <i>Tap here if you're just a member of Virala Husma VIP</i>
+          </span>
+        </div>
+        <button type="button" class="hh-vh-3d-btn" title="${tooltipText}">
+          <span class="hh-vh-badge-tag">⛈ VH-VIP</span>
+          <span>විරල හුස්ම නාලිකාවෙන් නරඹන්න • Watch (VH Only) ▶</span>
+        </button>
+      `;
+
+      const btn = dock.querySelector(".hh-vh-3d-btn");
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.HHBLAudio && typeof window.HHBLAudio.chime === "function") {
+          window.HHBLAudio.chime();
+        }
+        openTelegramPost(ep.vhLink);
+      });
+
+      if (epCard.parentNode) {
+        epCard.parentNode.insertBefore(dock, epCard.nextSibling);
+      }
+    });
+  }
+
+  function startVhObserver() {
+    if (vhObserver) return;
+    vhObserver = new MutationObserver((mutations) => {
+      const relevant = mutations.some((m) =>
+        Array.from(m.addedNodes).some(
+          (n) => n.nodeType === 1 && !n.classList.contains("hh-vh-3d-dock")
+        )
+      );
+      if (!relevant) return;
+      clearTimeout(vhTimer);
+      vhTimer = setTimeout(injectViralaEpisodeButtons, 70);
+    });
+    vhObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  function bootVh() {
+    injectViralaEpisodeButtons();
+    startVhObserver();
+    setTimeout(injectViralaEpisodeButtons, 400);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootVh);
+  } else {
+    bootVh();
   }
 })();
 
